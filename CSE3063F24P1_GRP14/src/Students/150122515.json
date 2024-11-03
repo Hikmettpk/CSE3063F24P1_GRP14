@@ -1,24 +1,10 @@
 {
-  "username": "o150121047",
-  "name": "Hikmet",
-  "surname": "Topak",
-  "password": "mar21047",
-  "studentID": "150121047",
-  "enrolledCourses": [
-    {
-      "courseId": "CSE3045",
-      "courseName": "Digital Logic Design",
-      "credit": 6,
-      "prerequisite": false,
-      "prerequisiteLessonId": "None",
-      "courseSection": {
-        "term": "fall",
-        "instructor": "Betül Boz",
-        "enrollmentCapacity": 5,
-        "status": "Active"
-      }
-    }
-  ],
+  "username": "o150122515",
+  "name": "Safa",
+  "surname": "Bakırcıoğlu",
+  "password": "mar21053",
+  "studentID": "150122515",
+  "enrolledCourses": [],
   "requestedCourses": [],
   "transcript": {
     "grades": [
@@ -52,7 +38,7 @@
             "status": "Active"
           }
         },
-        "gradeValue": "CC"
+        "gradeValue": "BB"
       }
     ]
   }

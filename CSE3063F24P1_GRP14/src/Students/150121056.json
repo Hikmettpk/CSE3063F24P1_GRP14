@@ -1,9 +1,9 @@
 {
-  "username": "o150121047",
-  "name": "Hikmet",
-  "surname": "Topak",
-  "password": "mar21047",
-  "studentID": "150121047",
+  "username": "o150121056",
+  "name": "Esra",
+  "surname": "Uğurbaş",
+  "password": "mar21056",
+  "studentID": "150121056",
   "enrolledCourses": [
     {
       "courseId": "CSE3045",
@@ -36,7 +36,7 @@
             "status": "Active"
           }
         },
-        "gradeValue": "BA"
+        "gradeValue": "FD"
       },
       {
         "course": {
@@ -52,7 +52,7 @@
             "status": "Active"
           }
         },
-        "gradeValue": "CC"
+        "gradeValue": "DD"
       }
     ]
   }

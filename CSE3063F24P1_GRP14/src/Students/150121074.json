@@ -16,7 +16,7 @@
           "prerequisite": false,
           "prerequisiteLessonId": "None",
           "courseSection": {
-            "term": "Fall",
+            "term": "fall",
             "instructor": "Borahan Tümer",
             "enrollmentCapacity": 5,
             "status": "Active"
