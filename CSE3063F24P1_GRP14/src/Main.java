@@ -12,10 +12,11 @@ public class Main {
         }
         Student stu = jsonMethods.loadStudent("150121003");
         System.out.println(stu.toString());
+        stu.zort();
         Advisor advisor = jsonMethods.loadAdvisor("120121047");
         System.out.println(advisor.toString());
-        advisor.setName("Porahan");
-        stu.setName("Aptal"); //anında jsona yaz
+        advisor.setName("Zorahan");
+        stu.setName("Zort"); //anında jsona yaz
         System.out.println(advisor.toString());
         System.out.println(stu.toString());
 

@@ -27,6 +27,8 @@ class Student {
     @JsonProperty("transcript")
     private Transcript transcript;
 
+    @JsonProperty("grade")
+    private Grade grade;
     // Getters and setters
     public String getUsername() {
         return username;
@@ -59,7 +61,9 @@ class Student {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public boolean zort() {
+        return true;
+    }
     public String getStudentID() {
         return studentID;
     }
@@ -106,61 +110,11 @@ class Student {
                 '}';
     }
 
-    // Nested Transcript class
-    public static class Transcript {
-        @JsonProperty("grades")
-        private List<Grade> grades;
 
-        // Getters and setters
-        public List<Grade> getGrades() {
-            return grades;
-        }
-
-        public void setGrades(List<Grade> grades) {
-            this.grades = grades;
-        }
-
-        @Override
-        public String toString() {
-            return "Transcript{" +
-                    "grades=" + grades +
-                    '}';
-        }
-    }
 
     // Nested Grade class
-    public static class Grade {
-        @JsonProperty("course")
-        private Course course;
 
-        @JsonProperty("gradeValue")
-        private String gradeValue;
 
-        // Getters and setters
-        public Course getCourse() {
-            return course;
-        }
-
-        public void setCourse(Course course) {
-            this.course = course;
-        }
-
-        public String getGradeValue() {
-            return gradeValue;
-        }
-
-        public void setGradeValue(String gradeValue) {
-            this.gradeValue = gradeValue;
-        }
-
-        @Override
-        public String toString() {
-            return "Grade{" +
-                    "course=" + course +
-                    ", gradeValue='" + gradeValue + '\'' +
-                    '}';
-        }
-    }
 
     // Assuming Course and CourseSection classes are implemented similarly
 }
