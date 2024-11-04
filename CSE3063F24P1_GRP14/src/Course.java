@@ -20,21 +20,49 @@ class Course {
     private CourseSection courseSection;
 
     // Getters and Setters
+    public Course(String courseId, String courseName, int credit, boolean prerequisite,
+                  String prerequisiteLessonId, CourseSection courseSection) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.credit = credit;
+        this.prerequisite = prerequisite;
+        this.prerequisiteLessonId = prerequisiteLessonId;
+        this.courseSection = courseSection;
+    }
+
+
+    public String getCourseId() {
+        return courseId;
+    }
+
     public String getCourseName() {
         return courseName;
     }
 
+    public boolean hasPrerequisite() {
+        return prerequisite;
+    }
 
-    // toString method for printing
+    public int getCredit() {
+        return credit;
+    }
+
+    public CourseSection getCourseSection() {
+        return courseSection;
+    }
+
+    public String getPrerequisiteLessonId() {
+        return prerequisiteLessonId;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseId='" + courseId + '\'' +
+                "courseID='" + courseId + '\'' +
                 ", courseName='" + courseName + '\'' +
                 ", credit=" + credit +
                 ", prerequisite=" + prerequisite +
-                ", prerequisiteLessonId='" + prerequisiteLessonId + '\'' +
-                ", courseSection=" + courseSection +
+                ", prerequisiteLessonID='" + prerequisiteLessonId + '\'' +
                 '}';
     }
 

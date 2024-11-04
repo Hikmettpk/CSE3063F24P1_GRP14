@@ -20,10 +20,27 @@ class CourseSection {
     private int enrollmentCapacity;
 
     @JsonProperty("status")
-    private String status;
+    private boolean status;
 
-    // Getters and Setters
-    // toString method for printing
+    public CourseSection(String term, String instructor, int enrollmentCapacity, boolean status) {
+        this.term = term;
+        this.instructor = instructor;
+        this.enrollmentCapacity = enrollmentCapacity;
+        this.status = status;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "CourseSection{" +
@@ -36,5 +53,7 @@ class CourseSection {
                 ", status='" + status + '\'' +
                 '}';
     }
+
+
 
 }
