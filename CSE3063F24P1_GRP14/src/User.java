@@ -1,6 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-abstract class User {
+abstract class  User {
     @JsonProperty("username")
     private String username;
 

@@ -3,7 +3,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class JSONMethods {
 
@@ -41,6 +45,7 @@ public class JSONMethods {
 
         return objectMapper.readValue(inputStream, Advisor.class);
     }
+
     /*
     public void saveToFile(String userId) { //?
         ObjectMapper mapper = new ObjectMapper();
