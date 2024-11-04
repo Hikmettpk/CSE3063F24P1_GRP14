@@ -45,12 +45,15 @@ class Student extends User{
     }
 
     public List<Course> getEnrolledCourses() {
+
         return enrolledCourses;
     }
     public List<Course> getRequestedCourses() {
+
         return requestedCourses;
     }
     public Transcript getTranscript() {
+
         return transcript;
     }
 
