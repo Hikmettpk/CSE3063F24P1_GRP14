@@ -1,20 +1,7 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-class Student {
-
-    @JsonProperty("username")
-    private String username;
-
-    @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("surname")
-    private String surname;
-
-    @JsonProperty("password")
-    private String password;
-
+class Student extends User{
     @JsonProperty("studentID")
     private String studentID;
 
@@ -26,83 +13,57 @@ class Student {
 
     @JsonProperty("transcript")
     private Transcript transcript;
+    @JsonProperty("advisor")
+    private Advisor advisor;
 
-    @JsonProperty("grade")
-    private Grade grade;
+  // @JsonProperty("grade")
+  // private Grade grade;
+
     // Getters and setters
+    @Override
     public String getUsername() {
-        return username;
+        return super.getUsername();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Override
     public String getSurname() {
-        return surname;
+        return super.getSurname();
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
+    @Override
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public boolean zort() {
-        return true;
-    }
     public String getStudentID() {
         return studentID;
-    }
-
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
     }
 
     public List<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
-
-    public void setEnrolledCourses(List<Course> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
-    }
-
     public List<Course> getRequestedCourses() {
         return requestedCourses;
     }
-
-    public void setRequestedCourses(List<Course> requestedCourses) {
-        this.requestedCourses = requestedCourses;
-    }
-
     public Transcript getTranscript() {
         return transcript;
     }
 
-    public void setTranscript(Transcript transcript) {
-        this.transcript = transcript;
-    }
 
+
+    //listAvailableCourses metodu yazılacak
     // toString() method
     @Override
     public String toString() {
         return "Student{" +
-                "username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "username='" + getUsername() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", surname='" + getSurname() + '\'' +
                 ", studentID='" + studentID + '\'' +
                 ", enrolledCourses=" + enrolledCourses +
                 ", requestedCourses=" + requestedCourses +
@@ -112,9 +73,4 @@ class Student {
 
 
 
-    // Nested Grade class
-
-
-
-    // Assuming Course and CourseSection classes are implemented similarly
 }

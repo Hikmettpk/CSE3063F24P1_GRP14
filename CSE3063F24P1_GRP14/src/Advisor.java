@@ -1,19 +1,7 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-class Advisor {
-
-    @JsonProperty("username")
-    private String username;
-
-    @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("surname")
-    private String surname;
-
-    @JsonProperty("password")
-    private String password;
+class Advisor extends User {
 
     @JsonProperty("advisorID")
     private String advisorID;
@@ -21,38 +9,33 @@ class Advisor {
     @JsonProperty("advisedStudents")
     private List<String> advisedStudents;
 
+    @JsonProperty("requestedStudents")
+    private List<String> requestedStudents;
+
     // Getters and setters
+    @Override
     public String getUsername() {
-        return username;
+        return super.getUsername();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Override
     public String getSurname() {
-        return surname;
+        return super.getSurname();
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
+
+    @Override
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     public String getAdvisorID() {
         return advisorID;
@@ -74,9 +57,9 @@ class Advisor {
     @Override
     public String toString() {
         return "Advisor{" +
-                "username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "username='" + getUsername() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", surname='" + getSurname() + '\'' +
                 ", advisorID='" + advisorID + '\'' +
                 ", advisedStudents=" + advisedStudents +
                 '}';

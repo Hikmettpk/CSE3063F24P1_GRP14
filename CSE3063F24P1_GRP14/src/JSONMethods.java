@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -40,5 +41,17 @@ public class JSONMethods {
 
         return objectMapper.readValue(inputStream, Advisor.class);
     }
+    /*
+    public void saveToFile(String userId) { //?
+        ObjectMapper mapper = new ObjectMapper();
+        String resourcePath = "./resources/Students/" + userId + ".json";
+        try {
+            mapper.writeValue(new File(resourcePath), this);
+        } catch (IOException e) {
+            System.out.println("Error saving to file: " + e.getMessage());
+        }
+    }
+
+     */
 
 }
