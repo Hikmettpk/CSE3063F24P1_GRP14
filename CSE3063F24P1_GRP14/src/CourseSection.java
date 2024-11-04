@@ -23,6 +23,10 @@ class CourseSection {
     private String status;
 
     // Getters and Setters
+    public int getEnrollmentCapacity() {
+        return enrollmentCapacity;
+    }
+
     // toString method for printing
     @Override
     public String toString() {

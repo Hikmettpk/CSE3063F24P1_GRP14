@@ -4,7 +4,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         JSONMethods jsonMethods = new JSONMethods(); // Create an instance of JSONMethods to use without static
-
         List<Course> courses = jsonMethods.loadAllCourses();
         for (Course course:courses)
         {
@@ -15,8 +14,10 @@ public class Main {
 
         Advisor advisor = jsonMethods.loadAdvisor("120121047");
         System.out.println(advisor.toString());
+        CourseRegistrationSystem courseRegistrationSystem = new CourseRegistrationSystem(stu,courses);
 
         Course newCourse = courses.get(0);
+        courseRegistrationSystem.addStudentToCourse(newCourse,stu);
         //addCourseToEnrolledCourses(newCourse, stu);
         System.out.println("stu id "+stu.getStudentID());
         //jsonMethods.saveToFile(stu.getStudentID());

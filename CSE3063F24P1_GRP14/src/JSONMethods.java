@@ -33,6 +33,7 @@ public class JSONMethods {
     public Advisor loadAdvisor(String advisorId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String resourcePath = "./resources/Advisors/" + advisorId + ".json";
+        System.out.println(resourcePath);
         InputStream inputStream = JSONMethods.class.getClassLoader().getResourceAsStream(resourcePath);
 
         if (inputStream == null) {
@@ -41,17 +42,15 @@ public class JSONMethods {
 
         return objectMapper.readValue(inputStream, Advisor.class);
     }
-    /*
-    public void saveToFile(String userId) { //?
+
+    private static final String STUDENT_JSON_PATH = "./src/resources/Students/";
+
+    public void saveStudentToFile(Student student) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        String resourcePath = "./resources/Students/" + userId + ".json";
-        try {
-            mapper.writeValue(new File(resourcePath), this);
-        } catch (IOException e) {
-            System.out.println("Error saving to file: " + e.getMessage());
-        }
+        String studentFileName = STUDENT_JSON_PATH + student.getStudentID() + ".json";
+        System.out.println("Saving to: " + studentFileName);
+        mapper.writeValue(new File(studentFileName), student);
     }
 
-     */
 
 }

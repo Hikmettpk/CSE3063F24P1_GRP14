@@ -24,6 +24,10 @@ class Course {
         return courseName;
     }
 
+    public CourseSection getCourseSection() {
+        return courseSection;
+    }
+
 
     // toString method for printing
     @Override

@@ -16,7 +16,6 @@ class Student extends User{
     @JsonProperty("advisor")
     private Advisor advisor;
 
-  // @JsonProperty("grade")
   // private Grade grade;
 
     // Getters and setters
