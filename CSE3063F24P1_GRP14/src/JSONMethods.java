@@ -43,7 +43,7 @@ public class JSONMethods {
         return objectMapper.readValue(inputStream, Advisor.class);
     }
 
-    private static final String STUDENT_JSON_PATH = "./src/resources/Students/";
+    private static final String STUDENT_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/Students/";
 
     public void saveStudentToFile(Student student) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

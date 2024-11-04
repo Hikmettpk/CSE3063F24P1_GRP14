@@ -9,7 +9,7 @@ public class Main {
         {
             System.out.println(course.toString());
         }
-        Student stu = jsonMethods.loadStudent("150121074");
+        Student stu = jsonMethods.loadStudent("150121003");
         System.out.println(stu.toString());
 
         Advisor advisor = jsonMethods.loadAdvisor("120121047");
