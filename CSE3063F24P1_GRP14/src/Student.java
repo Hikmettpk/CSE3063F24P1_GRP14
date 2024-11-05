@@ -1,7 +1,10 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.List;
 
 class Student extends User{
+
     @JsonProperty("studentID")
     private String studentID;
 
@@ -13,11 +16,20 @@ class Student extends User{
 
     @JsonProperty("transcript")
     private Transcript transcript;
+
     @JsonProperty("advisor")
     private Advisor advisor;
 
-  // @JsonProperty("grade")
-  // private Grade grade;
+    //constructor
+    public Student(String username, String name, String surname, String password, String studentID,
+                   Transcript transcript, Advisor advisor) {
+        super(username, name, surname, password);
+        this.requestedCourses = new ArrayList<>();
+        this.enrolledCourses = new ArrayList<>();
+        this.advisor = advisor;
+        this.transcript = transcript;
+        this.studentID = studentID;
+    }
 
     // Getters and setters
     @Override
@@ -44,22 +56,24 @@ class Student extends User{
         return studentID;
     }
 
-    public List<Course> getEnrolledCourses() {
+    public Advisor getAdvisor(){
+        return advisor;
+    }
 
+    public List<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
-    public List<Course> getRequestedCourses() {
 
+    public List<Course> getRequestedCourses() {
         return requestedCourses;
     }
-    public Transcript getTranscript() {
 
+    public Transcript getTranscript() {
         return transcript;
     }
 
-
-
     //listAvailableCourses metodu yazılacak
+
     // toString() method
     @Override
     public String toString() {
