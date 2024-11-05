@@ -7,10 +7,10 @@ class Advisor extends User {
     private String advisorID;
 
     @JsonProperty("advisedStudents")
-    private List<String> advisedStudents;
+    private List<Student> advisedStudents;
 
     @JsonProperty("requestedStudents")
-    private List<String> requestedStudents;
+    private List<Student> requestedStudents;
 
     // Getters and setters
     @Override
@@ -45,11 +45,11 @@ class Advisor extends User {
         this.advisorID = advisorID;
     }
 
-    public List<String> getAdvisedStudents() {
+    public List<Student> getAdvisedStudents() {
         return advisedStudents;
     }
 
-    public void setAdvisedStudents(List<String> advisedStudents) {
+    public void setAdvisedStudents(List<Student> advisedStudents) {
         this.advisedStudents = advisedStudents;
     }
 

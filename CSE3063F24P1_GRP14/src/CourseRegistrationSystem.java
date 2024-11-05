@@ -18,8 +18,16 @@ public class CourseRegistrationSystem {
 
     // Method to add a student to a course
     public void addStudentToCourse(Course course, Student student) throws IOException {
-        // Check if the student is already enrolled in the course
-        if (student.getEnrolledCourses().contains(course)) {
+        // Check if the student is already enrolled in the course by comparing course IDs
+        boolean isAlreadyEnrolled = false;
+        for (Course enrolledCourse : student.getEnrolledCourses()) {
+            if (enrolledCourse.getCourseId().equals(course.getCourseId())) {
+                isAlreadyEnrolled = true;
+                break;
+            }
+        }
+
+        if (isAlreadyEnrolled) {
             System.out.println("Student is already enrolled in this course.");
             return;
         }
@@ -35,13 +43,14 @@ public class CourseRegistrationSystem {
         student.getEnrolledCourses().add(course);
 
         // Update the course's enrollment capacity
-        //section.setEnrollmentCapacity(section.getEnrollmentCapacity() - 1);
+        // section.setEnrollmentCapacity(section.getEnrollmentCapacity() - 1);
 
         // Save the updated student object to JSON file
         jsonMethods.saveStudentToFile(student);
 
         System.out.println("Student enrolled in course successfully.");
     }
+
 
 
     // Method to list available course sections for a given student
@@ -61,12 +70,34 @@ public class CourseRegistrationSystem {
     */
 
     // Method to request a course for a student
-    public void requestInCourse(Course course, Student student) {
-        if (!student.getRequestedCourses().contains(course)) { // Avoid duplicate requests
-            student.getRequestedCourses().add(course);
-            System.out.println("Course requested successfully.");
-        } else {
-            System.out.println("Course already requested.");
+    public void requsetInCourse(Course course, Student student) throws IOException {
+        // Check if the student is already enrolled in the course by comparing course IDs
+        boolean isAlreadyRequested = false;
+        for (Course requestedCourse : student.getRequestedCourses()) {
+            if (requestedCourse.getCourseId().equals(course.getCourseId())) {
+                isAlreadyRequested = true;
+                break;
+            }
         }
+
+        if (isAlreadyRequested) {
+            System.out.println("Student is already requested to this course.");
+            return;
+        }
+
+
+
+        // Add the course to request list of that student in the course
+        student.getRequestedCourses().add(course);
+
+        // Update the course's enrollment capacity
+        // section.setEnrollmentCapacity(section.getEnrollmentCapacity() - 1);
+
+        // Save the updated student object to JSON file
+        jsonMethods.saveStudentToFile(student);
+
+        System.out.println("Student requested in course successfully.");
     }
+
+
 }
