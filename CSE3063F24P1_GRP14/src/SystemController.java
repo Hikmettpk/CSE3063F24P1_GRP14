@@ -53,7 +53,6 @@ public class SystemController {
                 // Check for exit condition
                 if (username.equalsIgnoreCase("q")) {
                     System.out.println("Exiting program...");
-                    input.close(); // Close the scanner to avoid resource leak
                     return; // Exit the program
                 }
 
@@ -73,7 +72,7 @@ public class SystemController {
                         }
                     }
                     if (!found) {
-                        System.out.println("Wrong username or password.");
+                        System.out.println("Wrong username or password."); //username starts with 'o' but wrong username or password
                     }
                 } else if (username.startsWith("advisor")) { // Advisor check
                     boolean found = false;
@@ -82,17 +81,19 @@ public class SystemController {
                         if (advisor.getUsername().equals(username) && advisor.getPassword().equals(password)) {
                             found = true;
                             System.out.println("Login successful, welcome " + advisor.getName() + " (" + role + ")");
-                            isLoggedIn = true; // Set login status to true
+                            isLoggedIn = true;
                             break;
                         }
                     }
                     if (!found) {
-                        System.out.println("Wrong username or password.");
+                        System.out.println("Wrong username or password."); //username starts with "advisor" but wrong username or password
                     }
                 } else {
-                    System.out.println("Wrong username or password.");
+                    System.out.println("Wrong username or password."); //totally wrong username
                 }
             }
+            //-----------------------------
+
 
             // After successful login
             if (role.equals("Advisor")) {
@@ -145,7 +146,7 @@ public class SystemController {
                             System.out.println("Logging out...");
                             isLoggedIn = false; // Set login status to false to go back to login
                             role = ""; // Reset role
-                            input.nextLine(); // Consume the leftover newline
+                            input.nextLine();
                             break;
 
                         default:
