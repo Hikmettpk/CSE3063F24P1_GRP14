@@ -29,7 +29,13 @@ class Course {
     public CourseSection getCourseSection() {
         return courseSection;
     }
+    public String getPrerequisiteLessonId() {
+        return prerequisiteLessonId;
+    }
 
+    public boolean hasPrerequisite() {
+        return prerequisite;
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

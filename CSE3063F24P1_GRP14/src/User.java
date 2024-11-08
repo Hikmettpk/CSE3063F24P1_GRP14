@@ -13,6 +13,9 @@ abstract class User {
     @JsonProperty("password")
     private String password;
 
+    public User(@JsonProperty("username") String username,@JsonProperty("name")  String name, @JsonProperty("surname") String surname, @JsonProperty("password") String password) {
+    }
+
     protected String getUsername() {
         return username;
     }
