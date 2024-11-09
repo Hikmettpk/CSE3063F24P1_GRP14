@@ -1,4 +1,7 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 class Advisor extends User {
@@ -7,10 +10,17 @@ class Advisor extends User {
     private String advisorID;
 
     @JsonProperty("advisedStudents")
-    private List<String> advisedStudents;
+    private List<Student> advisedStudents;
 
     @JsonProperty("requestedStudents")
-    private List<String> requestedStudents;
+    private List<Student> requestedStudents;
+
+    public Advisor(@JsonProperty("username") String username,@JsonProperty("name") String name,@JsonProperty("surname") String surname,@JsonProperty("password") String password,@JsonProperty("advisorID") String advisorID) {
+        super(username, name, surname, password);
+        this.advisedStudents = new ArrayList<>();
+        this.requestedStudents = new ArrayList<>();
+        this.advisorID = advisorID;
+    }
 
     // Getters and setters
     @Override
@@ -41,18 +51,22 @@ class Advisor extends User {
         return advisorID;
     }
 
-    public void setAdvisorID(String advisorID) {
-        this.advisorID = advisorID;
-    }
-
-    public List<String> getAdvisedStudents() {
+    public List<Student> getAdvisedStudents() {
         return advisedStudents;
     }
-
-    public void setAdvisedStudents(List<String> advisedStudents) {
+    /*
+    public void setAdvisedStudents(List<Student> advisedStudents) {
         this.advisedStudents = advisedStudents;
     }
 
+     */
+    public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem,Student student, Course course) throws IOException {
+        if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
+            courseRegistrationSystem.addToEnrollList(course, student);
+        } else {
+            System.out.println("Course approval failed as the course was not removed from the request list.");
+        }
+    }
     // toString() method
     @Override
     public String toString() {

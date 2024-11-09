@@ -23,8 +23,31 @@ class Course {
     public String getCourseName() {
         return courseName;
     }
+    public String getCourseId() {
+        return courseId;
+    }
+    public CourseSection getCourseSection() {
+        return courseSection;
+    }
+    public String getPrerequisiteLessonId() {
+        return prerequisiteLessonId;
+    }
 
+    public boolean hasPrerequisite() {
+        return prerequisite;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Course course = (Course) obj;
+        return courseId.equals(course.courseId);
+    }
 
+    @Override
+    public int hashCode() {
+        return courseId.hashCode();
+    }
     // toString method for printing
     @Override
     public String toString() {
