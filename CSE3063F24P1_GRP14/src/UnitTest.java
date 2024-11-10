@@ -8,6 +8,7 @@ import java.util.List;
 public class UnitTest {
     private CourseRegistrationSystem registrationSystem;
     private Student student;
+    private Advisor advisor;
     private List<Course> courses;
     private Course programmingCourse;
     private Course circuitsCourse;
@@ -38,6 +39,9 @@ public class UnitTest {
 
         // Student oluşturma
         student = new Student("o150121065", "Azra", "ÇetinTürk", "mar21065", "150121065", transcript, null);
+
+        // Advisor nesnesi oluşturuluyor
+        advisor = new Advisor("advisor123", "Ali", "Veli", "password123", "A123");
 
         // Courses listesi oluşturma
         courses = new ArrayList<>();
@@ -116,4 +120,48 @@ public class UnitTest {
         // Then: Ders kayıtlı dersler listesinden kaldırılmış olmalı
         assertFalse(student.getEnrolledCourses().contains(dataStructuresCourse));
     }
+}
+    @Test
+    void testTranscriptToString() {
+        // Expected çıktı manuel olarak yazılıyor
+        String expected = String.format("%-10s %-30s %-10s\n", "Course ID", "Course Name", "Grade Value")
+                + "CSE1241    Programming 1                  CB        \n"  // Programming 1 dersi
+                + "EE2031     Electric Circuits              CC        \n"; // Electric Circuits dersi
+
+        // Gerçek toString çıktısını alıyoruz
+        String actual = transcript.toString();
+
+        // Expected ve actual değerlerinin eşit olduğunu kontrol ediyoruz
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testAdvisorToString() {
+
+        // Advisor'ın advisedStudents listesine öğrenci ekleniyor
+        advisor.getAdvisedStudents().add(student);
+
+        // Beklenen toString çıktısını oluşturuyoruz
+        String expected = "Advisor{" +
+                "username='advisor123', " +
+                "name='Ali', " +
+                "surname='Veli', " +
+                "advisorID='A123', " +
+                "advisedStudents=[" +
+                "Student{username='o150121065', name='Azra', surname='ÇetinTürk', " +
+                "studentID='150121065', " +
+                "enrolledCourses=[], " +
+                "requestedCourses=[], " +
+                "transcript=Course ID  Course Name                    Grade Value\n" +
+                "CSE1241    Programming 1                  CB        \n" +
+                "EE2031     Electric Circuits              CC        \n" +
+                "}]}";
+
+        // Gerçek toString çıktısını alıyoruz
+        String actual = advisor.toString();
+
+        // Beklenen ve gerçek çıktıyı karşılaştırıyoruz
+        assertEquals(expected, actual);
+    }
+
 }
