@@ -27,6 +27,9 @@ public class Main {
         //courseRegistrationSystem.requsetInCourse(newCourse,stu);
         //addCourseToEnrolledCourses(newCourse, stu);
         System.out.println("stu id "+stu.getStudentID());
+
+        System.out.println("Transcript: ");
+        System.out.println(stu.getTranscript().toString());
         System.out.println("Grades:");
 
         for (Grade grade : stu.getTranscript().getGrades()) {
