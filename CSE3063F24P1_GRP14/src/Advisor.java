@@ -15,7 +15,7 @@ class Advisor extends User {
     @JsonProperty("requestedStudents")
     private List<Student> requestedStudents;
 
-    public Advisor(@JsonProperty("username") String username,@JsonProperty("name") String name,@JsonProperty("surname") String surname,@JsonProperty("password") String password,@JsonProperty("advisorID") String advisorID) {
+    public Advisor(@JsonProperty("username") String username, @JsonProperty("name") String name, @JsonProperty("surname") String surname, @JsonProperty("password") String password, @JsonProperty("advisorID") String advisorID) {
         super(username, name, surname, password);
         this.advisedStudents = new ArrayList<>();
         this.requestedStudents = new ArrayList<>();
@@ -39,12 +39,10 @@ class Advisor extends User {
     }
 
 
-
     @Override
     public String getPassword() {
         return super.getPassword();
     }
-
 
 
     public String getAdvisorID() {
@@ -54,19 +52,21 @@ class Advisor extends User {
     public List<Student> getAdvisedStudents() {
         return advisedStudents;
     }
+
     /*
     public void setAdvisedStudents(List<Student> advisedStudents) {
         this.advisedStudents = advisedStudents;
     }
 
      */
-    public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem,Student student, Course course) throws IOException {
+    public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem, Student student, Course course) throws IOException {
         if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
             courseRegistrationSystem.addToEnrollList(course, student);
         } else {
             System.out.println("Course approval failed as the course was not removed from the request list.");
         }
     }
+
     // toString() method
     @Override
     public String toString() {

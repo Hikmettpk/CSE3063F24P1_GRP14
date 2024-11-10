@@ -132,6 +132,20 @@ public class CourseRegistrationSystem {
         return availableCourses;
     }
 
+    public String availableCoursesToString(List<Course> availableCourses) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%-10s %-40s\n", "Course ID", "Course Name"));
+        sb.append("------------------------------------------------------------\n");
+
+        for (Course course : availableCourses) {
+            sb.append(String.format("%-10s %-40s\n",
+                    course.getCourseId(),
+                    course.getCourseName()));
+        }
+
+        return sb.toString();
+    }
+
 
 
 

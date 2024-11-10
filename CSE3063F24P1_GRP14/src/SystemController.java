@@ -97,12 +97,12 @@ public class SystemController {
                     System.out.println("Wrong username or password."); //totally wrong username
                 }
             }
-            //-----------------------------
 
 
             // After successful login
+            // -----------------------Advisor menu-----------------------------
             if (role.equals("Advisor")) {
-                // Advisor menu
+                CourseRegistrationSystem crs = new CourseRegistrationSystem(null, courses);
                 while (true) {
                     System.out.println("1. See requests\n2. Logout ");
                     System.out.print("Please choose an operation: ");
@@ -110,9 +110,69 @@ public class SystemController {
 
                     switch (choice) {
                         case 1:
-                            // Show requests method here
+                            //Request approve case
                             System.out.println("Showing requests...");
+                            List<Student> allStudentsWithRequests = new ArrayList<>();
+
+                            for (Student student : students) {
+                                if (!student.getRequestedCourses().isEmpty()) {
+                                    allStudentsWithRequests.add(student);
+                                }
+                            }
+
+                            if (allStudentsWithRequests.isEmpty()) {
+                                System.out.println("There are no course requests at the moment.");
+                            } else {
+                                int requestNo = 1;
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(String.format("%-5s %-20s %-20s %-10s %-40s\n", "No", "Student Name", "Surname", "Course ID", "Course Name"));
+                                sb.append("---------------------------------------------------------------------------------------------\n");
+
+                                for (Student student : allStudentsWithRequests) {
+                                    for (Course course : student.getRequestedCourses()) {
+                                        sb.append(String.format("%-5d %-20s %-20s %-10s %-40s\n",
+                                                requestNo, student.getName(), student.getSurname(),
+                                                course.getCourseId(), course.getCourseName()));
+                                        requestNo++;
+                                    }
+                                }
+
+                                System.out.println(sb.toString());
+
+                                // Onaylamak için giriş al
+                                System.out.print("Enter the request number to approve: ");
+                                int requestIndex = input.nextInt();
+
+                                // Geçerli bir sıra numarası kontrolü
+                                if (requestIndex > 0 && requestIndex <= requestNo - 1) {
+                                    int count = 1;
+                                    Student selectedStudent = null;
+                                    Course selectedCourse = null;
+
+                                    outerLoop:
+                                    for (Student student : allStudentsWithRequests) {
+                                        for (Course course : student.getRequestedCourses()) {
+                                            if (count == requestIndex) {
+                                                selectedStudent = student;
+                                                selectedCourse = course;
+                                                break outerLoop;
+                                            }
+                                            count++;
+                                        }
+                                    }
+
+                                    if (selectedStudent != null && selectedCourse != null) {
+                                        loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
+                                        System.out.println("Request approved successfully.");
+                                    } else {
+                                        System.out.println("Invalid request number.");
+                                    }
+                                } else {
+                                    System.out.println("Invalid request number. Please try again.");
+                                }
+                            }
                             break;
+
 
                         case 2: // Logout
                             System.out.println("Logging out...");
@@ -129,9 +189,10 @@ public class SystemController {
                 }
             }
 
-            if (role.equals("Student")) {
 
-                // Student menu
+            // -----------------------Student menu-----------------------------
+            if (role.equals("Student")) {
+                CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
                 while (true) {
                     System.out.println("1. View Transcript\n2. Request course:\n3. Logout ");
                     System.out.print("Please choose an operation: ");
@@ -139,17 +200,47 @@ public class SystemController {
 
                     switch (choice) {
                         case 1:
+                            // Show transcript
                             System.out.println("Showing transcript...");
-                            // Show transcript method here
                             System.out.println(loggedInStudent.getTranscript().toString());
                             break;
 
                         case 2:
+                            //Request course
                             System.out.println("Requesting course...");
-                            //List all courses
-                            //choose list by switch case
 
+                            // List all available courses
+                            System.out.println(crs.availableCoursesToString(crs.listAvailableCourses()));
 
+                            String courseCode = "";
+                            Course selectedCourse = null;
+                            boolean validCourseCode = false;
+
+                            //Loop until user enters a valid courseId
+                            while (!validCourseCode) {
+                                System.out.print("Enter the course ID you want to request: ");
+                                courseCode = input.nextLine();
+
+                                // find course from avaliableCoursesList
+                                for (Course course : crs.listAvailableCourses()) {
+                                    if (course.getCourseId().equals(courseCode)) {
+                                        selectedCourse = course;
+                                        validCourseCode = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!validCourseCode) {
+                                    System.out.println("Invalid course ID. Please try again.");
+                                }
+                            }
+
+                            // Register when a valid courseCode is entered
+                            if (selectedCourse != null) {
+                                crs.requestInCourse(selectedCourse, loggedInStudent);
+
+                                System.out.println("Course " + courseCode + " requested successfully.");
+                            }
                             break;
 
                         case 3: // Logout
