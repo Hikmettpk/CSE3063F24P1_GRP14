@@ -119,8 +119,9 @@ public class UnitTest {
 
         // Then: Ders kayıtlı dersler listesinden kaldırılmış olmalı
         assertFalse(student.getEnrolledCourses().contains(dataStructuresCourse));
+        
     }
-}
+
     @Test
     void testTranscriptToString() {
         // Expected çıktı manuel olarak yazılıyor
