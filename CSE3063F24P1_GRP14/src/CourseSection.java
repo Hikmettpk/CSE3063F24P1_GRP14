@@ -22,6 +22,11 @@ class CourseSection {
     @JsonProperty("status")
     private String status;
 
+    public CourseSection(String fall, String sanemArslan, int i, String active) {
+        term = fall;
+        day = sanemArslan;
+    }
+
     // Getters and Setters
     public int getEnrollmentCapacity() {
         return enrollmentCapacity;
