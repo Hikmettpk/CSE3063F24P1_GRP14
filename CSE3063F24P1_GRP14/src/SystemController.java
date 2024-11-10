@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class SystemController {
     public static void main(String[] args) throws IOException {
         JSONMethods jsonMethods = new JSONMethods();
-
         List<Course> courses = jsonMethods.loadAllCourses();
         List<Student> students = new ArrayList<Student>();
         List<Advisor> advisors = new ArrayList<Advisor>();
@@ -32,9 +31,11 @@ public class SystemController {
         for (String studentId : studentIds) {
             students.add(jsonMethods.loadStudent(studentId));
         }
+
         for (String advisorId : advisorIds) {
             advisors.add(jsonMethods.loadAdvisor(advisorId));
         }
+
 
         Scanner input = new Scanner(System.in);
 
@@ -43,6 +44,8 @@ public class SystemController {
             String password;
             String role = "";
             boolean isLoggedIn = false;
+            Student loggedInStudent = null;
+            Advisor loggedInAdvisor = null;
 
             //---------------Login-------------
             while (!isLoggedIn) {
@@ -67,6 +70,7 @@ public class SystemController {
                         if (student.getUsername().equals(username) && student.getPassword().equals(password)) {
                             found = true;
                             System.out.println("Login successful, welcome " + student.getName() + " (" + role + ")");
+                            loggedInStudent = student;
                             isLoggedIn = true; // Set login status to true
                             break;
                         }
@@ -81,6 +85,7 @@ public class SystemController {
                         if (advisor.getUsername().equals(username) && advisor.getPassword().equals(password)) {
                             found = true;
                             System.out.println("Login successful, welcome " + advisor.getName() + " (" + role + ")");
+                            loggedInAdvisor = advisor;
                             isLoggedIn = true;
                             break;
                         }
@@ -125,6 +130,7 @@ public class SystemController {
             }
 
             if (role.equals("Student")) {
+
                 // Student menu
                 while (true) {
                     System.out.println("1. View Transcript\n2. Request course:\n3. Logout ");
@@ -133,13 +139,17 @@ public class SystemController {
 
                     switch (choice) {
                         case 1:
-                            // Show transcript method here
                             System.out.println("Showing transcript...");
+                            // Show transcript method here
+                            System.out.println(loggedInStudent.getTranscript().toString());
                             break;
 
                         case 2:
-                            // Request course method here
                             System.out.println("Requesting course...");
+                            //List all courses
+                            //choose list by switch case
+
+
                             break;
 
                         case 3: // Logout

@@ -26,10 +26,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
-                "course=" + course +
-                ", gradeValue='" + gradeValue + '\'' +
-                '}';
+        return String.format("%-10s %-30s %-10s\n", course.getCourseId(), course.getCourseName(),gradeValue);
     }
 
 

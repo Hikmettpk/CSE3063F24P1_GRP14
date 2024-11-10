@@ -1,1 +1,33 @@
-{"username":null,"name":null,"surname":null,"password":null,"studentID":"150121074","transcript":{"grades":[{"course":{"courseId":"EE2031","courseName":"Electric Circuits","credit":5,"prerequisite":false,"prerequisiteLessonId":"None","courseSection":{"term":"fall","day":null,"hour":null,"semester":0,"instructor":"Borahan Tümer","enrollmentCapacity":5,"status":"Active"}},"gradeValue":"AA"}]},"advisor":null,"enrolledCourses":[],"requestedCourses":[]}
+{
+  "username": null,
+  "name": null,
+  "surname": null,
+  "password": null,
+  "studentID": "150121074",
+  "transcript": {
+    "grades": [
+      {
+        "course": {
+          "courseId": "EE2031",
+          "courseName": "Electric Circuits",
+          "credit": 5,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "term": "fall",
+            "day": null,
+            "hour": null,
+            "semester": 0,
+            "instructor": "Borahan Tümer",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "AA"
+      }
+    ]
+  },
+  "advisor": null,
+  "enrolledCourses": [],
+  "requestedCourses": []
+}

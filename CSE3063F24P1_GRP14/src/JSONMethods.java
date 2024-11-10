@@ -34,6 +34,7 @@ public class JSONMethods {
         return objectMapper.readValue(inputStream, Student.class);
     }
 
+
     public Advisor loadAdvisor(String advisorId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String resourcePath = "./resources/Advisors/" + advisorId + ".json";
