@@ -27,6 +27,14 @@ class CourseSection {
         return enrollmentCapacity;
     }
 
+    public CourseSection() {}
+
+
+    public CourseSection(String fall, String sanemArslan, int i, String active) {
+        term = fall;
+        day = sanemArslan;
+    }
+
     // toString method for printing
     @Override
     public String toString() {

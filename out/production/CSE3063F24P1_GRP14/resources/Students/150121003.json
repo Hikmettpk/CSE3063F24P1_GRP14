@@ -81,5 +81,22 @@
       }
     }
   ],
-  "requestedCourses": []
+  "requestedCourses": [
+    {
+      "courseId": "CSE3049",
+      "courseName": "Operating Systems",
+      "credit": 6,
+      "prerequisite": false,
+      "prerequisiteLessonId": "None",
+      "courseSection": {
+        "term": "fall",
+        "day": null,
+        "hour": null,
+        "semester": 0,
+        "instructor": "Betül Boz",
+        "enrollmentCapacity": 5,
+        "status": "Active"
+      }
+    }
+  ]
 }
