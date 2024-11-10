@@ -19,6 +19,17 @@ class Course {
     @JsonProperty("courseSection")
     private CourseSection courseSection;
 
+    // Constructor
+    public Course(String courseId, String courseName, int credit, boolean prerequisite, String prerequisiteLessonId, CourseSection courseSection) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.credit = credit;
+        this.prerequisite = prerequisite;
+        this.prerequisiteLessonId = prerequisiteLessonId;
+        this.courseSection = courseSection;
+    }
+    public Course() {}
+
     // Getters and Setters
     public String getCourseName() {
         return courseName;

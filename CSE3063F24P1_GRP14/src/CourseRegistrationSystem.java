@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseRegistrationSystem {
@@ -76,64 +77,79 @@ public class CourseRegistrationSystem {
     }
 
     // Method to list available course sections for a given student
-    /*
-    public List<CourseSection> listAvailableCourses(Student student) {
-        List<CourseSection> availableSections = new ArrayList<> ();
-        for (Course course : courses) {
-            for (CourseSection section : course.getCourseSections()) {
-                if (!student.getEnrolledCourses().contains(course)) { // Check if student is not already enrolled
-                    availableSections.add(section);
-                }
+    public List<Course> listAvailableCourses() {
+        List<Course> availableCourses = new ArrayList<>();
+        List<Course> takenCourses = new ArrayList<>();
+        List<String> failedCourses = new ArrayList<>();
+
+        // Öğrencinin daha önce aldığı dersleri ve başarı durumlarına göre işlem yap
+        for (Grade grade : student.getTranscript().allGrades()) {
+            String gradeValue = grade.getGradeValue();
+
+            // FF veya FD ise ilgili dersi failedCourses listesine ekle
+            if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
+                failedCourses.add(grade.getCourse().getCourseId());
+            }
+            // DD veya DC ise availableCourses listesine eklenmesi için takenCourses'a ekle
+            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
+                takenCourses.add(grade.getCourse());
+                availableCourses.add(grade.getCourse());
+            }
+            // Diğer durumlarda (CC ve üzeri), ders sadece takenCourses listesine eklenir
+            else {
+                takenCourses.add(grade.getCourse());
             }
         }
-        return availableSections;
+
+        // Tüm dersleri dolaş ve uygun olanları availableCourses listesine ekle
+        for (Course course : courses) {
+            boolean hasPassedPrerequisite = !course.hasPrerequisite(); // Önkoşul yoksa true
+
+            // Önkoşul varsa, gerekli dersi başarıyla geçmiş mi kontrol et
+            if (course.hasPrerequisite()) {
+                String prerequisiteId = course.getPrerequisiteLessonId();
+
+                // Önkoşul dersini daha önce başarısız (FF veya FD) geçtiyse, bu dersi alamaz
+                if (failedCourses.contains(prerequisiteId)) {
+                    hasPassedPrerequisite = false;
+                } else {
+                    // Eğer prerequisite dersi geçmişse (FF veya FD değilse), dersi alabilir
+                    for (Course takenCourse : takenCourses) {
+                        if (takenCourse.getCourseId().equals(prerequisiteId)) {
+                            hasPassedPrerequisite = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Öğrenci zaten kayıtlı değilse ve gerekli önkoşulları sağlıyorsa, ders alınabilir
+            if (!student.getEnrolledCourses().contains(course) && hasPassedPrerequisite) {
+                availableCourses.add(course);
+            }
+        }
+
+        return availableCourses;
     }
 
-    */
+
+
+
 
     // Method to request a course for a student
     public void requestInCourse(Course course, Student student) throws IOException {
-        // Check if the student is already enrolled in the course by comparing course IDs
-        boolean isAlreadyRequested = false;
-        boolean hasPassedPrerequisite = course.hasPrerequisite() ? false : true;
-        for (Course requestedCourse : student.getRequestedCourses()) {
-            if (requestedCourse.getCourseId().equals(course.getCourseId())) { //zaten kayıtlı mı
-                isAlreadyRequested = true;
-                break;
-            }
-        }
 
-        List<Grade> gradeList = student.getTranscript().getGrades();
-        if (course.hasPrerequisite()){
-            for (Grade grade:gradeList) {
-                if ((course.getPrerequisiteLessonId().equals(grade.getCourse().getCourseId())) && grade.getGradeValue() != "FF") { //dersi daha önce almış ve notu ff değil
-                    hasPassedPrerequisite=true;
-                }
-            }
-        }
-
-
-        if (isAlreadyRequested) {
+        if (student.getRequestedCourses().stream().anyMatch(requestedCourse -> requestedCourse.getCourseId().equals(course.getCourseId()))) {
             System.out.println("Student is already requested to this course.");
             return;
         }
 
-
-        if (hasPassedPrerequisite){
-            student.getRequestedCourses().add(course);
-            System.out.println("Student requested in course successfully.");
-
-        } else
-            System.out.println("You have to pass the prerequisite course to enroll this lesson !");
-        // Add the course to request list of that student in the course
-
-        // Update the course's enrollment capacity
-        // section.setEnrollmentCapacity(section.getEnrollmentCapacity() - 1);
-
-        // Save the updated student object to JSON file
+        student.getRequestedCourses().add(course);
+        System.out.println("Student requested in course successfully.");
         jsonMethods.saveStudentToFile(student);
 
     }
+
 
 
 }
