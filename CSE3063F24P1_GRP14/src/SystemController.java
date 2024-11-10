@@ -7,35 +7,8 @@ public class SystemController {
     public static void main(String[] args) throws IOException {
         JSONMethods jsonMethods = new JSONMethods();
         List<Course> courses = jsonMethods.loadAllCourses();
-        List<Student> students = new ArrayList<Student>();
-        List<Advisor> advisors = new ArrayList<Advisor>();
-
-        String[] studentIds = {
-                "150121003",
-                "150121010",
-                "150121011",
-                "150121017",
-                "150121047",
-                "150121056",
-                "150121060",
-                "150121065",
-                "150121074",
-                "150122515"
-        };
-
-        String[] advisorIds = {
-                "120121047",
-                "120121074"
-        };
-
-        for (String studentId : studentIds) {
-            students.add(jsonMethods.loadStudent(studentId));
-        }
-
-        for (String advisorId : advisorIds) {
-            advisors.add(jsonMethods.loadAdvisor(advisorId));
-        }
-
+        List<Student> students = jsonMethods.loadAllStudents();
+        List<Advisor> advisors = jsonMethods.loadAllAdvisors();
 
         Scanner input = new Scanner(System.in);
 
@@ -49,20 +22,17 @@ public class SystemController {
 
             //---------------Login-------------
             while (!isLoggedIn) {
-                // get input for login
                 System.out.print("Username (write 'q' to quit): ");
                 username = input.nextLine();
 
-                // Check for exit condition
                 if (username.equalsIgnoreCase("q")) {
                     System.out.println("Exiting program...");
-                    return; // Exit the program
+                    return;
                 }
 
                 System.out.print("Password: ");
                 password = input.nextLine();
 
-                // Check user role and credentials
                 if (username.startsWith("o")) { // Student check
                     boolean found = false;
                     role = "Student";
@@ -71,12 +41,12 @@ public class SystemController {
                             found = true;
                             System.out.println("Login successful, welcome " + student.getName() + " (" + role + ")");
                             loggedInStudent = student;
-                            isLoggedIn = true; // Set login status to true
+                            isLoggedIn = true;
                             break;
                         }
                     }
                     if (!found) {
-                        System.out.println("Wrong username or password."); //username starts with 'o' but wrong username or password
+                        System.out.println("Wrong username or password.");
                     }
                 } else if (username.startsWith("advisor")) { // Advisor check
                     boolean found = false;
@@ -91,79 +61,209 @@ public class SystemController {
                         }
                     }
                     if (!found) {
-                        System.out.println("Wrong username or password."); //username starts with "advisor" but wrong username or password
+                        System.out.println("Wrong username or password.");
                     }
                 } else {
-                    System.out.println("Wrong username or password."); //totally wrong username
+                    System.out.println("Wrong username or password.");
                 }
             }
-            //-----------------------------
 
-
-            // After successful login
+            // -----------------------Advisor menu-----------------------------
             if (role.equals("Advisor")) {
-                // Advisor menu
+                CourseRegistrationSystem crs = new CourseRegistrationSystem(null, courses);
                 while (true) {
                     System.out.println("1. See requests\n2. Logout ");
-                    System.out.print("Please choose an operation: ");
-                    int choice = input.nextInt();
+                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    String choiceInput = input.nextLine();
+
+                    if (choiceInput.equalsIgnoreCase("q")) {
+                        isLoggedIn = false;
+                        break;
+                    }
+
+                    int choice;
+                    try {
+                        choice = Integer.parseInt(choiceInput);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number or 'q' to go back.");
+                        continue;
+                    }
 
                     switch (choice) {
                         case 1:
-                            // Show requests method here
                             System.out.println("Showing requests...");
+                            List<Student> allStudentsWithRequests = new ArrayList<>();
+
+                            for (Student student : students) {
+                                if (!student.getRequestedCourses().isEmpty()) {
+                                    allStudentsWithRequests.add(student);
+                                }
+                            }
+
+                            if (allStudentsWithRequests.isEmpty()) {
+                                System.out.println("There are no course requests at the moment.");
+                            } else {
+                                int requestNo = 1;
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(String.format("%-5s %-20s %-20s %-10s %-40s\n", "No", "Student Name", "Surname", "Course ID", "Course Name"));
+                                sb.append("---------------------------------------------------------------------------------------------\n");
+
+                                for (Student student : allStudentsWithRequests) {
+                                    for (Course course : student.getRequestedCourses()) {
+                                        sb.append(String.format("%-5d %-20s %-20s %-10s %-40s\n",
+                                                requestNo, student.getName(), student.getSurname(),
+                                                course.getCourseId(), course.getCourseName()));
+                                        requestNo++;
+                                    }
+                                }
+
+                                System.out.println(sb.toString());
+
+                                System.out.print("Enter the request number to approve (or 'q' to go back): ");
+                                String requestInput = input.nextLine();
+
+                                if (requestInput.equalsIgnoreCase("q")) {
+                                    break;
+                                }
+
+                                int requestIndex;
+                                try {
+                                    requestIndex = Integer.parseInt(requestInput);
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Invalid input. Please enter a number or 'q' to go back.");
+                                    continue;
+                                }
+
+                                if (requestIndex > 0 && requestIndex <= requestNo - 1) {
+                                    int count = 1;
+                                    Student selectedStudent = null;
+                                    Course selectedCourse = null;
+
+                                    outerLoop:
+                                    for (Student student : allStudentsWithRequests) {
+                                        for (Course course : student.getRequestedCourses()) {
+                                            if (count == requestIndex) {
+                                                selectedStudent = student;
+                                                selectedCourse = course;
+                                                break outerLoop;
+                                            }
+                                            count++;
+                                        }
+                                    }
+
+                                    if (selectedStudent != null && selectedCourse != null) {
+                                        loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
+                                        System.out.println("Request approved successfully.");
+                                    } else {
+                                        System.out.println("Invalid request number.");
+                                    }
+                                } else {
+                                    System.out.println("Invalid request number. Please try again.");
+                                }
+                            }
                             break;
 
-                        case 2: // Logout
+                        case 2:
                             System.out.println("Logging out...");
-                            isLoggedIn = false; // Set login status to false to go back to login
-                            role = ""; // Reset role
-                            input.nextLine(); // Consume the leftover newline
+                            isLoggedIn = false;
                             break;
 
                         default:
                             System.out.println("Invalid choice. Please try again.");
                     }
 
-                    if (!isLoggedIn) break; // Exit the loop if logged out
+                    if (!isLoggedIn) break;
                 }
             }
 
+            // -----------------------Student menu-----------------------------
             if (role.equals("Student")) {
-
-                // Student menu
+                CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
                 while (true) {
-                    System.out.println("1. View Transcript\n2. Request course:\n3. Logout ");
-                    System.out.print("Please choose an operation: ");
-                    int choice = input.nextInt();
+                    System.out.println("1. View Transcript\n2. Request course\n3. Enrolled Courses\n4. Log out ");
+                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    String choiceInput = input.nextLine();
+
+                    if (choiceInput.equalsIgnoreCase("q")) {
+                        isLoggedIn = false;
+                        break;
+                    }
+
+                    int choice;
+                    try {
+                        choice = Integer.parseInt(choiceInput);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number or 'q' to go back.");
+                        continue;
+                    }
 
                     switch (choice) {
                         case 1:
                             System.out.println("Showing transcript...");
-                            // Show transcript method here
                             System.out.println(loggedInStudent.getTranscript().toString());
                             break;
 
                         case 2:
                             System.out.println("Requesting course...");
-                            //List all courses
-                            //choose list by switch case
+                            System.out.println(crs.availableCoursesToString(crs.listAvailableCourses()));
 
+                            String courseCode;
+                            Course selectedCourse = null;
+                            boolean validCourseCode = false;
 
+                            while (!validCourseCode) {
+                                System.out.print("Enter the course ID you want to request (or 'q' to go back): ");
+                                courseCode = input.nextLine();
+
+                                if (courseCode.equalsIgnoreCase("q")) {
+                                    break;
+                                }
+
+                                for (Course course : crs.listAvailableCourses()) {
+                                    if (course.getCourseId().equals(courseCode)) {
+                                        selectedCourse = course;
+                                        validCourseCode = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!validCourseCode) {
+                                    System.out.println("Invalid course ID. Please try again.");
+                                }
+                            }
+
+                            if (selectedCourse != null) {
+                                crs.requestInCourse(selectedCourse, loggedInStudent);
+                                System.out.println("Course " + selectedCourse.getCourseId() + " requested successfully.");
+                            }
                             break;
 
-                        case 3: // Logout
+                        case 3:
+                            System.out.println("Enrolled courses:");
+                            List<Course> enrolledCourses = loggedInStudent.getEnrolledCourses();
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(String.format("%-10s %-40s\n", "Course ID", "Course Name"));
+                            sb.append("------------------------------------------------------------\n");
+
+                            for (Course course : enrolledCourses) {
+                                sb.append(String.format("%-10s %-40s\n",
+                                        course.getCourseId(),
+                                        course.getCourseName()));
+                            }
+
+                            System.out.println(sb.toString());
+                            break;
+
+                        case 4:
                             System.out.println("Logging out...");
-                            isLoggedIn = false; // Set login status to false to go back to login
-                            role = ""; // Reset role
-                            input.nextLine();
+                            isLoggedIn = false;
                             break;
 
                         default:
                             System.out.println("Invalid choice. Please try again.");
                     }
 
-                    if (!isLoggedIn) break; // Exit the loop if logged out
+                    if (!isLoggedIn) break;
                 }
             }
         }
