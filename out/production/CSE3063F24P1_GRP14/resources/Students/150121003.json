@@ -47,8 +47,7 @@
     ]
   },
   "advisor": null,
-  "enrolledCourses": [],
-  "requestedCourses": [
+  "enrolledCourses": [
     {
       "courseId": "EE2031",
       "courseName": "Electric Circuits",
@@ -64,6 +63,23 @@
         "enrollmentCapacity": 5,
         "status": "Active"
       }
+    },
+    {
+      "courseId": "CSE3028",
+      "courseName": "Electronic Devices",
+      "credit": 6,
+      "prerequisite": true,
+      "prerequisiteLessonId": "EE2031",
+      "courseSection": {
+        "term": "spring",
+        "day": null,
+        "hour": null,
+        "semester": 0,
+        "instructor": "Betül Boz",
+        "enrollmentCapacity": 5,
+        "status": "Active"
+      }
     }
-  ]
+  ],
+  "requestedCourses": []
 }
