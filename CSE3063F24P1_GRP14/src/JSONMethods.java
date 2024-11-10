@@ -3,7 +3,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class JSONMethods {
 
@@ -30,6 +34,7 @@ public class JSONMethods {
         return objectMapper.readValue(inputStream, Student.class);
     }
 
+
     public Advisor loadAdvisor(String advisorId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String resourcePath = "./resources/Advisors/" + advisorId + ".json";
@@ -42,6 +47,7 @@ public class JSONMethods {
 
         return objectMapper.readValue(inputStream, Advisor.class);
     }
+
 
     private static final String STUDENT_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/Students/";
 
