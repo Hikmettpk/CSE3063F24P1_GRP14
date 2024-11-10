@@ -7,6 +7,11 @@ public class Grade {
     @JsonProperty("gradeValue")
     private String gradeValue;
 
+    public Grade(Course course, String gradeValue) {
+        this.course = course;
+        this.gradeValue = gradeValue;
+    }
+    public Grade() {}
     // Getters and setters
     public Course getCourse() {
         return course;

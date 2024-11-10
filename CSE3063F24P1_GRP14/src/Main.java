@@ -6,7 +6,7 @@ public class Main {
         JSONMethods jsonMethods = new JSONMethods(); // Create an instance of JSONMethods to use without static
         List<Course> courses = jsonMethods.loadAllCourses();
 
-        Student stu = jsonMethods.loadStudent("150121074");
+        Student stu = jsonMethods.loadStudent("150121056");
         //System.out.println(stu.toString());
 
         Advisor advisor = jsonMethods.loadAdvisor("120121074");
@@ -24,6 +24,7 @@ public class Main {
         //addCourseToEnrolledCourses(newCourse, stu);
         System.out.println("stu id "+stu.getStudentID());
 
+
         //System.out.println("Grades:");
         /*
         for (Grade grade : stu.getTranscript().getGrades()) {
@@ -33,10 +34,13 @@ public class Main {
          */
         //System.out.println(stu.getAdvisor().getName());
         courseRegistrationSystem.requestInCourse(newCourse,stu);
+        for (Course course: courseRegistrationSystem.listAvailableCourses()) {
+            System.out.println(course.getCourseName());
+        }
 
 
-        //courseRegistrationSystem.removeCourseFromRequestList(stu,newCourse);
-        //courseRegistrationSystem.removeCourseFromEnrolledList(stu,newCourse);
+        courseRegistrationSystem.removeCourseFromRequestList(stu,newCourse);
+        courseRegistrationSystem.removeCourseFromEnrolledList(stu,newCourse);
 
         //advisor.approveRequestedCourse(courseRegistrationSystem,stu,newCourse); //kurs requestte olmasa bile enrolled'a ekliyor??
 
