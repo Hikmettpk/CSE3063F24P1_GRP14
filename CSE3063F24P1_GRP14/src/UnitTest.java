@@ -165,4 +165,44 @@ public class UnitTest {
         assertEquals(expected, actual);
     }
 
+
+
+    @Test
+    void testCourseToString() {
+        // 1. Test verilerini hazırlama
+        CourseSection courseSection = new CourseSection("fall", "Sanem Arslan", 5, "Active");
+        Course course = new Course("CSE1241", "Programming 1", 6, false, "None", courseSection);
+
+        // 2. Beklenen çıktıyı tanımlama
+        String expected = "Course{" +
+                "courseId='CSE1241'" +
+                ", courseName='Programming 1'" +
+                ", credit=6" +
+                ", prerequisite=false" +
+                ", prerequisiteLessonId='None'" +
+                ", courseSection=" + courseSection +
+                '}';
+
+        // 3. Metodu çağırma ve sonucu beklenen ile karşılaştırma
+        assertEquals(expected, course.toString());
+    }
+
+    @Test
+    void testToString() {
+        // Beklenen çıktıyı tanımlayın.
+        String expected = "Student{" +
+                "username='o150121065', " +
+                "name='Azra', " +
+                "surname='ÇetinTürk', " +
+                "studentID='150121065', " +
+                "enrolledCourses=" + student.getEnrolledCourses() +
+                ", requestedCourses=" + student.getRequestedCourses() +
+                ", transcript=" + transcript +
+                '}';
+
+        // toString metodunu test edin.
+        assertEquals(expected, student.toString());
+    }
+
+
 }
