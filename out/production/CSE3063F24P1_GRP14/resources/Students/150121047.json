@@ -1,1 +1,85 @@
-{"username":null,"name":null,"surname":null,"password":null,"studentID":"150121047","transcript":{"grades":[{"course":{"courseId":"CSE1241","courseName":"Programming 1","credit":6,"prerequisite":false,"prerequisiteLessonId":"None","courseSection":{"term":"fall","day":null,"hour":null,"semester":0,"instructor":"Sanem Arslan","enrollmentCapacity":5,"status":"Active"}},"gradeValue":"BA"},{"course":{"courseId":"EE2031","courseName":"Electric Circuits","credit":5,"prerequisite":false,"prerequisiteLessonId":"None","courseSection":{"term":"fall","day":null,"hour":null,"semester":0,"instructor":"Borahan Tümer","enrollmentCapacity":5,"status":"Active"}},"gradeValue":"CC"}]},"advisor":null,"enrolledCourses":[{"courseId":"CSE3045","courseName":"Digital Logic Design","credit":6,"prerequisite":false,"prerequisiteLessonId":"None","courseSection":{"term":"fall","day":null,"hour":null,"semester":0,"instructor":"Betül Boz","enrollmentCapacity":5,"status":"Active"}}],"requestedCourses":[{"courseId":"CSE3043","courseName":"Programming 2","credit":5,"prerequisite":true,"prerequisiteLessonId":"CSE1241","courseSection":{"term":"spring","day":null,"hour":null,"semester":0,"instructor":"Sanem Arslan","enrollmentCapacity":5,"status":"Active"}}]}
+{
+  "username": "o150121047",
+  "name": "Hikmet",
+  "surname": "Topak",
+  "password": "mar2147",
+  "studentID": "150121047",
+  "transcript": {
+    "grades": [
+      {
+        "course": {
+          "courseId": "CSE1241",
+          "courseName": "Programming 1",
+          "credit": 6,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "term": "fall",
+            "day": null,
+            "hour": null,
+            "semester": 0,
+            "instructor": "Sanem Arslan",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "BA"
+      },
+      {
+        "course": {
+          "courseId": "EE2031",
+          "courseName": "Electric Circuits",
+          "credit": 5,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "term": "fall",
+            "day": null,
+            "hour": null,
+            "semester": 0,
+            "instructor": "Borahan Tümer",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "CC"
+      }
+    ]
+  },
+  "advisor": null,
+  "enrolledCourses": [
+    {
+      "courseId": "CSE3045",
+      "courseName": "Digital Logic Design",
+      "credit": 6,
+      "prerequisite": false,
+      "prerequisiteLessonId": "None",
+      "courseSection": {
+        "term": "fall",
+        "day": null,
+        "hour": null,
+        "semester": 0,
+        "instructor": "Betül Boz",
+        "enrollmentCapacity": 5,
+        "status": "Active"
+      }
+    },
+    {
+      "courseId": "CSE3043",
+      "courseName": "Programming 2",
+      "credit": 5,
+      "prerequisite": true,
+      "prerequisiteLessonId": "CSE1241",
+      "courseSection": {
+        "term": "spring",
+        "day": null,
+        "hour": null,
+        "semester": 0,
+        "instructor": "Sanem Arslan",
+        "enrollmentCapacity": 5,
+        "status": "Active"
+      }
+    }
+  ],
+  "requestedCourses": []
+}

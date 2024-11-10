@@ -1,16 +1,16 @@
 {
-  "username": null,
-  "name": null,
-  "surname": null,
-  "password": null,
+  "username": "o150121074",
+  "name": "Efe",
+  "surname": "Yalım",
+  "password": "mar2174",
   "studentID": "150121074",
   "transcript": {
     "grades": [
       {
         "course": {
-          "courseId": "EE2031",
-          "courseName": "Electric Circuits",
-          "credit": 5,
+          "courseId": "CSE1241",
+          "courseName": "Programming 1",
+          "credit": 6,
           "prerequisite": false,
           "prerequisiteLessonId": "None",
           "courseSection": {
@@ -18,12 +18,12 @@
             "day": null,
             "hour": null,
             "semester": 0,
-            "instructor": "Borahan Tümer",
+            "instructor": "Sanem Arslan",
             "enrollmentCapacity": 5,
             "status": "Active"
           }
         },
-        "gradeValue": "AA"
+        "gradeValue": "FF"
       }
     ]
   },
@@ -31,4 +31,3 @@
   "enrolledCourses": [],
   "requestedCourses": []
 }
-

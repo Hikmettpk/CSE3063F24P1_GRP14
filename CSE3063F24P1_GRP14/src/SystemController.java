@@ -2,40 +2,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 
 public class SystemController {
     public static void main(String[] args) throws IOException {
         JSONMethods jsonMethods = new JSONMethods();
         List<Course> courses = jsonMethods.loadAllCourses();
-        List<Student> students = new ArrayList<Student>();
-        List<Advisor> advisors = new ArrayList<Advisor>();
-
-        String[] studentIds = {
-                "150121003",
-                "150121010",
-                "150121011",
-                "150121017",
-                "150121047",
-                "150121056",
-                "150121060",
-                "150121065",
-                "150121074",
-                "150122515"
-        };
-
-        String[] advisorIds = {
-                "120121047",
-                "120121074"
-        };
-
-        for (String studentId : studentIds) {
-            students.add(jsonMethods.loadStudent(studentId));
-        }
-
-        for (String advisorId : advisorIds) {
-            advisors.add(jsonMethods.loadAdvisor(advisorId));
-        }
-
+        List<Student> students = jsonMethods.loadAllStudents();
+        List<Advisor> advisors = jsonMethods.loadAllAdvisors();
 
         Scanner input = new Scanner(System.in);
 
