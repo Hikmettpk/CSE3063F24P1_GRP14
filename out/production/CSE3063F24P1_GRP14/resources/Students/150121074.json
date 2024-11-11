@@ -29,5 +29,22 @@
   },
   "advisor": null,
   "enrolledCourses": [],
-  "requestedCourses": []
+  "requestedCourses": [
+    {
+      "courseId": "CSE4017",
+      "courseName": "Computer Systems",
+      "credit": 5,
+      "prerequisite": false,
+      "prerequisiteLessonId": "None",
+      "courseSection": {
+        "term": "fall",
+        "day": null,
+        "hour": null,
+        "semester": 0,
+        "instructor": "Sanem Arslan",
+        "enrollmentCapacity": 5,
+        "status": "Active"
+      }
+    }
+  ]
 }

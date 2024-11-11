@@ -93,10 +93,15 @@ public class SystemController {
                         case 1:
                             System.out.println("Showing requests...");
                             List<Student> allStudentsWithRequests = new ArrayList<>();
+                            System.out.println("Your advised student list : ");
 
                             for (Student student : students) {
                                 if (!student.getRequestedCourses().isEmpty()) {
-                                    allStudentsWithRequests.add(student);
+                                    for (int i = 0; i < loggedInAdvisor.getAdvisedStudents().size() ; i++) {
+                                        if(student.getStudentID().equals(loggedInAdvisor.getAdvisedStudents().get(i).getStudentID())){
+                                            allStudentsWithRequests.add(student);
+                                        }
+                                    }
                                 }
                             }
 
