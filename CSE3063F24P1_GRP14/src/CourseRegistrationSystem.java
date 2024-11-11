@@ -82,49 +82,49 @@ public class CourseRegistrationSystem {
         List<Course> takenCourses = new ArrayList<>();
         List<String> failedCourses = new ArrayList<>();
 
-        // Öğrencinin daha önce aldığı dersleri ve başarı durumlarına göre işlem yap
+        
         for (Grade grade : student.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
-            // FF veya FD ise ilgili dersi failedCourses listesine ekle ve availableCourses'ta tekrar alabilir olarak işaretle
+
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
                 failedCourses.add(course.getCourseId());
-                availableCourses.add(course); // FF veya FD notu varsa ders tekrar alınabilir
+                availableCourses.add(course);
             }
-            // DD veya DC ise dersi tekrar alabilir, ama failed değil
+
             else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
-                // Ders zaten enrolledCourses listesinde yoksa availableCourses listesine ekle
+
                 if (!student.getEnrolledCourses().contains(course)) {
                     availableCourses.add(course);
                     takenCourses.add(course);
                 }
 
             }
-            // Diğer notlar (CC ve üzeri) dersin başarıyla geçildiğini gösterir, tekrar alınamaz
+
             else {
                 takenCourses.add(course);
             }
         }
 
-        // Tüm dersleri dolaş ve uygun olan yeni dersleri availableCourses listesine ekle
+
         for (Course course : courses) {
-            // Eğer öğrenci bu dersi önceden başarıyla tamamlamışsa veya şimdiden kayıtlıysa, listeye eklenmez
+
             if (student.getEnrolledCourses().contains(course) || takenCourses.contains(course) || availableCourses.contains(course))  {
                 continue;
             }
 
-            boolean hasPassedPrerequisite = !course.hasPrerequisite(); // Önkoşul yoksa true
+            boolean hasPassedPrerequisite = !course.hasPrerequisite();
 
-            // Önkoşul varsa, gerekli dersi başarıyla geçmiş mi kontrol et
+
             if (course.hasPrerequisite()) {
                 String prerequisiteId = course.getPrerequisiteLessonId();
 
-                // Önkoşul dersini başarısız (FF veya FD) geçmişse, bu dersi alamaz
+
                 if (failedCourses.contains(prerequisiteId)) {
                     hasPassedPrerequisite = false;
                 } else {
-                    // Eğer prerequisite dersi geçmişse, dersi alabilir
+
                     for (Course takenCourse : takenCourses) {
                         if (takenCourse.getCourseId().equals(prerequisiteId)) {
                             hasPassedPrerequisite = true;
@@ -134,7 +134,7 @@ public class CourseRegistrationSystem {
                 }
             }
 
-            // Önkoşul sağlanmışsa availableCourses listesine ekle
+
             if (hasPassedPrerequisite) {
                 availableCourses.add(course);
             }
