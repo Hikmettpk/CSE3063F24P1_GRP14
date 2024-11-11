@@ -17,17 +17,10 @@ public class Grade {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     public String getGradeValue() {
         return gradeValue;
     }
 
-    public void setGradeValue(String gradeValue) {
-        this.gradeValue = gradeValue;
-    }
 
     @Override
     public String toString() {

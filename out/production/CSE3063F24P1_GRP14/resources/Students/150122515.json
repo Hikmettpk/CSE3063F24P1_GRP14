@@ -5,6 +5,7 @@
   "password": "mar21053",
   "studentID": "150122515",
   "enrolledCourses": [],
+  "advisor": null,
   "requestedCourses": [],
   "transcript": {
     "grades": [

@@ -53,12 +53,6 @@ class Advisor extends User {
         return advisedStudents;
     }
 
-    /*
-    public void setAdvisedStudents(List<Student> advisedStudents) {
-        this.advisedStudents = advisedStudents;
-    }
-
-     */
     public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem, Student student, Course course) throws IOException {
         if (student.getEnrolledCourses().size() < 5) {
             if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful

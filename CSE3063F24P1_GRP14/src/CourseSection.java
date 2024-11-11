@@ -22,7 +22,7 @@ class CourseSection {
     @JsonProperty("status")
     private String status;
 
-    // Getters and Setters
+    // Getters
     public int getEnrollmentCapacity() {
         return enrollmentCapacity;
     }
