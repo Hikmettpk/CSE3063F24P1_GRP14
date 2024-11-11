@@ -158,7 +158,6 @@ public class SystemController {
 
                                     if (selectedStudent != null && selectedCourse != null) {
                                         loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
-                                        System.out.println("Request approved successfully.");
                                     } else {
                                         System.out.println("Invalid request number.");
                                     }
@@ -239,7 +238,7 @@ public class SystemController {
 
                             if (selectedCourse != null) {
                                 crs.requestInCourse(selectedCourse, loggedInStudent);
-                                System.out.println("Course " + selectedCourse.getCourseId() + " requested successfully.");
+
                             }
                             break;
 

@@ -85,35 +85,46 @@ public class CourseRegistrationSystem {
         // Öğrencinin daha önce aldığı dersleri ve başarı durumlarına göre işlem yap
         for (Grade grade : student.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
+            Course course = grade.getCourse();
 
-            // FF veya FD ise ilgili dersi failedCourses listesine ekle
+            // FF veya FD ise ilgili dersi failedCourses listesine ekle ve availableCourses'ta tekrar alabilir olarak işaretle
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
-                failedCourses.add(grade.getCourse().getCourseId());
+                failedCourses.add(course.getCourseId());
+                availableCourses.add(course); // FF veya FD notu varsa ders tekrar alınabilir
             }
-            // DD veya DC ise availableCourses listesine eklenmesi için takenCourses'a ekle
+            // DD veya DC ise dersi tekrar alabilir, ama failed değil
             else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
-                takenCourses.add(grade.getCourse());
-                availableCourses.add(grade.getCourse());
+                // Ders zaten enrolledCourses listesinde yoksa availableCourses listesine ekle
+                if (!student.getEnrolledCourses().contains(course)) {
+                    availableCourses.add(course);
+                    takenCourses.add(course);
+                }
+
             }
-            // Diğer durumlarda (CC ve üzeri), ders sadece takenCourses listesine eklenir
+            // Diğer notlar (CC ve üzeri) dersin başarıyla geçildiğini gösterir, tekrar alınamaz
             else {
-                takenCourses.add(grade.getCourse());
+                takenCourses.add(course);
             }
         }
 
-        // Tüm dersleri dolaş ve uygun olanları availableCourses listesine ekle
+        // Tüm dersleri dolaş ve uygun olan yeni dersleri availableCourses listesine ekle
         for (Course course : courses) {
+            // Eğer öğrenci bu dersi önceden başarıyla tamamlamışsa veya şimdiden kayıtlıysa, listeye eklenmez
+            if (student.getEnrolledCourses().contains(course) || takenCourses.contains(course) || availableCourses.contains(course))  {
+                continue;
+            }
+
             boolean hasPassedPrerequisite = !course.hasPrerequisite(); // Önkoşul yoksa true
 
             // Önkoşul varsa, gerekli dersi başarıyla geçmiş mi kontrol et
             if (course.hasPrerequisite()) {
                 String prerequisiteId = course.getPrerequisiteLessonId();
 
-                // Önkoşul dersini daha önce başarısız (FF veya FD) geçtiyse, bu dersi alamaz
+                // Önkoşul dersini başarısız (FF veya FD) geçmişse, bu dersi alamaz
                 if (failedCourses.contains(prerequisiteId)) {
                     hasPassedPrerequisite = false;
                 } else {
-                    // Eğer prerequisite dersi geçmişse (FF veya FD değilse), dersi alabilir
+                    // Eğer prerequisite dersi geçmişse, dersi alabilir
                     for (Course takenCourse : takenCourses) {
                         if (takenCourse.getCourseId().equals(prerequisiteId)) {
                             hasPassedPrerequisite = true;
@@ -123,14 +134,18 @@ public class CourseRegistrationSystem {
                 }
             }
 
-            // Öğrenci zaten kayıtlı değilse ve gerekli önkoşulları sağlıyorsa, ders alınabilir
-            if (!student.getEnrolledCourses().contains(course) && hasPassedPrerequisite) {
+            // Önkoşul sağlanmışsa availableCourses listesine ekle
+            if (hasPassedPrerequisite) {
                 availableCourses.add(course);
             }
         }
 
         return availableCourses;
     }
+
+
+
+
 
     public String availableCoursesToString(List<Course> availableCourses) {
         StringBuilder sb = new StringBuilder();
@@ -155,13 +170,12 @@ public class CourseRegistrationSystem {
 
         if (student.getRequestedCourses().stream().anyMatch(requestedCourse -> requestedCourse.getCourseId().equals(course.getCourseId()))) {
             System.out.println("Student is already requested to this course.");
-            return;
         }
-
-        student.getRequestedCourses().add(course);
-        System.out.println("Student requested in course successfully.");
-        jsonMethods.saveStudentToFile(student);
-
+        else{
+            student.getRequestedCourses().add(course);
+            System.out.println("Course " + course.getCourseId() + " requested successfully.");
+            jsonMethods.saveStudentToFile(student);
+        }
     }
 
 

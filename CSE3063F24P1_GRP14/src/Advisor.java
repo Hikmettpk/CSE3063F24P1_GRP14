@@ -60,10 +60,15 @@ class Advisor extends User {
 
      */
     public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem, Student student, Course course) throws IOException {
-        if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
-            courseRegistrationSystem.addToEnrollList(course, student);
-        } else {
-            System.out.println("Course approval failed as the course was not removed from the request list.");
+        if (student.getEnrolledCourses().size() < 5) {
+            if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
+                courseRegistrationSystem.addToEnrollList(course, student);
+            } else {
+                System.out.println("Course approval failed as the course was not removed from the request list.");
+            }
+        }
+        else{
+            System.out.println("Course approval failed because the enrolled list has its limit.");
         }
     }
 
