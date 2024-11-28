@@ -8,59 +8,64 @@
     "grades": [
       {
         "course": {
-          "courseId": "CSE1241",
-          "courseName": "Programming 1",
+          "courseId": "CSE2225",
+          "courseName": "Data Structures",
+          "credit": 7,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "place" : "M1-Z06",
+            "day": "Monday",
+            "hour" : "13:00-14:50",
+            "year" : 2,
+            "instructor": "Betül Boz",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "CB"
+      },
+      {
+        "course": {
+          "courseId": "CSE2246",
+          "courseName": "Analysis of Algorithms",
           "credit": 6,
           "prerequisite": false,
           "prerequisiteLessonId": "None",
           "courseSection": {
-            "term": "fall",
-            "day": null,
-            "hour": null,
-            "semester": 0,
+            "place" : "M1-Z01",
+            "day": "Tuesday",
+            "hour" : "13:00-14:50",
+            "year" : 2,
             "instructor": "Sanem Arslan",
             "enrollmentCapacity": 5,
             "status": "Active"
           }
         },
-        "gradeValue": "FF"
+        "gradeValue": "AA"
+      },
+      {
+        "course": {
+          "courseId": "STAT2253",
+          "courseName": "Probability and Statistics",
+          "credit": 5,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "place" : "M1-Z01",
+            "day": "Wednesday",
+            "hour" : "10:00-11:50",
+            "year" : 2,
+            "instructor": "Borahan Tümer",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "BA"
       }
     ]
   },
   "advisor": null,
-  "enrolledCourses": [
-    {
-      "courseId": "CSE3049",
-      "courseName": "Operating Systems",
-      "credit": 6,
-      "prerequisite": false,
-      "prerequisiteLessonId": "None",
-      "courseSection": {
-        "term": "fall",
-        "day": null,
-        "hour": null,
-        "semester": 0,
-        "instructor": "Betül Boz",
-        "enrollmentCapacity": 5,
-        "status": "Active"
-      }
-    },
-    {
-      "courseId": "CSE3022",
-      "courseName": "Database Systems",
-      "credit": 4,
-      "prerequisite": false,
-      "prerequisiteLessonId": "None",
-      "courseSection": {
-        "term": "fall",
-        "day": null,
-        "hour": null,
-        "semester": 0,
-        "instructor": "Betül Boz",
-        "enrollmentCapacity": 5,
-        "status": "Active"
-      }
-    }
-  ],
+  "enrolledCourses": [],
   "requestedCourses": []
 }

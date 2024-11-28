@@ -1,17 +1,18 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 class CourseSection {
-    @JsonProperty("term")
-    private String term;
 
     @JsonProperty("day")
     private String day;
 
+    @JsonProperty("place")
+    private String place;
+
     @JsonProperty("hour")
     private String hour;
 
-    @JsonProperty("semester")
-    private int semester;
+    @JsonProperty("year")
+    private int year;
 
     @JsonProperty("instructor")
     private String instructor;
@@ -30,8 +31,7 @@ class CourseSection {
     public CourseSection() {}
 
 
-    public CourseSection(String fall, String sanemArslan, int i, String active) {
-        term = fall;
+    public CourseSection(String sanemArslan, int i, String active) {
         day = sanemArslan;
     }
 
@@ -39,10 +39,10 @@ class CourseSection {
     @Override
     public String toString() {
         return "CourseSection{" +
-                "term='" + term + '\'' +
+                "place='" + place + '\'' +
                 ", day='" + day + '\'' +
                 ", hour='" + hour + '\'' +
-                ", semester=" + semester +
+                ", year=" + year +
                 ", instructor='" + instructor + '\'' +
                 ", enrollmentCapacity=" + enrollmentCapacity +
                 ", status='" + status + '\'' +
