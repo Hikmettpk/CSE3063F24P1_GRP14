@@ -18,13 +18,13 @@ public class UnitTest {
 
     @BeforeEach
     void setUp() {
-        CourseSection programmingSection = new CourseSection("Sanem Arslan", 5, "Active");
+        CourseSection programmingSection = new CourseSection("fall", "Sanem Arslan", 5, "Active");
         programmingCourse = new Course("CSE1241", "Programming 1", 6, false, "None", programmingSection);
 
-        CourseSection circuitsSection = new CourseSection("Borahan Tümer", 5, "Active");
+        CourseSection circuitsSection = new CourseSection("fall", "Borahan Tümer", 5, "Active");
         circuitsCourse = new Course("EE2031", "Electric Circuits", 5, false, "None", circuitsSection);
 
-        CourseSection dsSection = new CourseSection("Ali Veli", 5, "Active");
+        CourseSection dsSection = new CourseSection("spring", "Ali Veli", 5, "Active");
         dataStructuresCourse = new Course("CSE2225", "Data Structures", 6, true, "CSE1241", dsSection);
 
         List<Grade> grades = new ArrayList<>();
@@ -109,7 +109,7 @@ public class UnitTest {
 
     @Test
     void testCourseToString() {
-        CourseSection courseSection = new CourseSection("Sanem Arslan", 5, "Active");
+        CourseSection courseSection = new CourseSection("fall", "Sanem Arslan", 5, "Active");
         Course course = new Course("CSE1241", "Programming 1", 6, false, "None", courseSection);
 
         String expected = "Course{" +

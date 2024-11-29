@@ -15,60 +15,22 @@
         "grades": [
           {
             "course": {
-              "courseId": "CSE2225",
-              "courseName": "Data Structures",
-              "credit": 7,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None",
-              "courseSection": {
-                "place" : "M1-Z06",
-                "day": "Monday",
-                "hour" : "13:00-14:50",
-                "year" : 2,
-                "instructor": "Betül Boz",
-                "enrollmentCapacity": 5,
-                "status": "Active"
-              }
-            },
-            "gradeValue": "AA"
-          },
-          {
-            "course": {
-              "courseId": "CSE2246",
-              "courseName": "Analysis of Algorithms",
+              "courseId": "CSE1241",
+              "courseName": "Programming 1",
               "credit": 6,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Tuesday",
-                "hour" : "13:00-14:50",
-                "year" : 2,
+                "term": "fall",
+                "day": null,
+                "hour": null,
+                "semester": 0,
                 "instructor": "Sanem Arslan",
                 "enrollmentCapacity": 5,
                 "status": "Active"
               }
             },
-            "gradeValue": "BA"
-          },
-          {
-            "course": {
-              "courseId": "STAT2253",
-              "courseName": "Probability and Statistics",
-              "credit": 5,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None",
-              "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Wednesday",
-                "hour" : "10:00-11:50",
-                "year" : 2,
-                "instructor": "Borahan Tümer",
-                "enrollmentCapacity": 5,
-                "status": "Active"
-              }
-            },
-            "gradeValue": "AA"
+            "gradeValue": "FF"
           }
         ]
       },
@@ -86,65 +48,63 @@
         "grades": [
           {
             "course": {
-              "courseId": "CSE2225",
-              "courseName": "Data Structures",
-              "credit": 7,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None",
-              "courseSection": {
-                "place" : "M1-Z06",
-                "day": "Monday",
-                "hour" : "13:00-14:50",
-                "year" : 2,
-                "instructor": "Betül Boz",
-                "enrollmentCapacity": 5,
-                "status": "Active"
-              }
-            },
-            "gradeValue": "AA"
-          },
-          {
-            "course": {
-              "courseId": "CSE2246",
-              "courseName": "Analysis of Algorithms",
+              "courseId": "CSE1241",
+              "courseName": "Programming 1",
               "credit": 6,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Tuesday",
-                "hour" : "13:00-14:50",
-                "year" : 2,
+                "term": "fall",
+                "day": null,
+                "hour": null,
+                "semester": 0,
                 "instructor": "Sanem Arslan",
                 "enrollmentCapacity": 5,
                 "status": "Active"
               }
             },
-            "gradeValue": "BA"
+            "gradeValue": "FD"
           },
           {
             "course": {
-              "courseId": "STAT2253",
-              "courseName": "Probability and Statistics",
+              "courseId": "EE2031",
+              "courseName": "Electric Circuits",
               "credit": 5,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Wednesday",
-                "hour" : "10:00-11:50",
-                "year" : 2,
+                "term": "fall",
+                "day": null,
+                "hour": null,
+                "semester": 0,
                 "instructor": "Borahan Tümer",
                 "enrollmentCapacity": 5,
                 "status": "Active"
               }
             },
-            "gradeValue": "CB"
+            "gradeValue": "DD"
           }
         ]
       },
       "advisor": null,
-      "enrolledCourses": [],
+      "enrolledCourses": [
+        {
+          "courseId": "CSE3045",
+          "courseName": "Digital Logic Design",
+          "credit": 6,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "term": "fall",
+            "day": null,
+            "hour": null,
+            "semester": 0,
+            "instructor": "Betül Boz",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        }
+      ],
       "requestedCourses": []
     },
     {
@@ -153,67 +113,42 @@
       "surname": "Zeybek",
       "password": "mar21060",
       "studentID": "150121060",
-      "advisor": null,
       "enrolledCourses": [],
+      "advisor": null,
       "requestedCourses": [],
       "transcript": {
         "grades": [
           {
-          "course": {
-            "courseId": "CSE2225",
-            "courseName": "Data Structures",
-            "credit": 7,
-            "prerequisite": false,
-            "prerequisiteLessonId": "None",
-            "courseSection": {
-              "place" : "M1-Z06",
-              "day": "Monday",
-              "hour" : "13:00-14:50",
-              "year" : 2,
-              "instructor": "Betül Boz",
-              "enrollmentCapacity": 5,
-              "status": "Active"
-            }
-          },
-          "gradeValue": "AA"
-        },
-          {
             "course": {
-              "courseId": "CSE2246",
-              "courseName": "Analysis of Algorithms",
+              "courseId": "CSE1241",
+              "courseName": "Programming 1",
               "credit": 6,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Tuesday",
-                "hour" : "13:00-14:50",
-                "year" : 2,
+                "term": "fall",
                 "instructor": "Sanem Arslan",
                 "enrollmentCapacity": 5,
                 "status": "Active"
               }
             },
-            "gradeValue": "BA"
+            "gradeValue": "CC"
           },
           {
             "course": {
-              "courseId": "STAT2253",
-              "courseName": "Probability and Statistics",
+              "courseId": "EE2031",
+              "courseName": "Electric Circuits",
               "credit": 5,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place" : "M1-Z01",
-                "day": "Wednesday",
-                "hour" : "10:00-11:50",
-                "year" : 2,
+                "term": "fall",
                 "instructor": "Borahan Tümer",
                 "enrollmentCapacity": 5,
                 "status": "Active"
               }
             },
-            "gradeValue": "AA"
+            "gradeValue": "BA"
           }
         ]
       }
@@ -224,69 +159,68 @@
       "surname": "ÇetinTürk",
       "password": "mar21065",
       "studentID": "150121065",
-      "enrolledCourses": [],
-      "requestedCourses": [],
       "transcript": {
         "grades": [
           {
             "course": {
-              "courseId": "CSE2225",
-              "courseName": "Data Structures",
-              "credit": 7,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None",
-              "courseSection": {
-                "place": "M1-Z06",
-                "day": "Monday",
-                "hour": "13:00-14:50",
-                "year": 2,
-                "instructor": "Betül Boz",
-                "enrollmentCapacity": 5,
-                "status": "Active"
-              }
-            },
-            "gradeValue": "AA"
-          },
-          {
-            "course": {
-              "courseId": "CSE2246",
-              "courseName": "Analysis of Algorithms",
+              "courseId": "CSE1241",
+              "courseName": "Programming 1",
               "credit": 6,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place": "M1-Z01",
-                "day": "Tuesday",
-                "hour": "13:00-14:50",
-                "year": 2,
-                "instructor": "Sanem Arslan",
-                "enrollmentCapacity": 5,
-                "status": "Active"
+                "term": "fall",
+                "day": "Sanem Arslan",
+                "hour": null,
+                "semester": 0,
+                "instructor": null,
+                "enrollmentCapacity": 0,
+                "status": null
               }
             },
-            "gradeValue": "BA"
+            "gradeValue": "CB"
           },
           {
             "course": {
-              "courseId": "STAT2253",
-              "courseName": "Probability and Statistics",
+              "courseId": "EE2031",
+              "courseName": "Electric Circuits",
               "credit": 5,
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-                "place": "M1-Z01",
-                "day": "Wednesday",
-                "hour": "10:00-11:50",
-                "year": 2,
-                "instructor": "Borahan Tümer",
-                "enrollmentCapacity": 5,
-                "status": "Active"
+                "term": "fall",
+                "day": "Borahan Tümer",
+                "hour": null,
+                "semester": 0,
+                "instructor": null,
+                "enrollmentCapacity": 0,
+                "status": null
               }
             },
-            "gradeValue": "AA"
+            "gradeValue": "CC"
           }
         ]
-      }
+      },
+      "advisor": null,
+      "enrolledCourses": [],
+      "requestedCourses": [
+        {
+          "courseId": "CSE2225",
+          "courseName": "Data Structures",
+          "credit": 6,
+          "prerequisite": true,
+          "prerequisiteLessonId": "CSE1241",
+          "courseSection": {
+            "term": "spring",
+            "day": "Ali Veli",
+            "hour": null,
+            "semester": 0,
+            "instructor": null,
+            "enrollmentCapacity": 0,
+            "status": null
+          }
+        }
+      ]
     },
     {
       "username": "o150122515",
@@ -307,7 +241,7 @@
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-
+                "term": "fall",
                 "instructor": "Sanem Arslan",
                 "enrollmentCapacity": 5,
                 "status": "Active"
@@ -323,7 +257,7 @@
               "prerequisite": false,
               "prerequisiteLessonId": "None",
               "courseSection": {
-
+                "term": "fall",
                 "instructor": "Borahan Tümer",
                 "enrollmentCapacity": 5,
                 "status": "Active"
