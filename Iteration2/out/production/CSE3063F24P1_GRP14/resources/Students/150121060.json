@@ -1,0 +1,71 @@
+{
+  "username": "o150121060",
+  "name": "Helin",
+  "surname": "Zeybek",
+  "password": "mar21060",
+  "studentID": "150121060",
+  "enrolledCourses": [],
+  "advisor": null,
+  "requestedCourses": [],
+  "transcript": {
+    "grades": [
+      {
+        "course": {
+          "courseId": "CSE2225",
+          "courseName": "Data Structures",
+          "credit": 7,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "place" : "M1-Z06",
+            "day": "Monday",
+            "hour" : "13:00-14:50",
+            "year" : 2,
+            "instructor": "Betül Boz",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "AA"
+      },
+      {
+        "course": {
+          "courseId": "CSE2246",
+          "courseName": "Analysis of Algorithms",
+          "credit": 6,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "place" : "M1-Z01",
+            "day": "Tuesday",
+            "hour" : "13:00-14:50",
+            "year" : 2,
+            "instructor": "Sanem Arslan",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "BA"
+      },
+      {
+        "course": {
+          "courseId": "STAT2253",
+          "courseName": "Probability and Statistics",
+          "credit": 5,
+          "prerequisite": false,
+          "prerequisiteLessonId": "None",
+          "courseSection": {
+            "place" : "M1-Z01",
+            "day": "Wednesday",
+            "hour" : "10:00-11:50",
+            "year" : 2,
+            "instructor": "Borahan Tümer",
+            "enrollmentCapacity": 5,
+            "status": "Active"
+          }
+        },
+        "gradeValue": "AA"
+      }
+    ]
+  }
+}

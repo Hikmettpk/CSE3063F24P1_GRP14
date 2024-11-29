@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccbbf479-8573-4087-96df-11ff59f1d0f8" name="Changes" comment="Json Files added and modified.">
-      <change beforePath="$PROJECT_DIR$/CSE3063F24P1_GRP14.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CSE3063F24P1_GRP14.iml" afterDir="false" />
-    </list>
+    <list default="true" id="ccbbf479-8573-4087-96df-11ff59f1d0f8" name="Changes" comment="Json Files added and modified." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,9 +63,9 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "Merge",
+    "git-widget-placeholder": "DepartmentScheduler",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Pc/Desktop/aksfnkla",
+    "last_opened_file_path": "C:/Users/emran/Desktop/GitHub/CSE3063F24P1_GRP14/Iteration 1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -147,8 +145,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -185,6 +183,7 @@
       <workItem from="1731394788236" duration="372000" />
       <workItem from="1731395466168" duration="38000" />
       <workItem from="1731395560503" duration="22000" />
+      <workItem from="1732796008368" duration="280000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Json Files added">
       <option name="closed" value="true" />
