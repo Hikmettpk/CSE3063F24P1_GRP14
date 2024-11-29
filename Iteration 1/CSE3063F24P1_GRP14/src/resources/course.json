@@ -5,15 +5,24 @@
     "credit": 7,
     "prerequisite": false,
     "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M1-Z06",
-      "day": "Monday",
-      "hour" : "13:00-14:50",
-      "year" : 2,
-      "instructor": "Betül Boz",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M2-Z12",
+        "day": "Monday",
+        "hour": ["13:00-13:50", "14:00-14:50"]
+      },
+      {
+        "place": "M2-Z12",
+        "day": "Tuesday",
+        "hour": ["13:00-13:50"]
+      }
+    ],
+    "weeklyCourseCount": 3,
+    "year": 2,
+    "instructor": "Betül Boz",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "CSE2246",
@@ -21,15 +30,19 @@
     "credit": 6,
     "prerequisite": false,
     "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M1-Z01",
-      "day": "Tuesday",
-      "hour" : "13:00-14:50",
-      "year" : 2,
-      "instructor": "Sanem Arslan",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M1-Z01",
+        "day": "Tuesday",
+        "hour": ["13:00-13:50", "14:00-14:50"]
+      }
+    ],
+    "weeklyCourseCount": 2,
+    "year": 2,
+    "instructor": "Sanem Arslan",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "STAT2253",
@@ -37,15 +50,19 @@
     "credit": 5,
     "prerequisite": false,
     "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M1-Z01",
-      "day": "Wednesday",
-      "hour" : "10:00-11:50",
-      "year" : 2,
-      "instructor": "Borahan Tümer",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M1-Z01",
+        "day": "Wednesday",
+        "hour": ["10:00-10:50", "11:00-11:50"]
+      }
+    ],
+    "weeklyCourseCount": 2,
+    "year": 2,
+    "instructor": "Borahan Tümer",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "CSE3055",
@@ -53,15 +70,19 @@
     "credit": 7,
     "prerequisite": true,
     "prerequisiteLessonId": "CSE2225",
-    "courseSection": {
-      "place" : "M2-Z11",
-      "day": "Wednesday",
-      "hour" : "11:00-12:50",
-      "year" : 3,
-      "instructor": "Betül Boz",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M2-Z11",
+        "day": "Wednesday",
+        "hour": ["11:00-11:50", "12:00-12:50"]
+      }
+    ],
+    "weeklyCourseCount": 2,
+    "year": 3,
+    "instructor": "Betül Boz",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "CSE3055",
@@ -69,15 +90,19 @@
     "credit": 7,
     "prerequisite": false,
     "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M2-Z11",
-      "day": "Wednesday",
-      "hour" : "13:00-14:50",
-      "year" : 3,
-      "instructor": "Betül Boz",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M2-Z11",
+        "day": "Wednesday",
+        "hour": ["13:00-13:50", "14:00-14:50"]
+      }
+    ],
+    "weeklyCourseCount": 2,
+    "year": 3,
+    "instructor": "Betül Boz",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "CSE3063",
@@ -85,31 +110,19 @@
     "credit": 5,
     "prerequisite": false,
     "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M2-Z11",
-      "day": "Monday",
-      "hour" : "10:00-11:50",
-      "year" : 3,
-      "instructor": "Borahan Tümer",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
-  },
-  {
-    "courseId": "CSE3215",
-    "courseName": "Digital Logic Design",
-    "credit": 6,
-    "prerequisite": false,
-    "prerequisiteLessonId": "",
-    "courseSection": {
-      "place" : "M2-Z11",
-      "day": "Tuesday",
-      "hour" : "10:00-11:50",
-      "year" : 3,
-      "instructor": "Sanem Arslan",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M2-Z11",
+        "day": "Monday",
+        "hour": ["10:00-10:50", "11:00-11:50"]
+      }
+    ],
+    "weeklyCourseCount": 2,
+    "year": 3,
+    "instructor": "Borahan Tümer",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   },
   {
     "courseId": "IE3081",
@@ -117,46 +130,18 @@
     "credit": 4,
     "prerequisite": true,
     "prerequisiteLessonId": "STAT2253",
-    "courseSection": {
-      "place" : "M2-Z11",
-      "day": "Thursday",
-      "hour" : "10:00-11:50",
-      "year" : 3,
-      "instructor": "Sanem Arslan",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
-  },
-  {
-    "courseId": "CSE4074",
-    "courseName": "Computer Networks",
-    "credit": 5,
-    "prerequisite": false,
-    "prerequisiteLessonId": "None",
-    "courseSection": {
-      "place" : "M1-Z01",
-      "day": "Friday",
-      "hour" : "10:00-11:50",
-      "year" : 4,
-      "instructor": "Betül Boz",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
-  },
-  {
-    "courseId": "CSE4034",
-    "courseName": "Advanced Unix Programming",
-    "credit": 5,
-    "prerequisite": true,
-    "prerequisiteLessonId": "CSE3033",
-    "courseSection": {
-      "place" : "M1-Z01",
-      "day": "Thursday",
-      "hour" : "11:00-12:50",
-      "year" : 4,
-      "instructor": "Betül Boz",
-      "enrollmentCapacity": 5,
-      "status": "Active"
-    }
+    "courseSection": [
+      {
+        "place": "M2-205",
+        "day": "Sunday",
+        "hour": ["12:00-12:50", "13:00-13:50", "14:00-14:50"]
+      }
+    ],
+    "weeklyCourseCount": 3,
+    "year": 3,
+    "instructor": "Sanem Arslan",
+    "enrollmentCapacity": 5,
+    "currentCapacity": 0,
+    "status": "Active"
   }
 ]
