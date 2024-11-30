@@ -53,6 +53,15 @@ class Advisor extends User {
         return advisedStudents;
     }
 
+
+    public void rejectRequestedCourse(Student student, Course course) {
+        if (student.getRequestedCourses().remove(course)) {
+            System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
+        } else {
+            System.out.println("Failed to reject the course. Course might not exist in the requested list.");
+        }
+    }
+
     public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem, Student student, Course course) throws IOException {
         if (student.getEnrolledCourses().size() < 5) {
             if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
