@@ -139,7 +139,9 @@ public class SystemController {
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(null, courses);
                 while (true) {
                     System.out.println("1. See requests");
-                    System.out.println("2. Logout");
+                    System.out.println("2. Approve request");
+                    System.out.println("3. Reject request");
+                    System.out.println("4. Logout");
                     System.out.print("Please choose an operation (or 'q' to go back): ");
                     String choiceInput = input.nextLine();
 
@@ -189,51 +191,66 @@ public class SystemController {
                                 }
 
                                 System.out.println(sb.toString());
-
-                                System.out.print("Enter the request number to approve (or 'q' to go back): ");
-                                String requestInput = input.nextLine();
-
-                                if (requestInput.equalsIgnoreCase("q")) {
-                                    break;
-                                }
-
-                                int requestIndex;
-                                try {
-                                    requestIndex = Integer.parseInt(requestInput);
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Invalid input. Please enter a number or 'q' to go back.");
-                                    continue;
-                                }
-
-                                if (requestIndex > 0 && requestIndex <= requestNo - 1) {
-                                    int count = 1;
-                                    Student selectedStudent = null;
-                                    Course selectedCourse = null;
-
-                                    outerLoop:
-                                    for (Student student : allStudentsWithRequests) {
-                                        for (Course course : student.getRequestedCourses()) {
-                                            if (count == requestIndex) {
-                                                selectedStudent = student;
-                                                selectedCourse = course;
-                                                break outerLoop;
-                                            }
-                                            count++;
-                                        }
-                                    }
-
-                                    if (selectedStudent != null && selectedCourse != null) {
-                                        loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
-                                    } else {
-                                        System.out.println("Invalid request number.");
-                                    }
-                                } else {
-                                    System.out.println("Invalid request number. Please try again.");
-                                }
                             }
                             break;
 
-                        case 2: // Logout
+                        case 2: // Approve Request
+                            System.out.print("Enter the request number to approve: ");
+                            int approveRequestIndex = input.nextInt();
+                            input.nextLine(); // Consume newline
+
+                            int count = 1;
+                            Student selectedStudent = null;
+                            Course selectedCourse = null;
+
+                            outerLoop:
+                            for (Student student : students) {
+                                for (Course course : student.getRequestedCourses()) {
+                                    if (count == approveRequestIndex) {
+                                        selectedStudent = student;
+                                        selectedCourse = course;
+                                        break outerLoop;
+                                    }
+                                    count++;
+                                }
+                            }
+
+                            if (selectedStudent != null && selectedCourse != null) {
+                                loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
+                            } else {
+                                System.out.println("Invalid request number.");
+                            }
+                            break;
+
+                        case 3: // Reject Request
+                            System.out.print("Enter the request number to reject: ");
+                            int rejectRequestIndex = input.nextInt();
+                            input.nextLine(); // Consume newline
+
+                            count = 1;
+                            selectedStudent = null;
+                            selectedCourse = null;
+
+                            outerLoop:
+                            for (Student student : students) {
+                                for (Course course : student.getRequestedCourses()) {
+                                    if (count == rejectRequestIndex) {
+                                        selectedStudent = student;
+                                        selectedCourse = course;
+                                        break outerLoop;
+                                    }
+                                    count++;
+                                }
+                            }
+
+                            if (selectedStudent != null && selectedCourse != null) {
+                                loggedInAdvisor.rejectRequestedCourse(selectedStudent, selectedCourse);
+                            } else {
+                                System.out.println("Invalid request number.");
+                            }
+                            break;
+
+                        case 4: // Logout
                             System.out.println("Logging out...");
                             isLoggedIn = false;
                             break;
@@ -245,6 +262,7 @@ public class SystemController {
                     if (!isLoggedIn) break;
                 }
             }
+
 
             // -----------------------Student menu-----------------------------
             if (role.equals("Student")) {
