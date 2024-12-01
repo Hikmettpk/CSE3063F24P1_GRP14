@@ -8,6 +8,9 @@ class Course {
     @JsonProperty("courseId")
     private final String courseId;
 
+    @JsonProperty("currentCapacity")
+    private int currentCapacity;
+
     @JsonProperty("courseName")
     private final String courseName;
 
@@ -38,9 +41,12 @@ class Course {
     @JsonProperty("status")
     private final String status;
 
+    private List<Student> waitList = new ArrayList<>();
+
     // Constructor
     public Course(String courseId, String courseName, int credit, boolean prerequisite, String prerequisiteLessonId,
-                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, String status) {
+                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, String status
+                    , int currentCapacity) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.credit = credit;
@@ -52,6 +58,7 @@ class Course {
         this.instructor = instructor;
         this.enrollmentCapacity = enrollmentCapacity;
         this.status = status;
+        this.currentCapacity = currentCapacity;
     }
 
     // Getters
@@ -67,7 +74,7 @@ class Course {
         return credit;
     }
 
-    public boolean isPrerequisite() {
+    public boolean hasPrerequisite() {
         return prerequisite;
     }
 
@@ -99,6 +106,10 @@ class Course {
         return status;
     }
 
+    public int getCurrentCapacity(){return currentCapacity;}
+
+    public List<Student> getWaitList(){return waitList;}
+
     // toString method for printing
     @Override
     public String toString() {
@@ -114,6 +125,7 @@ class Course {
                 ", instructor='" + instructor + '\'' +
                 ", enrollmentCapacity=" + enrollmentCapacity +
                 ", status='" + status + '\'' +
+                ", current capacity='" + currentCapacity + '\'' +
            '}';
 }
 }

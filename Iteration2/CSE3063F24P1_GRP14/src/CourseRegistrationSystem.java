@@ -4,12 +4,13 @@ import java.util.List;
 
 public class CourseRegistrationSystem {
     private Student student;
-    //private List<Student> students;
+
     private List<Course> courses;
     private JSONMethods jsonMethods = new JSONMethods(); // Assuming JSONMethods class handles JSON operations
 
+    private List<Student> students = jsonMethods.loadAllStudents();
     // Constructor
-    public CourseRegistrationSystem(Student student, List<Course> courses) {
+    public CourseRegistrationSystem(Student student, List<Course> courses) throws IOException {
         this.student = student;
         //this.students = students;
         this.courses = courses;
@@ -168,16 +169,34 @@ public class CourseRegistrationSystem {
     // Method to request a course for a student
     public void requestInCourse(Course course, Student student) throws IOException {
 
+
         if (student.getRequestedCourses().stream().anyMatch(requestedCourse -> requestedCourse.getCourseId().equals(course.getCourseId()))) {
             System.out.println("Student is already requested to this course.");
         }
         else{
-            student.getRequestedCourses().add(course);
-            System.out.println("Course " + course.getCourseId() + " requested successfully.");
-            jsonMethods.saveStudentToFile(student);
+            //capacity control
+            if(course.getCurrentCapacity() + countRequestedStudents(students, course) == course.getEnrollmentCapacity() ||
+                    course.getCurrentCapacity() + countRequestedStudents(students, course) > course.getEnrollmentCapacity()){
+                addToWaitList(student, course);
+                System.out.println("Not enough space for your request in " + course.getCourseId() +
+                        ", so you are added to wait list for course " + course.getCourseId() + ".");
+            }
+            else{
+                student.getRequestedCourses().add(course);
+                System.out.println("Course " + course.getCourseId() + " requested successfully.");
+                jsonMethods.saveStudentToFile(student);
+            }
         }
     }
 
+    private void addToWaitList(Student student, Course course) {
+        course.getWaitList().add(student);
+    }
+
+    public long countRequestedStudents(List<Student> students, Course course) {
+        return students.stream().filter(student -> student.getRequestedCourses().contains(course))
+                .count();
+    }
 
 
 }

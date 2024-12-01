@@ -56,6 +56,9 @@ class Advisor extends User {
 
     public void rejectRequestedCourse(Student student, Course course) {
         if (student.getRequestedCourses().remove(course)) {
+            course.getWaitList().get(1).getRequestedCourses().add(course);
+            course.getWaitList().remove(1);
+
             System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
         } else {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
@@ -66,6 +69,14 @@ class Advisor extends User {
         if (student.getEnrolledCourses().size() < 5) {
             if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
                 courseRegistrationSystem.addToEnrollList(course, student);
+                //course.getCurrentCapacity()++; saveToCourseJson() gibi bir metot lazım buraya
+
+                //eğer kapasite dolmuşsa tüm öğrenciler o kursun waitlist'inden kaldırılır.
+                if(course.getCurrentCapacity() == course.getEnrollmentCapacity()){
+                    for(int i = 0; i < course.getWaitList().size(); i++){
+                        course.getWaitList().remove(i);
+                    }
+                }
             } else {
                 System.out.println("Course approval failed as the course was not removed from the request list.");
             }
