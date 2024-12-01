@@ -1,71 +1,98 @@
 {
-  "username": "o150121074",
-  "name": "Efe",
-  "surname": "Yalım",
-  "password": "mar2174",
-  "studentID": "150121074",
-  "requestedCourses": [],
-  "enrolledCourses": [],
-  "transcript": {
-    "grades": [
-      {
-        "course": {
-          "courseId": "CSE2225",
-          "courseName": "Data Structures",
-          "credit": 7,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place": "M1-Z06",
-            "day": "Monday",
-            "hour": "13:00-14:50",
-            "year": 2,
-            "instructor": "Betül Boz",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "AA"
+  "username" : "o150121074",
+  "name" : "Efe",
+  "surname" : "Yalım",
+  "password" : "mar2174",
+  "studentID" : "150121074",
+  "transcript" : {
+    "grades" : [ {
+      "course" : {
+        "courseId" : "CSE2225",
+        "courseName" : "Data Structures",
+        "credit" : 7,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Monday",
+          "place" : "M1-Z06",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
       },
-      {
-        "course": {
-          "courseId": "CSE2246",
-          "courseName": "Analysis of Algorithms",
-          "credit": 6,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place": "M1-Z01",
-            "day": "Tuesday",
-            "hour": "13:00-14:50",
-            "year": 2,
-            "instructor": "Sanem Arslan",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "BA"
+      "gradeValue" : "AA"
+    }, {
+      "course" : {
+        "courseId" : "CSE2246",
+        "courseName" : "Analysis of Algorithms",
+        "credit" : 6,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Tuesday",
+          "place" : "M1-Z01",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
       },
-      {
-        "course": {
-          "courseId": "STAT2253",
-          "courseName": "Probability and Statistics",
-          "credit": 5,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place": "M1-Z01",
-            "day": "Wednesday",
-            "hour": "10:00-11:50",
-            "year": 2,
-            "instructor": "Borahan Tümer",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "AA"
-      }
-    ]
-
-  }
+      "gradeValue" : "BA"
+    }, {
+      "course" : {
+        "courseId" : "STAT2253",
+        "courseName" : "Probability and Statistics",
+        "credit" : 5,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Wednesday",
+          "place" : "M1-Z01",
+          "hour" : "10:00-11:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
+      },
+      "gradeValue" : "AA"
+    } ]
+  },
+  "advisor" : null,
+  "enrolledCourses" : [ {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Wednesday",
+      "place" : "M2-Z11",
+      "hour" : "10:30-11:20"
+    }, {
+      "day" : "Wednesday",
+      "place" : "M2-Z11",
+      "hour" : "11:30-12:20"
+    }, {
+      "day" : "Wednesday",
+      "place" : "M1-110",
+      "hour" : "13:00-13:50"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  } ],
+  "requestedCourses" : [ ]
 }

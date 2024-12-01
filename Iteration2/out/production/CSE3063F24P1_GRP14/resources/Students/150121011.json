@@ -1,71 +1,144 @@
 {
-  "username": "o150121011",
-  "name": "Emirhan",
-  "surname": "Ünsal",
-  "password": "mar2111",
-  "studentID": "150121011",
-  "transcript": {
-    "grades": [
-      {
-        "course": {
-          "courseId": "CSE2225",
-          "courseName": "Data Structures",
-          "credit": 7,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z06",
-            "day": "Monday",
-            "hour" : "13:00-14:50",
-            "year" : 2,
-            "instructor": "Betül Boz",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "CB"
+  "username" : "o150121011",
+  "name" : "Emirhan",
+  "surname" : "Ünsal",
+  "password" : "mar2111",
+  "studentID" : "150121011",
+  "transcript" : {
+    "grades" : [ {
+      "course" : {
+        "courseId" : "CSE2225",
+        "courseName" : "Data Structures",
+        "credit" : 7,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Monday",
+          "place" : "M1-Z06",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
       },
-      {
-        "course": {
-          "courseId": "CSE2246",
-          "courseName": "Analysis of Algorithms",
-          "credit": 6,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z01",
-            "day": "Tuesday",
-            "hour" : "13:00-14:50",
-            "year" : 2,
-            "instructor": "Sanem Arslan",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "AA"
+      "gradeValue" : "CB"
+    }, {
+      "course" : {
+        "courseId" : "CSE2246",
+        "courseName" : "Analysis of Algorithms",
+        "credit" : 6,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Tuesday",
+          "place" : "M1-Z01",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
       },
-      {
-        "course": {
-          "courseId": "STAT2253",
-          "courseName": "Probability and Statistics",
-          "credit": 5,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z01",
-            "day": "Wednesday",
-            "hour" : "10:00-11:50",
-            "year" : 2,
-            "instructor": "Borahan Tümer",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
-        },
-        "gradeValue": "BA"
-      }
-    ]
+      "gradeValue" : "AA"
+    }, {
+      "course" : {
+        "courseId" : "STAT2253",
+        "courseName" : "Probability and Statistics",
+        "credit" : 5,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Wednesday",
+          "place" : "M1-Z01",
+          "hour" : "10:00-11:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null
+      },
+      "gradeValue" : "BA"
+    } ]
   },
-  "advisor": null,
-  "enrolledCourses": [],
-  "requestedCourses": []
+  "advisor" : null,
+  "enrolledCourses" : [ {
+    "courseId" : "IE3081",
+    "courseName" : "Modeling and Simulation",
+    "credit" : 4,
+    "prerequisite" : true,
+    "prerequisiteLessonId" : "STAT2253",
+    "courseSection" : [ {
+      "day" : "Tuesday",
+      "place" : "M1-Z06",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Tuesday",
+      "place" : "M1-Z06",
+      "hour" : "10:30-11:20"
+    }, {
+      "day" : "Tuesday",
+      "place" : "M1-Z06",
+      "hour" : "11:30-12:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 3,
+    "instructor" : "Sanem Arslan",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Wednesday",
+      "place" : "M2-Z11",
+      "hour" : "10:30-11:20"
+    }, {
+      "day" : "Wednesday",
+      "place" : "M2-Z11",
+      "hour" : "11:30-12:20"
+    }, {
+      "day" : "Wednesday",
+      "place" : "M1-110",
+      "hour" : "13:00-13:50"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    } ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  } ],
+  "requestedCourses" : [ ]
 }

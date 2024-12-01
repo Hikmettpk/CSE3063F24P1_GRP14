@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class JSONMethods {
+
+    private static final String SCHEDULER_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/department_scheduler.json";
 
     public List<Course> loadAllCourses() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -19,6 +22,19 @@ public class JSONMethods {
         } catch (IOException e) {
             e.printStackTrace();
             return List.of(); // Return empty list in case of error
+        }
+    }
+
+    public DepartmentScheduler loadDepartmentScheduler() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            File file = new File(SCHEDULER_JSON_PATH);
+
+            // JSON dosyasını okuyarak DepartmentScheduler nesnesini döndürüyoruz
+            return objectMapper.readValue(file, DepartmentScheduler.class);
+        } catch (IOException e) {
+            System.err.println("Error loading department scheduler from JSON: " + e.getMessage());
+            return null;
         }
     }
 
@@ -104,6 +120,72 @@ public class JSONMethods {
         ObjectMapper mapper = new ObjectMapper();
         String studentFileName = STUDENT_JSON_PATH + student.getStudentID() + ".json";
         mapper.writeValue(new File(studentFileName), student);
+    }
+
+    public void updateStudentInJson(Student updatedStudent) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            File studentFile = new File("CSE3063F24P1_GRP14/src/resources/Students/" + updatedStudent.getStudentID() + ".json");
+
+            // JSON dosyasından mevcut öğrenciyi yükle
+            Student existingStudent = null;
+            if (studentFile.exists()) {
+                existingStudent = objectMapper.readValue(studentFile, Student.class);
+            }
+
+            // Eğer mevcut öğrenci varsa, gerekli alanları güncelle
+            if (existingStudent != null) {
+                List<Course> updatedEnrolledCourses = new ArrayList<>(existingStudent.getEnrolledCourses());
+                List<Course> updatedRequestedCourses = new ArrayList<>(existingStudent.getRequestedCourses());
+
+                // EnrolledCourses'u güncelle
+                for (Course course : updatedStudent.getEnrolledCourses()) {
+                    if (!updatedEnrolledCourses.contains(course)) {
+                        updatedEnrolledCourses.add(course);
+                    }
+                }
+
+                // RequestedCourses'u güncelle
+                for (Course course : updatedStudent.getRequestedCourses()) {
+                    if (!updatedRequestedCourses.contains(course)) {
+                        updatedRequestedCourses.add(course);
+                    }
+                }
+
+                // Yeni listeyi mevcut öğrenci nesnesine yerleştir
+                existingStudent.getEnrolledCourses().clear();
+                existingStudent.getEnrolledCourses().addAll(updatedEnrolledCourses);
+
+                existingStudent.getRequestedCourses().clear();
+                existingStudent.getRequestedCourses().addAll(updatedRequestedCourses);
+            } else {
+                existingStudent = updatedStudent;
+            }
+
+            // JSON'a yaz
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(studentFile, existingStudent);
+            System.out.println("Student JSON updated successfully!");
+
+        } catch (IOException e) {
+            System.err.println("Error updating student JSON: " + e.getMessage());
+        }
+    }
+
+
+    public Course loadCourseFromJson(String courseId) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            File coursesFile = new File("CSE3063F24P1_GRP14/src/resources/course.json");
+            List<Course> courses = Arrays.asList(objectMapper.readValue(coursesFile, Course[].class));
+            for (Course course : courses) {
+                if (course.getCourseId().equals(courseId)) {
+                    return course;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading course from JSON: " + e.getMessage());
+        }
+        return null;
     }
 
 
