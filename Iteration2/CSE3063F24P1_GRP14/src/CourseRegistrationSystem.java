@@ -15,6 +15,37 @@ public class CourseRegistrationSystem {
         this.courses = courses;
     }
 
+    // Method to check where the conflict occurs: enrolled or requested courses
+    public String checkScheduleConflict(Course newCourse, Student student) {
+        // Check enrolled courses for conflicts
+        for (Course enrolledCourse : student.getEnrolledCourses()) {
+            for (CourseSection section : enrolledCourse.getCourseSection()) {
+                for (CourseSection newSection : newCourse.getCourseSection()) {
+                    if (section.getDay().equals(newSection.getDay()) &&
+                            section.getHour().equals(newSection.getHour())) {
+                        return "enrolled"; // Conflict with enrolled courses
+                    }
+                }
+            }
+        }
+
+        // Check requested courses for conflicts
+        for (Course requestedCourse : student.getRequestedCourses()) {
+            for (CourseSection section : requestedCourse.getCourseSection()) {
+                for (CourseSection newSection : newCourse.getCourseSection()) {
+                    if (section.getDay().equals(newSection.getDay()) &&
+                            section.getHour().equals(newSection.getHour())) {
+                        return "requested"; // Conflict with requested courses
+                    }
+                }
+            }
+        }
+
+        return null; // No conflict
+    }
+
+
+
 
     // Method to add a student to a course
     public void addToEnrollList(Course course, Student student) throws IOException {
@@ -92,9 +123,8 @@ public class CourseRegistrationSystem {
         // Tüm kurslar üzerinden döngü
         for (Course course : courses) {
             // Eğer öğrenci kursa kayıtlıysa veya talep etmişse, atla
-            if (student.getEnrolledCourses().contains(course) ||
-                    student.getRequestedCourses().contains(course) ||
-                    takenCourses.contains(course)) {
+            if (student.getEnrolledCourses().contains(course) || student.getRequestedCourses().contains(course) ||
+                    takenCourses.contains(course) || availableCourses.contains(course) ) {
                 continue;
             }
 
@@ -144,33 +174,73 @@ public class CourseRegistrationSystem {
 
 
 
-    public void requestInCourse(Course course, Student student) {
-        // Öğrencinin kayıtlı kurslarını kontrol et
-        if (student.getEnrolledCourses().contains(course)) {
-            System.out.println("You are already enrolled in this course.");
+    public void requestInCourse(Course newCourse, Student student) throws IOException {
+        String conflictType = checkScheduleConflict(newCourse, student);
+
+        if ("enrolled".equals(conflictType)) {
+            System.out.println("The course " + newCourse.getCourseName() +
+                    " conflicts with an already enrolled course. Cannot request this course.");
             return;
         }
 
-        // Öğrencinin daha önce talep ettiği kursları kontrol et
-        if (student.getRequestedCourses().contains(course)) {
+        if ("requested".equals(conflictType)) {
+            System.out.println("The course " + newCourse.getCourseName() +
+                    " conflicts with a course in your request list.");
+            System.out.println("Please choose one of the following courses to keep in your request list:");
+
+            // Display conflicting courses
+            for (Course requestedCourse : student.getRequestedCourses()) {
+                for (CourseSection section : requestedCourse.getCourseSection()) {
+                    for (CourseSection newSection : newCourse.getCourseSection()) {
+                        if (section.getDay().equals(newSection.getDay()) &&
+                                section.getHour().equals(newSection.getHour())) {
+                            System.out.println("1. " + requestedCourse.getCourseName());
+                            System.out.println("2. " + newCourse.getCourseName());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Simulate user input for course choice (1 or 2)
+            int choice = getUserChoice(); // Implement this to get user input
+
+            if (choice == 1) {
+                System.out.println("Keeping the existing course in your request list.");
+                return;
+            } else if (choice == 2) {
+                // Remove the conflicting course and add the new course
+                student.getRequestedCourses().removeIf(course ->
+                        course.getCourseId().equals(newCourse.getCourseId()));
+                student.getRequestedCourses().add(newCourse);
+                jsonMethods.updateStudentInJson(student);
+                System.out.println("Successfully updated your request list with the course: " + newCourse.getCourseName());
+                return;
+            }
+        }
+
+        // No conflict, proceed with adding the course to the request list
+        if (student.getRequestedCourses().contains(newCourse)) {
             System.out.println("You have already requested this course.");
             return;
         }
 
-        // Kursun kapasitesini kontrol et
-        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
+        if (newCourse.getCurrentCapacity() >= newCourse.getEnrollmentCapacity()) {
             System.out.println("This course is full and cannot accept more students.");
             return;
         }
 
-        // Öğrencinin requestedCourses listesine ekle
-        student.getRequestedCourses().add(course);
-
-        // JSON'da güncelleme
+        student.getRequestedCourses().add(newCourse);
         jsonMethods.updateStudentInJson(student);
-
-        System.out.println("Successfully requested the course: " + course.getCourseName());
+        System.out.println("Successfully requested the course: " + newCourse.getCourseName());
     }
+    // Simulate user input for selecting conflicting course
+    private int getUserChoice() {
+        // For testing purposes, assume user chooses option 2
+        // Replace this with Scanner input for real user interaction
+        return 2;
+    }
+
 
 
 
