@@ -54,6 +54,7 @@ class Advisor extends User {
         return advisedStudents;
     }
 
+
     public void approveRequestedCourse(CourseRegistrationSystem crs, Student student, Course course) {
         if (!student.getRequestedCourses().contains(course)) {
             System.out.println("Course not requested by the student.");
@@ -78,6 +79,7 @@ class Advisor extends User {
             if (fullCourse == null) {
                 System.err.println("Failed to load course data from JSON.");
                 return;
+
             }
 
             // Enrolled Courses'a kurs ekleniyor (section bilgileri dahil)
