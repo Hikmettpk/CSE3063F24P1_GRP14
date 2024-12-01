@@ -32,12 +32,6 @@ public class CourseRegistrationSystem {
             return;
         }
 
-        // Check if the course has enough capacity
-        CourseSection section = course.getCourseSection(); // Assumes each course has a single section for simplicity
-        if (section.getEnrollmentCapacity() <= 0) {
-            System.out.println("Course enrollment capacity reached.");
-            return;
-        }
 
         // Enroll the student in the course
         student.getEnrolledCourses().add(course);
@@ -82,49 +76,35 @@ public class CourseRegistrationSystem {
         List<Course> takenCourses = new ArrayList<>();
         List<String> failedCourses = new ArrayList<>();
 
-        
+        // Transcript üzerinden alınan dersler ve başarısız dersleri kontrol et
         for (Grade grade : student.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
-
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
                 failedCourses.add(course.getCourseId());
                 availableCourses.add(course);
-            }
-
-            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
-
-                if (!student.getEnrolledCourses().contains(course)) {
-                    availableCourses.add(course);
-                    takenCourses.add(course);
-                }
-
-            }
-
-            else {
+            } else {
                 takenCourses.add(course);
             }
         }
 
-
+        // Tüm kurslar üzerinden döngü
         for (Course course : courses) {
-
-            if (student.getEnrolledCourses().contains(course) || takenCourses.contains(course) || availableCourses.contains(course))  {
+            // Eğer öğrenci kursa kayıtlıysa veya talep etmişse, atla
+            if (student.getEnrolledCourses().contains(course) ||
+                    student.getRequestedCourses().contains(course) ||
+                    takenCourses.contains(course)) {
                 continue;
             }
 
+            // Dersin ön koşulunun sağlanıp sağlanmadığını kontrol et
             boolean hasPassedPrerequisite = !course.hasPrerequisite();
-
-
             if (course.hasPrerequisite()) {
                 String prerequisiteId = course.getPrerequisiteLessonId();
-
-
                 if (failedCourses.contains(prerequisiteId)) {
                     hasPassedPrerequisite = false;
                 } else {
-
                     for (Course takenCourse : takenCourses) {
                         if (takenCourse.getCourseId().equals(prerequisiteId)) {
                             hasPassedPrerequisite = true;
@@ -134,7 +114,7 @@ public class CourseRegistrationSystem {
                 }
             }
 
-
+            // Ön koşullar sağlanıyorsa listeye ekle
             if (hasPassedPrerequisite) {
                 availableCourses.add(course);
             }
@@ -142,7 +122,6 @@ public class CourseRegistrationSystem {
 
         return availableCourses;
     }
-
 
 
 
@@ -165,17 +144,32 @@ public class CourseRegistrationSystem {
 
 
 
-    // Method to request a course for a student
-    public void requestInCourse(Course course, Student student) throws IOException {
+    public void requestInCourse(Course course, Student student) {
+        // Öğrencinin kayıtlı kurslarını kontrol et
+        if (student.getEnrolledCourses().contains(course)) {
+            System.out.println("You are already enrolled in this course.");
+            return;
+        }
 
-        if (student.getRequestedCourses().stream().anyMatch(requestedCourse -> requestedCourse.getCourseId().equals(course.getCourseId()))) {
-            System.out.println("Student is already requested to this course.");
+        // Öğrencinin daha önce talep ettiği kursları kontrol et
+        if (student.getRequestedCourses().contains(course)) {
+            System.out.println("You have already requested this course.");
+            return;
         }
-        else{
-            student.getRequestedCourses().add(course);
-            System.out.println("Course " + course.getCourseId() + " requested successfully.");
-            jsonMethods.saveStudentToFile(student);
+
+        // Kursun kapasitesini kontrol et
+        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
+            System.out.println("This course is full and cannot accept more students.");
+            return;
         }
+
+        // Öğrencinin requestedCourses listesine ekle
+        student.getRequestedCourses().add(course);
+
+        // JSON'da güncelleme
+        jsonMethods.updateStudentInJson(student);
+
+        System.out.println("Successfully requested the course: " + course.getCourseName());
     }
 
 

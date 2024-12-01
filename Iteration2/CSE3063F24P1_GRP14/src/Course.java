@@ -6,41 +6,47 @@ import java.util.List;
 class Course {
 
     @JsonProperty("courseId")
-    private final String courseId;
+    private String courseId;
 
     @JsonProperty("courseName")
-    private final String courseName;
+    private String courseName;
 
     @JsonProperty("credit")
-    private final int credit;
+    private int credit;
 
     @JsonProperty("prerequisite")
-    private final boolean prerequisite;
+    private boolean prerequisite;
 
     @JsonProperty("prerequisiteLessonId")
-    private final String prerequisiteLessonId;
+    private String prerequisiteLessonId;
 
     @JsonProperty("courseSection")
-    private final List<CourseSection> courseSection;
+    private List<CourseSection> courseSection;
 
     @JsonProperty("weeklyCourseCount")
-    private final int weeklyCourseCount;
+    private int weeklyCourseCount;
 
     @JsonProperty("year")
-    private final int year;
+    private int year;
 
     @JsonProperty("instructor")
-    private final String instructor;
+    private String instructor;
 
     @JsonProperty("enrollmentCapacity")
-    private final int enrollmentCapacity;
+    private int enrollmentCapacity;
+
+    @JsonProperty("currentCapacity")
+    private int currentCapacity;
 
     @JsonProperty("status")
-    private final String status;
+    private String status;
 
+    public Course() {
+
+    }
     // Constructor
     public Course(String courseId, String courseName, int credit, boolean prerequisite, String prerequisiteLessonId,
-                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, String status) {
+                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.credit = credit;
@@ -51,6 +57,7 @@ class Course {
         this.year = year;
         this.instructor = instructor;
         this.enrollmentCapacity = enrollmentCapacity;
+        this.currentCapacity = currentCapacity;
         this.status = status;
     }
 
@@ -67,7 +74,7 @@ class Course {
         return credit;
     }
 
-    public boolean isPrerequisite() {
+    public boolean hasPrerequisite() {
         return prerequisite;
     }
 
@@ -95,6 +102,8 @@ class Course {
         return enrollmentCapacity;
     }
 
+    public int getCurrentCapacity() {return currentCapacity;}
+
     public String getStatus() {
         return status;
     }
@@ -116,4 +125,6 @@ class Course {
                 ", status='" + status + '\'' +
            '}';
 }
+
+
 }

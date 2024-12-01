@@ -5,35 +5,24 @@ import java.util.List;
 class CourseSection {
 
     @JsonProperty("day")
-    private final String day;
+    private String day;
 
     @JsonProperty("place")
-    private final String place;
+    private String place;
 
     @JsonProperty("hour")
-    private final List<String> hour;
+    private String hour;
 
-    @JsonProperty("year")
-    private final int year;
+    public CourseSection() {
 
-    @JsonProperty("instructor")
-    private final String instructor;
-
-    @JsonProperty("enrollmentCapacity")
-    private final int enrollmentCapacity;
-
-    @JsonProperty("status")
-    private final String status;
+    }
 
     // Constructor
-    public CourseSection(String day, String place, List<String> hour, int year, String instructor, int enrollmentCapacity, String status) {
+    public CourseSection(String day, String place, String hour) {
         this.day = day;
         this.place = place;
         this.hour = hour;
-        this.year = year;
-        this.instructor = instructor;
-        this.enrollmentCapacity = enrollmentCapacity;
-        this.status = status;
+
     }
 
 
@@ -46,25 +35,10 @@ class CourseSection {
         return place;
     }
 
-    public List<String> getHour() {
+    public String getHour() {
         return hour;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public int getEnrollmentCapacity() {
-        return enrollmentCapacity;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 
     // toString method for printing
     @Override
@@ -73,10 +47,6 @@ class CourseSection {
                 "place='" + place + '\'' +
                 ", day='" + day + '\'' +
                 ", hour=" + hour +
-                ", year=" + year +
-                ", instructor='" + instructor + '\'' +
-                ", enrollmentCapacity=" + enrollmentCapacity +
-                ", status='" + status + '\'' +
-            '}';
-}
+                '}';
+    }
 }

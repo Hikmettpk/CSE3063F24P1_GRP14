@@ -8,7 +8,7 @@
   "advisor": null,
   "requestedCourses": [],
   "transcript": {
-    "grades":[
+    "grades": [
       {
         "course": {
           "courseId": "CSE2225",
@@ -16,15 +16,13 @@
           "credit": 7,
           "prerequisite": false,
           "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z06",
-            "day": "Monday",
-            "hour" : "13:00-14:50",
-            "year" : 2,
-            "instructor": "Betül Boz",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
+          "courseSection": [
+            {
+              "place": "M1-Z06",
+              "day": "Monday",
+              "hour": "13:00-14:50"
+            }
+          ]
         },
         "gradeValue": "AA"
       },
@@ -35,15 +33,13 @@
           "credit": 6,
           "prerequisite": false,
           "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z01",
-            "day": "Tuesday",
-            "hour" : "13:00-14:50",
-            "year" : 2,
-            "instructor": "Sanem Arslan",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
+          "courseSection": [
+            {
+              "place": "M1-Z01",
+              "day": "Tuesday",
+              "hour": "13:00-14:50"
+            }
+          ]
         },
         "gradeValue": "BA"
       },
@@ -54,15 +50,13 @@
           "credit": 5,
           "prerequisite": false,
           "prerequisiteLessonId": "None",
-          "courseSection": {
-            "place" : "M1-Z01",
-            "day": "Wednesday",
-            "hour" : "10:00-11:50",
-            "year" : 2,
-            "instructor": "Borahan Tümer",
-            "enrollmentCapacity": 5,
-            "status": "Active"
-          }
+          "courseSection": [
+            {
+              "place": "M1-Z01",
+              "day": "Wednesday",
+              "hour": "10:00-11:50"
+            }
+          ]
         },
         "gradeValue": "AA"
       }

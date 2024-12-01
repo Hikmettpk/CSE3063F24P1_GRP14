@@ -6,6 +6,7 @@ import java.util.List;
 
 class Advisor extends User {
 
+    JSONMethods jsonMethods = new JSONMethods();
     @JsonProperty("advisorID")
     private String advisorID;
 
@@ -53,18 +54,58 @@ class Advisor extends User {
         return advisedStudents;
     }
 
-    public void approveRequestedCourse(CourseRegistrationSystem courseRegistrationSystem, Student student, Course course) throws IOException {
-        if (student.getEnrolledCourses().size() < 5) {
-            if (courseRegistrationSystem.removeCourseFromRequestList(student, course)) {  // Proceed only if removal is successful
-                courseRegistrationSystem.addToEnrollList(course, student);
-            } else {
-                System.out.println("Course approval failed as the course was not removed from the request list.");
-            }
+    public void approveRequestedCourse(CourseRegistrationSystem crs, Student student, Course course) {
+        if (!student.getRequestedCourses().contains(course)) {
+            System.out.println("Course not requested by the student.");
+            return;
         }
-        else{
-            System.out.println("Course approval failed because the enrolled list has its limit.");
+
+        try {
+            // Öğrenci JSON'dan yükleniyor
+            Student updatedStudent = jsonMethods.loadStudent(student.getStudentID());
+            if (updatedStudent == null) {
+                System.err.println("Failed to load student data from JSON.");
+                return;
+            }
+
+            // Ders JSON'dan yükleniyor
+            List<Course> allCourses = jsonMethods.loadAllCourses();
+            Course fullCourse = allCourses.stream()
+                    .filter(c -> c.getCourseId().equals(course.getCourseId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (fullCourse == null) {
+                System.err.println("Failed to load course data from JSON.");
+                return;
+            }
+
+            // Enrolled Courses'a kurs ekleniyor (section bilgileri dahil)
+            updatedStudent.getEnrolledCourses().add(fullCourse);
+
+            // Requested Courses listesinden kurs kaldırılıyor
+            updatedStudent.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+
+            // Öğrenci JSON'u güncelleniyor
+            jsonMethods.updateStudentInJson(updatedStudent);
+
+            // Console çıktısı
+            System.out.println("Course '" + fullCourse.getCourseName() + "' approved successfully for " + updatedStudent.getName());
+
+            // Öğrenci nesnesini güncel tut
+            student.getEnrolledCourses().clear();
+            student.getEnrolledCourses().addAll(updatedStudent.getEnrolledCourses());
+            student.getRequestedCourses().clear();
+            student.getRequestedCourses().addAll(updatedStudent.getRequestedCourses());
+
+        } catch (IOException e) {
+            System.err.println("Error during course approval: " + e.getMessage());
         }
     }
+
+
+
+
 
     // toString() method
     @Override
