@@ -4,10 +4,8 @@ import java.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DepartmentScheduler extends User {
-    private List<Course> courses; // Tüm derslerin listesi
-
+    private List<Course> courses;
     private static final String COURSE_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/course.json";
-    private static final String SCHEDULER_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/department_scheduler.json";
 
     private static final String[] DAYS = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     private static final String[] HOURS = {
@@ -19,7 +17,6 @@ public class DepartmentScheduler extends User {
 
     public DepartmentScheduler() {
         super(null, null, null, null);
-        this.courses = new ArrayList<>();
         this.courses = loadCoursesFromJson();
     }
 
@@ -41,7 +38,7 @@ public class DepartmentScheduler extends User {
             for (Course course : courses) {
                 updateCourseSectionsInJson(course.getCourseId(), new ArrayList<>());
             }
-            this.courses = loadCoursesFromJson(); // JSON dosyasını yeniden yükle
+            this.courses = loadCoursesFromJson();
             System.out.println("All course sections have been reset.");
         } catch (Exception e) {
             System.err.println("Error while resetting course sections: " + e.getMessage());
@@ -57,25 +54,18 @@ public class DepartmentScheduler extends User {
 
         System.out.println("Updating sections for course: " + selectedCourse.getCourseName());
         List<CourseSection> sections = new ArrayList<>();
-
-        // Mevcut bölümleri temizleme
-        System.out.println("Clearing all existing sections...");
         updateCourseSectionsInJson(courseId, new ArrayList<>());
 
-        // Yeni bölümleri ekleme
         for (int i = 0; i < selectedCourse.getWeeklyCourseCount(); i++) {
             System.out.println("Section " + (i + 1) + ":");
-            System.out.println("Select day:");
-            String day = selectOption(DAYS, "Select a day:");
-            System.out.println("Select hour:");
+            String day = selectOptionWithRetry(DAYS, "Select a day:");
             String hour = selectAvailableHour(day, sections, selectedCourse);
             if (hour == null) {
                 System.out.println("No available hours for this day!");
                 return false;
             }
 
-            System.out.println("Select place:");
-            String place = selectAvailablePlace(day, hour);
+            String place = selectAvailablePlaceWithRetry(day, hour);
             if (place == null) {
                 System.out.println("No available classrooms for this time slot!");
                 return false;
@@ -83,57 +73,24 @@ public class DepartmentScheduler extends User {
             sections.add(new CourseSection(day, place, hour));
         }
 
-        // Yeni bölümleri JSON'a yaz ve listeyi güncelle
         updateCourseSectionsInJson(courseId, sections);
-
-        // Tüm kursları JSON'dan tekrar yükle
         this.courses = loadCoursesFromJson();
-
         System.out.println("Sections updated successfully for course " + selectedCourse.getCourseName());
         return true;
     }
 
-
-    public String selectAvailablePlace(String day, String hour) {
-        Set<String> occupiedPlaces = new HashSet<>();
-
-        for (Course course : courses) {
-            for (CourseSection section : course.getCourseSection()) {
-                if (section.getDay().equals(day) && section.getHour().equals(hour)) {
-                    occupiedPlaces.add(section.getPlace());
-                }
-            }
-        }
-
-        List<String> availablePlaces = new ArrayList<>();
-        for (String place : PLACES) {
-            if (!occupiedPlaces.contains(place)) {
-                availablePlaces.add(place);
-            }
-        }
-
-        if (availablePlaces.isEmpty()) {
-            return null;
-        }
-
-        return selectOption(availablePlaces.toArray(new String[0]), "Available places:");
-    }
-
     private String selectAvailableHour(String day, List<CourseSection> currentSections, Course currentCourse) {
-        // Şimdiden seçilmiş saatleri kontrol et
         Set<String> occupiedHours = new HashSet<>();
-        int currentCourseYear = currentCourse.getYear(); // Mevcut dersin sınıf seviyesi
+        int currentCourseYear = currentCourse.getYear();
 
-        // Mevcut seçili bölümleri kontrol et
         for (CourseSection section : currentSections) {
             if (section.getDay().equals(day)) {
                 occupiedHours.add(section.getHour());
             }
         }
 
-        // Diğer kursların bölümlerini kontrol et
         for (Course course : courses) {
-            if (course.getYear() == currentCourseYear) { // Aynı sınıf seviyesindeki dersleri kontrol et
+            if (course.getYear() == currentCourseYear) {
                 for (CourseSection section : course.getCourseSection()) {
                     if (section.getDay().equals(day)) {
                         occupiedHours.add(section.getHour());
@@ -142,7 +99,6 @@ public class DepartmentScheduler extends User {
             }
         }
 
-        // Kullanılabilir saatleri oluştur
         List<String> availableHours = new ArrayList<>();
         for (String hour : HOURS) {
             if (!occupiedHours.contains(hour)) {
@@ -154,29 +110,39 @@ public class DepartmentScheduler extends User {
             return null;
         }
 
-        // Kullanıcıdan seçim yapmasını iste
-        System.out.println("Available hours (no conflict with same year courses):");
-        for (int i = 0; i < availableHours.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, availableHours.get(i));
-        }
-
-        System.out.print("Select an hour: ");
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        return availableHours.get(choice - 1);
+        return selectOptionWithRetry(availableHours.toArray(new String[0]), "Available hours (no conflict with same year courses):");
     }
 
+    private String selectAvailablePlaceWithRetry(String day, String hour) {
+        while (true) {
+            Set<String> occupiedPlaces = new HashSet<>();
+            for (Course course : courses) {
+                for (CourseSection section : course.getCourseSection()) {
+                    if (section.getDay().equals(day) && section.getHour().equals(hour)) {
+                        occupiedPlaces.add(section.getPlace());
+                    }
+                }
+            }
 
-    private Course findCourseById(String courseId) {
-        for (Course course : courses) {
-            if (course.getCourseId().equals(courseId)) {
-                return course;
+            List<String> availablePlaces = new ArrayList<>();
+            for (String place : PLACES) {
+                if (!occupiedPlaces.contains(place)) {
+                    availablePlaces.add(place);
+                }
+            }
+
+            if (availablePlaces.isEmpty()) {
+                return null;
+            }
+
+            String place = selectOptionWithRetry(availablePlaces.toArray(new String[0]), "Available places:");
+            if (place != null) {
+                return place;
             }
         }
-        return null;
     }
 
-    private String selectOption(String[] options, String prompt) {
+    private String selectOptionWithRetry(String[] options, String prompt) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(prompt);
@@ -193,9 +159,18 @@ public class DepartmentScheduler extends User {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Consume the invalid input
+                scanner.next();
             }
         }
+    }
+
+    private Course findCourseById(String courseId) {
+        for (Course course : courses) {
+            if (course.getCourseId().equals(courseId)) {
+                return course;
+            }
+        }
+        return null;
     }
 
     private List<Course> loadCoursesFromJson() {

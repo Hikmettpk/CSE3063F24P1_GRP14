@@ -137,6 +137,18 @@ public class SystemController {
             // -----------------------Advisor menu-----------------------------
             if (role.equals("Advisor")) {
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(null, courses);
+
+                System.out.println("Advised Students for Advisor: " + loggedInAdvisor.getName());
+                for (Student student : loggedInAdvisor.getAdvisedStudents()) {
+                    System.out.println("Student ID: " + student.getStudentID() + " - Name: " + student.getName());
+                    System.out.println("Requested Courses:");
+                    for (Course course : student.getRequestedCourses()) {
+                        System.out.println("  - " + course.getCourseId() + ": " + course.getCourseName());
+                    }
+                }
+
+
+
                 while (true) {
                     System.out.println("1. See requests");
                     System.out.println("2. Approve request");
@@ -160,39 +172,56 @@ public class SystemController {
 
                     switch (choice) {
                         case 1: // See Requests
-                            List<Student> allStudentsWithRequests = new ArrayList<>();
-                            System.out.println("Your advised student list:");
+                            // JSON'dan öğrencileri güncelle
+                            List<Student> updatedStudents = jsonMethods.loadAllStudents();
 
-                            for (Student student : students) {
-                                if (!student.getRequestedCourses().isEmpty()) {
-                                    for (Student advisedStudent : loggedInAdvisor.getAdvisedStudents()) {
-                                        if (student.getStudentID().equals(advisedStudent.getStudentID())) {
-                                            allStudentsWithRequests.add(student);
+                            for (Student updatedStudent : updatedStudents) {
+                                for (Student advisedStudent : loggedInAdvisor.getAdvisedStudents()) {
+                                    if (advisedStudent.getStudentID().equals(updatedStudent.getStudentID())) {
+                                        // Her kurs için mevcut listedeki tekrarları kontrol et
+                                        for (Course updatedCourse : updatedStudent.getRequestedCourses()) {
+                                            boolean exists = false;
+                                            for (Course existingCourse : advisedStudent.getRequestedCourses()) {
+                                                if (existingCourse.getCourseId().equals(updatedCourse.getCourseId())) {
+                                                    exists = true;
+                                                    break;
+                                                }
+                                            }
+                                            // Eğer mevcut değilse ekle
+                                            if (!exists) {
+                                                advisedStudent.getRequestedCourses().add(updatedCourse);
+                                            }
                                         }
                                     }
                                 }
                             }
 
-                            if (allStudentsWithRequests.isEmpty()) {
-                                System.out.println("There are no course requests at the moment.");
-                            } else {
-                                int requestNo = 1;
-                                StringBuilder sb = new StringBuilder();
-                                sb.append(String.format("%-5s %-20s %-20s %-10s %-40s\n", "No", "Student Name", "Surname", "Course ID", "Course Name"));
-                                sb.append("---------------------------------------------------------------------------------------------\n");
+                            // Talepleri tablo olarak göster
+                            System.out.println("Your advised student list:");
+                            boolean hasRequests = false;
 
-                                for (Student student : allStudentsWithRequests) {
-                                    for (Course course : student.getRequestedCourses()) {
-                                        sb.append(String.format("%-5d %-20s %-20s %-10s %-40s\n",
-                                                requestNo, student.getName(), student.getSurname(),
-                                                course.getCourseId(), course.getCourseName()));
-                                        requestNo++;
-                                    }
+                            StringBuilder tableBuilder = new StringBuilder();
+                            tableBuilder.append(String.format("%-5s %-20s %-20s %-10s %-40s\n", "No", "Student Name", "Surname", "Course ID", "Course Name"));
+                            tableBuilder.append("---------------------------------------------------------------------------------------------\n");
+
+                            int requestNo = 1;
+                            for (Student student : loggedInAdvisor.getAdvisedStudents()) {
+                                for (Course course : student.getRequestedCourses()) {
+                                    hasRequests = true;
+                                    tableBuilder.append(String.format("%-5d %-20s %-20s %-10s %-40s\n",
+                                            requestNo++, student.getName(), student.getSurname(),
+                                            course.getCourseId(), course.getCourseName()));
                                 }
+                            }
 
-                                System.out.println(sb.toString());
+                            if (hasRequests) {
+                                System.out.println(tableBuilder.toString());
+                            } else {
+                                System.out.println("There are no course requests at the moment.");
                             }
                             break;
+
+
 
                         case 2: // Approve Request
                             System.out.print("Enter the request number to approve: ");
@@ -203,8 +232,9 @@ public class SystemController {
                             Student selectedStudent = null;
                             Course selectedCourse = null;
 
+                            // Yalnızca advisor'ın öğrencilerinin isteklerini dolaş
                             outerLoop:
-                            for (Student student : students) {
+                            for (Student student : loggedInAdvisor.getAdvisedStudents()) {
                                 for (Course course : student.getRequestedCourses()) {
                                     if (count == approveRequestIndex) {
                                         selectedStudent = student;
@@ -221,6 +251,7 @@ public class SystemController {
                                 System.out.println("Invalid request number.");
                             }
                             break;
+
 
                         case 3: // Reject Request
                             System.out.print("Enter the request number to reject: ");
@@ -330,20 +361,30 @@ public class SystemController {
                             break;
 
                         case 3: // View Enrolled Courses
-                            System.out.println("Enrolled courses:");
-                            List<Course> enrolledCourses = loggedInStudent.getEnrolledCourses();
-                            StringBuilder sb = new StringBuilder();
-                            sb.append(String.format("%-10s %-40s\n", "Course ID", "Course Name"));
-                            sb.append("------------------------------------------------------------\n");
-
-                            for (Course course : enrolledCourses) {
-                                sb.append(String.format("%-10s %-40s\n",
-                                        course.getCourseId(),
-                                        course.getCourseName()));
+                            // JSON dosyasından en güncel öğrenciyi yükle
+                            Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            if (refreshedStudent != null) {
+                                loggedInStudent = refreshedStudent; // Güncel veriyi kullan
                             }
 
-                            System.out.println(sb.toString());
+                            System.out.println("Enrolled courses:");
+                            List<Course> enrolledCourses = loggedInStudent.getEnrolledCourses();
+                            if (enrolledCourses.isEmpty()) {
+                                System.out.println("No enrolled courses.");
+                            } else {
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(String.format("%-10s %-40s\n", "Course ID", "Course Name"));
+                                sb.append("------------------------------------------------------------\n");
+
+                                for (Course course : enrolledCourses) {
+                                    sb.append(String.format("%-10s %-40s\n",
+                                            course.getCourseId(),
+                                            course.getCourseName()));
+                                }
+                                System.out.println(sb.toString());
+                            }
                             break;
+
 
                         case 4: //Display schedule
                             System.out.println("Displaying your schedule...");

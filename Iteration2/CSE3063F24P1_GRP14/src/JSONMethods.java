@@ -56,15 +56,55 @@ public class JSONMethods {
             File studentFile = new File(STUDENT_JSON_PATH + updatedStudent.getStudentID() + ".json");
 
             if (studentFile.exists()) {
-                objectMapper.writerWithDefaultPrettyPrinter().writeValue(studentFile, updatedStudent);
+                // JSON dosyasından mevcut öğrenciyi oku
+                Student existingStudent = objectMapper.readValue(studentFile, Student.class);
+
+                // Enrolled Courses'u güncelle ve Requested Courses'dan kaldır
+                for (Course course : updatedStudent.getEnrolledCourses()) {
+                    boolean existsInEnrolled = false;
+                    for (Course existingCourse : existingStudent.getEnrolledCourses()) {
+                        if (existingCourse.getCourseId().equals(course.getCourseId())) {
+                            existsInEnrolled = true;
+                            break;
+                        }
+                    }
+                    if (!existsInEnrolled) {
+                        existingStudent.getEnrolledCourses().add(course);
+
+                        // Eğer enrolled courses'a eklendiyse requested'dan kaldır
+                        existingStudent.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+                    }
+                }
+
+                // Requested Courses'u güncelle (tekrar kontrol)
+                for (Course course : updatedStudent.getRequestedCourses()) {
+                    boolean existsInRequested = false;
+                    for (Course existingRequest : existingStudent.getRequestedCourses()) {
+                        if (existingRequest.getCourseId().equals(course.getCourseId())) {
+                            existsInRequested = true;
+                            break;
+                        }
+                    }
+                    if (!existsInRequested) {
+                        existingStudent.getRequestedCourses().add(course);
+                    }
+                }
+
+                // Güncellenmiş nesneyi JSON'a yaz
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(studentFile, existingStudent);
                 System.out.println("Student JSON updated successfully!");
             } else {
-                System.err.println("Student JSON file not found for update.");
+                // Eğer JSON dosyası yoksa, yeni dosya oluştur
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(studentFile, updatedStudent);
+                System.out.println("Student JSON created successfully!");
             }
         } catch (IOException e) {
             System.err.println("Error updating student JSON: " + e.getMessage());
         }
     }
+
+
+
 
     // JSON'dan belirli bir kursu yükler
     public Course loadCourseFromJson(String courseId) {

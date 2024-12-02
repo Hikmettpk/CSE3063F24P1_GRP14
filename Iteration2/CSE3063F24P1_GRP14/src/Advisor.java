@@ -66,10 +66,6 @@ class Advisor extends User {
             }
 
             // Enrolled Courses listesinde kursun zaten mevcut olup olmadığını kontrol et
-            if (student.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
-                System.out.println("Course already exists in the enrolled courses.");
-                return;
-            }
 
             // Tüm kursları JSON'dan yükle ve tam kurs bilgilerini bul
             List<Course> allCourses = jsonMethods.loadAllCourses();

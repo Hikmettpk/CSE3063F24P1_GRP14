@@ -68,6 +68,6 @@
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [  ],
+  "enrolledCourses" : [ ],
   "requestedCourses" : [  ]
 }

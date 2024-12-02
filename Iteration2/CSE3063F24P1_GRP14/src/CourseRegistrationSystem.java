@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CourseRegistrationSystem {
@@ -77,69 +78,55 @@ public class CourseRegistrationSystem {
         List<String> failedCourses = new ArrayList<>();
         List<String> passedCourses = new ArrayList<>();
 
-        // Process the transcript to categorize courses
+        // Geçerli notlar
+        List<String> passingGrades = Arrays.asList("AA", "BA", "BB", "CB", "CC");
+
+        // Transcript'teki dersleri kategorize et
         for (Grade grade : student.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
-            // Failed courses
+            // Başarısız dersler
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
                 failedCourses.add(course.getCourseId());
-                availableCourses.add(course);
             }
-            // Courses passed with low grades, potentially retakable
-            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
-                if (!student.getEnrolledCourses().contains(course)) {
-                    availableCourses.add(course);
-                    takenCourses.add(course);
-                }
-            }
-            // Fully passed courses
-            else {
-                takenCourses.add(course);
+            // Başarılı dersler
+            else if (passingGrades.contains(gradeValue)) {
                 passedCourses.add(course.getCourseId());
+            }
+            // Düşük notlar
+            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
+                takenCourses.add(course);
             }
         }
 
-        // Check other courses for availability
+        // Diğer dersleri kontrol et
         for (Course course : courses) {
-            // Exclude courses already taken or in progress
-            if (student.getEnrolledCourses().contains(course) || takenCourses.contains(course) || availableCourses.contains(course)) {
+            // Halihazırda alınan, başarıyla tamamlanan veya requested/enrolled listesinde olan dersleri atla
+            if (passedCourses.contains(course.getCourseId()) ||
+                    takenCourses.contains(course) ||
+                    student.getRequestedCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId())) ||
+                    student.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
                 continue;
             }
 
-            // Check prerequisite status
-            boolean hasPassedPrerequisite = !course.hasPrerequisite();
+            // Prerequisite kontrolü
             if (course.hasPrerequisite()) {
                 String prerequisiteId = course.getPrerequisiteLessonId();
-
-                // Prerequisite failed
-                if (failedCourses.contains(prerequisiteId)) {
-                    hasPassedPrerequisite = false;
-                }
-                // Prerequisite passed
-                else if (passedCourses.contains(prerequisiteId)) {
-                    hasPassedPrerequisite = true;
-                }
-                // Check if prerequisite was taken with low grades
-                else {
-                    for (Course takenCourse : takenCourses) {
-                        if (takenCourse.getCourseId().equals(prerequisiteId)) {
-                            hasPassedPrerequisite = true;
-                            break;
-                        }
-                    }
+                if (!passedCourses.contains(prerequisiteId)) {
+                    continue; // Prerequisite geçilmemiş, eklemeyi atla
                 }
             }
 
-            // Add course if prerequisites are satisfied
-            if (hasPassedPrerequisite) {
-                availableCourses.add(course);
-            }
+            // Tüm kontrolleri geçen dersleri listeye ekle
+            availableCourses.add(course);
         }
 
         return availableCourses;
     }
+
+
+
 
 
 
