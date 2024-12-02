@@ -24,19 +24,6 @@
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [ {
-    "courseId" : "CSE2225",
-    "courseName" : "Data Structures",
-    "credit" : 7,
-    "prerequisite" : false,
-    "prerequisiteLessonId" : "None",
-    "courseSection" : [ ],
-    "weeklyCourseCount" : 3,
-    "year" : 2,
-    "instructor" : "Betül Boz",
-    "enrollmentCapacity" : 5,
-    "currentCapacity" : 0,
-    "status" : "Active"
-  } ],
+  "enrolledCourses" : [  ],
   "requestedCourses" : [ ]
 }

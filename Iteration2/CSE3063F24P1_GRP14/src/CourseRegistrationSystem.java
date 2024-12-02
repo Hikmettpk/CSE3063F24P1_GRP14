@@ -163,8 +163,12 @@ public class CourseRegistrationSystem {
         }
 
         // Kursun kapasitesini kontrol et
-        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
-            System.out.println("This course is full and cannot accept more students.");
+        if (course.getCurrentCapacity() + countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
+            addToWaitList(student, course);
+            jsonMethods.updateCourseInJson(course);
+            jsonMethods.updateStudentInJson(student);
+            System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
+                    + course.getCourseId() + ".");
             return;
         }
 
@@ -177,6 +181,17 @@ public class CourseRegistrationSystem {
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
 
-
+    private void addToWaitList(Student student, Course course){
+        course.getWaitList().add(student.getStudentID());
+    }
+    private int countRequestedStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            if (student.getRequestedCourses().contains(course)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 }

@@ -100,13 +100,37 @@ class Advisor extends User {
 
 
 
-    public void rejectRequestedCourse(Student student, Course course) {
+    public void rejectRequestedCourse(Student student, Course course) throws IOException { //düzenlenecek
+        // Öğrencinin talep ettiği kursu listeden çıkarıyoruz
         if (student.getRequestedCourses().remove(course)) {
+            // Eğer waitList boş değilse, waitList'teki ilk öğrenciye kursu veriyoruz
+            if (!course.getWaitList().get(1).isEmpty()) { //?
+                // waitList'teki ilk öğrencinin ID'sini alıyoruz
+                //1 olmasının sebebi 0. index boş "".
+                String firstStudentId = course.getWaitList().get(0);
+
+                // Öğrenciyi ID ile JSON'dan yüklüyoruz
+                Student waitListStudent = jsonMethods.loadStudent(firstStudentId);
+                if (waitListStudent != null) {
+                    // waitList'teki öğrenciye course'u ekliyoruz
+                    waitListStudent.getRequestedCourses().add(course);
+
+                    // Öğrenci nesnesini güncelliyoruz
+                    jsonMethods.updateStudentInJson(waitListStudent);
+
+                    // waitList'ten ilk öğrenciyi çıkarıyoruz
+                    course.getWaitList().remove(0);
+
+                    // Güncellenen kursu JSON'a yazıyoruz
+                    jsonMethods.updateCourseInJson(course);
+                }
+            }
             System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
         } else {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
         }
     }
+
 
 
 

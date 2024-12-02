@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DepartmentScheduler extends User {
@@ -206,7 +207,8 @@ public class DepartmentScheduler extends User {
                             course.getInstructor(),
                             course.getEnrollmentCapacity(),
                             course.getCurrentCapacity(),
-                            course.getStatus()
+                            course.getStatus(),
+                            course.getWaitList()
                     ));
                 } else {
                     updatedCourses.add(course);
