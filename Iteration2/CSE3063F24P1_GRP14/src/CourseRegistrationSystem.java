@@ -126,11 +126,6 @@ public class CourseRegistrationSystem {
     }
 
 
-
-
-
-
-
     public String availableCoursesToString(List<Course> availableCourses) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%-10s %-40s\n", "Course ID", "Course Name"));
@@ -146,25 +141,61 @@ public class CourseRegistrationSystem {
     }
 
 
-
-
-
-    public void requestInCourse(Course course, Student student) {
-        // Öğrencinin kayıtlı kurslarını kontrol et
-        if (student.getEnrolledCourses().contains(course)) {
-            System.out.println("You are already enrolled in this course.");
-            return;
+    // Method to check for schedule conflicts
+    public boolean checkScheduleConflict(Course newCourse, Student student) throws IOException {
+        // Öğrencinin kayıtlı olduğu derslerin zamanlarını kontrol et
+        for (Course enrolledCourse : student.getEnrolledCourses()) {
+            if (isScheduleConflict(enrolledCourse, newCourse)) {
+                System.out.println("Schedule conflict with an enrolled course: " + enrolledCourse.getCourseName());
+                return true; // Çakışma bulundu
+            }
         }
 
-        // Öğrencinin daha önce talep ettiği kursları kontrol et
-        if (student.getRequestedCourses().contains(course)) {
-            System.out.println("You have already requested this course.");
-            return;
+        // Öğrencinin talep ettiği derslerin zamanlarını kontrol et
+        for (Course requestedCourse : student.getRequestedCourses()) {
+            if (isScheduleConflict(requestedCourse, newCourse)) {
+                System.out.println("Schedule conflict with a requested course: " + requestedCourse.getCourseName());
+                System.out.println("Please choose one course to keep:");
+                System.out.println("1. " + requestedCourse.getCourseName());
+                System.out.println("2. " + newCourse.getCourseName());
+
+                // Kullanıcıdan seçim al
+                int choice = getUserChoice();
+                if (choice == 1) {
+                    System.out.println("Keeping " + requestedCourse.getCourseName() + " and rejecting " + newCourse.getCourseName());
+                    return true; // Çakışma olduğu için yeni ders eklenmedi
+                } else if (choice == 2) {
+                    // Eski dersi kaldır
+                    student.getRequestedCourses().remove(requestedCourse);
+                    jsonMethods.saveStudentToFile(student);
+                    System.out.println("Removed " + requestedCourse.getCourseName() + " and added " + newCourse.getCourseName());
+                    return false; // Yeni ders eklenebilir
+                } else {
+                    System.out.println("Invalid choice. No action taken.");
+                    return true; // Hatalı seçim yapıldı
+                }
+            }
         }
 
-        // Kursun kapasitesini kontrol et
+        return false; // Çakışma yok
+    }
+
+    // Method to handle the logic of requesting a course
+    public void requestInCourse(Course course, Student student) throws IOException {
+        // Çakışma kontrolü
+        if (checkScheduleConflict(course, student)) {
+            return; // Çakışma varsa işlem sonlanır
+        }
+
+        // Kapasite kontrolü
         if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
             System.out.println("This course is full and cannot accept more students.");
+            return;
+        }
+
+        // Talep edilmiş mi kontrolü
+        if (student.getRequestedCourses().contains(course)) {
+            System.out.println("You have already requested this course.");
             return;
         }
 
@@ -175,6 +206,27 @@ public class CourseRegistrationSystem {
         jsonMethods.updateStudentInJson(student);
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
+    }
+
+    // Utility method to check schedule conflict between two courses
+    private boolean isScheduleConflict(Course course1, Course course2) {
+        for (CourseSection section1 : course1.getCourseSection()) {
+            for (CourseSection section2 : course2.getCourseSection()) {
+                if (section1.getDay().equals(section2.getDay()) &&
+                        section1.getHour().equals(section2.getHour())) {
+                    return true; // Zamanlama çakışması
+                }
+            }
+        }
+        return false; // Çakışma yok
+    }
+
+    // Utility method to get user's choice
+    private int getUserChoice() {
+        // Kullanıcıdan giriş al (sadece simülasyon için)
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        System.out.print("Enter your choice (1 or 2): ");
+        return scanner.nextInt();
     }
 
 
