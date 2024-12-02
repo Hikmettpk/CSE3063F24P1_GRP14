@@ -12,11 +12,7 @@
         "credit" : 7,
         "prerequisite" : false,
         "prerequisiteLessonId" : "None",
-        "courseSection" : [ {
-          "day" : "Monday",
-          "place" : "M1-Z06",
-          "hour" : "13:00-14:50"
-        } ],
+        "courseSection" : [ ],
         "weeklyCourseCount" : 0,
         "year" : 0,
         "instructor" : null,
@@ -32,11 +28,7 @@
         "credit" : 6,
         "prerequisite" : false,
         "prerequisiteLessonId" : "None",
-        "courseSection" : [ {
-          "day" : "Tuesday",
-          "place" : "M1-Z01",
-          "hour" : "13:00-14:50"
-        } ],
+        "courseSection" : [ ],
         "weeklyCourseCount" : 0,
         "year" : 0,
         "instructor" : null,
@@ -52,11 +44,7 @@
         "credit" : 5,
         "prerequisite" : false,
         "prerequisiteLessonId" : "None",
-        "courseSection" : [ {
-          "day" : "Wednesday",
-          "place" : "M1-Z01",
-          "hour" : "10:00-11:50"
-        } ],
+        "courseSection" : [ ],
         "weeklyCourseCount" : 0,
         "year" : 0,
         "instructor" : null,
@@ -69,27 +57,27 @@
   },
   "advisor" : null,
   "enrolledCourses" : [ {
-    "courseId" : "IE3081",
-    "courseName" : "Modeling and Simulation",
-    "credit" : 4,
-    "prerequisite" : true,
-    "prerequisiteLessonId" : "STAT2253",
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
     "courseSection" : [ {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
       "hour" : "9:30-10:20"
     }, {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
+      "day" : "Monday",
+      "place" : "M1-Z01",
       "hour" : "10:30-11:20"
-    }, {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
-      "hour" : "11:30-12:20"
     } ],
     "weeklyCourseCount" : 3,
-    "year" : 3,
-    "instructor" : "Sanem Arslan",
+    "year" : 2,
+    "instructor" : "Betül Boz",
     "enrollmentCapacity" : 5,
     "currentCapacity" : 0,
     "status" : "Active"
@@ -100,17 +88,42 @@
     "prerequisite" : false,
     "prerequisiteLessonId" : "None",
     "courseSection" : [ {
-      "day" : "Wednesday",
-      "place" : "M2-Z11",
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
       "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
     }, {
-      "day" : "Wednesday",
-      "place" : "M2-Z11",
-      "hour" : "11:30-12:20"
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
     }, {
-      "day" : "Wednesday",
-      "place" : "M1-110",
-      "hour" : "13:00-13:50"
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
     } ],
     "weeklyCourseCount" : 3,
     "year" : 2,
@@ -124,6 +137,19 @@
     "credit" : 5,
     "prerequisite" : false,
     "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
     "courseSection" : [ {
       "day" : "Monday",
       "place" : "M1-Z01",
@@ -132,13 +158,282 @@
       "day" : "Monday",
       "place" : "M1-Z01",
       "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
     } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
     "weeklyCourseCount" : 2,
     "year" : 3,
     "instructor" : "Borahan Tümer",
     "enrollmentCapacity" : 5,
     "currentCapacity" : 0,
     "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
   } ],
-  "requestedCourses" : [ ]
+  "requestedCourses" : [ {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  }, {
+    "courseId" : "CSE2225",
+    "courseName" : "Data Structures",
+    "credit" : 7,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "8:30-9:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "9:30-10:20"
+    }, {
+      "day" : "Monday",
+      "place" : "M1-Z01",
+      "hour" : "10:30-11:20"
+    } ],
+    "weeklyCourseCount" : 3,
+    "year" : 2,
+    "instructor" : "Betül Boz",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active"
+  } ]
 }

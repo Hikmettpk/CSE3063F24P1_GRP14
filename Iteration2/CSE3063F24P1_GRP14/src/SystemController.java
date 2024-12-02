@@ -216,7 +216,7 @@ public class SystemController {
                             }
 
                             if (selectedStudent != null && selectedCourse != null) {
-                                loggedInAdvisor.approveRequestedCourse(crs, selectedStudent, selectedCourse);
+                                loggedInAdvisor.approveRequestedCourse(selectedStudent, selectedCourse);
                             } else {
                                 System.out.println("Invalid request number.");
                             }

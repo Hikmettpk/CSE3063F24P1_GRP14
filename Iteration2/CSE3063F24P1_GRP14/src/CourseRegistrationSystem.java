@@ -75,36 +75,54 @@ public class CourseRegistrationSystem {
         List<Course> availableCourses = new ArrayList<>();
         List<Course> takenCourses = new ArrayList<>();
         List<String> failedCourses = new ArrayList<>();
+        List<String> passedCourses = new ArrayList<>();
 
-        // Transcript üzerinden alınan dersler ve başarısız dersleri kontrol et
+        // Process the transcript to categorize courses
         for (Grade grade : student.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
+            // Failed courses
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
                 failedCourses.add(course.getCourseId());
                 availableCourses.add(course);
-            } else {
+            }
+            // Courses passed with low grades, potentially retakable
+            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
+                if (!student.getEnrolledCourses().contains(course)) {
+                    availableCourses.add(course);
+                    takenCourses.add(course);
+                }
+            }
+            // Fully passed courses
+            else {
                 takenCourses.add(course);
+                passedCourses.add(course.getCourseId());
             }
         }
 
-        // Tüm kurslar üzerinden döngü
+        // Check other courses for availability
         for (Course course : courses) {
-            // Eğer öğrenci kursa kayıtlıysa veya talep etmişse, atla
-            if (student.getEnrolledCourses().contains(course) ||
-                    student.getRequestedCourses().contains(course) ||
-                    takenCourses.contains(course)) {
+            // Exclude courses already taken or in progress
+            if (student.getEnrolledCourses().contains(course) || takenCourses.contains(course) || availableCourses.contains(course)) {
                 continue;
             }
 
-            // Dersin ön koşulunun sağlanıp sağlanmadığını kontrol et
+            // Check prerequisite status
             boolean hasPassedPrerequisite = !course.hasPrerequisite();
             if (course.hasPrerequisite()) {
                 String prerequisiteId = course.getPrerequisiteLessonId();
+
+                // Prerequisite failed
                 if (failedCourses.contains(prerequisiteId)) {
                     hasPassedPrerequisite = false;
-                } else {
+                }
+                // Prerequisite passed
+                else if (passedCourses.contains(prerequisiteId)) {
+                    hasPassedPrerequisite = true;
+                }
+                // Check if prerequisite was taken with low grades
+                else {
                     for (Course takenCourse : takenCourses) {
                         if (takenCourse.getCourseId().equals(prerequisiteId)) {
                             hasPassedPrerequisite = true;
@@ -114,7 +132,7 @@ public class CourseRegistrationSystem {
                 }
             }
 
-            // Ön koşullar sağlanıyorsa listeye ekle
+            // Add course if prerequisites are satisfied
             if (hasPassedPrerequisite) {
                 availableCourses.add(course);
             }

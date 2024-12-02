@@ -55,21 +55,23 @@ class Advisor extends User {
     }
 
 
-    public void approveRequestedCourse(CourseRegistrationSystem crs, Student student, Course course) {
-        if (!student.getRequestedCourses().contains(course)) {
-            System.out.println("Course not requested by the student.");
-            return;
-        }
-
+    public void approveRequestedCourse(Student student, Course course) {
         try {
-            // Öğrenci JSON'dan yükleniyor
-            Student updatedStudent = jsonMethods.loadStudent(student.getStudentID());
-            if (updatedStudent == null) {
-                System.err.println("Failed to load student data from JSON.");
+            // Requested Courses listesinden kursu kaldır
+            boolean removed = student.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+
+            if (!removed) {
+                System.out.println("The course was not found in the requested list.");
                 return;
             }
 
-            // Ders JSON'dan yükleniyor
+            // Enrolled Courses listesinde kursun zaten mevcut olup olmadığını kontrol et
+            if (student.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
+                System.out.println("Course already exists in the enrolled courses.");
+                return;
+            }
+
+            // Tüm kursları JSON'dan yükle ve tam kurs bilgilerini bul
             List<Course> allCourses = jsonMethods.loadAllCourses();
             Course fullCourse = allCourses.stream()
                     .filter(c -> c.getCourseId().equals(course.getCourseId()))
@@ -77,33 +79,29 @@ class Advisor extends User {
                     .orElse(null);
 
             if (fullCourse == null) {
-                System.err.println("Failed to load course data from JSON.");
+                System.err.println("Full course data could not be found.");
                 return;
-
             }
 
-            // Enrolled Courses'a kurs ekleniyor (section bilgileri dahil)
-            updatedStudent.getEnrolledCourses().add(fullCourse);
+            // Enrolled Courses listesine tam kurs bilgilerini ekle
+            student.getEnrolledCourses().add(fullCourse);
 
-            // Requested Courses listesinden kurs kaldırılıyor
-            updatedStudent.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+            // Öğrenci bilgilerini JSON dosyasına güncelle
+            jsonMethods.updateStudentInJson(student);
 
-            // Öğrenci JSON'u güncelleniyor
-            jsonMethods.updateStudentInJson(updatedStudent);
-
-            // Console çıktısı
-            System.out.println("Course '" + fullCourse.getCourseName() + "' approved successfully for " + updatedStudent.getName());
-
-            // Öğrenci nesnesini güncel tut
-            student.getEnrolledCourses().clear();
-            student.getEnrolledCourses().addAll(updatedStudent.getEnrolledCourses());
-            student.getRequestedCourses().clear();
-            student.getRequestedCourses().addAll(updatedStudent.getRequestedCourses());
-
-        } catch (IOException e) {
-            System.err.println("Error during course approval: " + e.getMessage());
+            System.out.println("Course approved successfully for " + student.getName());
+        } catch (Exception e) {
+            System.err.println("Error approving the course: " + e.getMessage());
         }
     }
+
+
+
+
+
+
+
+
 
 
     public void rejectRequestedCourse(Student student, Course course) {

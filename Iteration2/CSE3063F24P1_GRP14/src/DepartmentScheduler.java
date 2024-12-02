@@ -68,7 +68,7 @@ public class DepartmentScheduler extends User {
             System.out.println("Select day:");
             String day = selectOption(DAYS, "Select a day:");
             System.out.println("Select hour:");
-            String hour = selectAvailableHour(day, sections, selectedCourse); // Aynı sınıf kontrolü ekleniyor
+            String hour = selectAvailableHour(day, sections, selectedCourse);
             if (hour == null) {
                 System.out.println("No available hours for this day!");
                 return false;
@@ -85,10 +85,14 @@ public class DepartmentScheduler extends User {
 
         // Yeni bölümleri JSON'a yaz ve listeyi güncelle
         updateCourseSectionsInJson(courseId, sections);
-        this.courses = loadCoursesFromJson(); // JSON dosyasını yeniden yükle
+
+        // Tüm kursları JSON'dan tekrar yükle
+        this.courses = loadCoursesFromJson();
+
         System.out.println("Sections updated successfully for course " + selectedCourse.getCourseName());
         return true;
     }
+
 
     public String selectAvailablePlace(String day, String hour) {
         Set<String> occupiedPlaces = new HashSet<>();

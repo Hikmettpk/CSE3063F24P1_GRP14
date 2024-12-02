@@ -93,24 +93,27 @@ class Student extends User{
 
 
     public void displaySchedule(Student student) {
-        if (student == null || student.getEnrolledCourses() == null || student.getEnrolledCourses().isEmpty()) {
+        // Öğrenci bilgilerini güncel JSON'dan yükle
+        student = new JSONMethods().loadStudent(student.getStudentID());
+
+        if (student.getEnrolledCourses() == null || student.getEnrolledCourses().isEmpty()) {
             System.out.println("No enrolled courses to display.");
             return;
         }
 
-        // Ders programı matrisini oluştur
-        String[][] schedule = new String[10][5];
+        // Ders programı için matris oluştur
+        String[][] schedule = new String[10][5]; // 10 saatlik dilim, 5 gün
 
-        // Tüm hücreleri boş karakterlerle doldur
+        // Tüm hücreleri boş bırak
         for (int i = 0; i < schedule.length; i++) {
             for (int j = 0; j < schedule[i].length; j++) {
-                schedule[i][j] = "               "; // Geniş hücreler için sabit boşluk
+                schedule[i][j] = "               "; // Boş hücre için sabit genişlik
             }
         }
 
-        // Derslerin gün ve saatlerini tabloya yerleştir
+        // Derslerin gün ve saat bilgilerini tabloya yerleştir
         for (Course course : student.getEnrolledCourses()) {
-            if (course.getCourseSection() != null) { // Eğer section bilgisi varsa
+            if (course.getCourseSection() != null) {
                 for (CourseSection section : course.getCourseSection()) {
                     int dayIndex = getDayIndex(section.getDay());
                     int hourIndex = getHourIndex(section.getHour());
@@ -137,58 +140,36 @@ class Student extends User{
         }
     }
 
-
-
-// Gün ve saat indekslerini dönüştürme yardımcı metotları...
-
-
-    // Gün adını dizi indeksine çevirir
+    // Gün indeks dönüşümü
     private int getDayIndex(String day) {
         switch (day) {
-            case "Monday":
-                return 0;
-            case "Tuesday":
-                return 1;
-            case "Wednesday":
-                return 2;
-            case "Thursday":
-                return 3;
-            case "Friday":
-                return 4;
-            default:
-                return -1;
+            case "Monday": return 0;
+            case "Tuesday": return 1;
+            case "Wednesday": return 2;
+            case "Thursday": return 3;
+            case "Friday": return 4;
+            default: return -1;
         }
     }
 
-    // Saat aralığını dizi indeksine çevirir
+    // Saat indeks dönüşümü
     private int getHourIndex(String hour) {
         switch (hour) {
-            case "8:30-9:20":
-                return 0;
-            case "9:30-10:20":
-                return 1;
-            case "10:30-11:20":
-                return 2;
-            case "11:30-12:20":
-                return 3;
-            case "13:00-13:50":
-                return 4;
-            case "14:00-14:50":
-                return 5;
-            case "15:00-15:50":
-                return 6;
-            case "16:00-16:50":
-                return 7;
-            case "17:00-17:50":
-                return 8;
-            case "18:00-18:50":
-                return 9;
-            default:
-                return -1;
+            case "8:30-9:20": return 0;
+            case "9:30-10:20": return 1;
+            case "10:30-11:20": return 2;
+            case "11:30-12:20": return 3;
+            case "13:00-13:50": return 4;
+            case "14:00-14:50": return 5;
+            case "15:00-15:50": return 6;
+            case "16:00-16:50": return 7;
+            case "17:00-17:50": return 8;
+            case "18:00-18:50": return 9;
+            default: return -1;
         }
     }
 
-    // Saat aralığını etiket olarak döndürür
+    // Saat etiketi dönüşümü
     private String getHourLabel(int index) {
         String[] hourLabels = {
                 "8:30-9:20 ", "9:30-10:20 ", "10:30-11:20 ", "11:30-12:20 ",
@@ -197,8 +178,5 @@ class Student extends User{
         };
         return hourLabels[index];
     }
-
-
-
 
 }
