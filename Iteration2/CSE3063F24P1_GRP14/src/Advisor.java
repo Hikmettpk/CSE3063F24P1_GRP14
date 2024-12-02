@@ -91,15 +91,6 @@ class Advisor extends User {
         }
     }
 
-
-
-
-
-
-
-
-
-
     public void rejectRequestedCourse(Student student, Course course) {
         if (student.getRequestedCourses().remove(course)) {
             System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
@@ -107,8 +98,6 @@ class Advisor extends User {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
         }
     }
-
-
 
     // toString() method
     @Override

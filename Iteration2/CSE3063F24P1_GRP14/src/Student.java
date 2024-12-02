@@ -73,10 +73,8 @@ class Student extends User{
         return transcript;
     }
 
-
-
+    
     //listAvailableCourses metodu yazılacak
-
     // toString() method
     @Override
     public String toString() {

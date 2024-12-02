@@ -298,10 +298,11 @@ public class SystemController {
             // -----------------------Student menu-----------------------------
             if (role.equals("Student")) {
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
+
                 while (true) {
                     System.out.println("1. View Transcript");
-                    System.out.println("2. Request course");
-                    System.out.println("3. Enrolled Courses");
+                    System.out.println("2. Request Course");
+                    System.out.println("3. View Enrolled Courses");
                     System.out.println("4. Display Schedule");
                     System.out.println("5. Logout");
                     System.out.print("Please choose an operation (or 'q' to go back): ");
@@ -322,13 +323,20 @@ public class SystemController {
 
                     switch (choice) {
                         case 1: // View Transcript
-                            System.out.println("Showing transcript...");
+                            System.out.println("Your transcript:");
                             System.out.println(loggedInStudent.getTranscript().toString());
                             break;
 
                         case 2: // Request Course
-                            System.out.println("Requesting course...");
-                            System.out.println(crs.availableCoursesToString(crs.listAvailableCourses()));
+                            List<Course> availableCourses = crs.listAvailableCourses();
+
+                            if (availableCourses.isEmpty()) {
+                                System.out.println("No courses are available to request.");
+                                break;
+                            }
+
+                            System.out.println("Available courses:");
+                            System.out.println(crs.availableCoursesToString(availableCourses));
 
                             String courseCode;
                             Course selectedCourse = null;
@@ -342,7 +350,7 @@ public class SystemController {
                                     break;
                                 }
 
-                                for (Course course : crs.listAvailableCourses()) {
+                                for (Course course : availableCourses) {
                                     if (course.getCourseId().equals(courseCode)) {
                                         selectedCourse = course;
                                         validCourseCode = true;
@@ -356,7 +364,11 @@ public class SystemController {
                             }
 
                             if (selectedCourse != null) {
-                                crs.requestInCourse(selectedCourse, loggedInStudent);
+                                try {
+                                    crs.requestInCourse(selectedCourse, loggedInStudent);
+                                } catch (IOException e) {
+                                    System.out.println("Error occurred while requesting the course: " + e.getMessage());
+                                }
                             }
                             break;
 
@@ -386,12 +398,13 @@ public class SystemController {
                             break;
 
 
-                        case 4: //Display schedule
-                            System.out.println("Displaying your schedule...");
-                            loggedInStudent.displaySchedule(loggedInStudent);
 
+                        case 4: // Display Schedule
+                            System.out.println("Your schedule:");
+                            loggedInStudent.displaySchedule(loggedInStudent);
                             break;
-                        case 5:
+
+                        case 5: // Logout
                             System.out.println("Logging out...");
                             isLoggedIn = false;
                             break;
@@ -403,6 +416,7 @@ public class SystemController {
                     if (!isLoggedIn) break;
                 }
             }
+
         }
     }
 }
