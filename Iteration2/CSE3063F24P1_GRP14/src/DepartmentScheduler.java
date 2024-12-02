@@ -227,7 +227,8 @@ public class DepartmentScheduler extends User {
                             course.getInstructor(),
                             course.getEnrollmentCapacity(),
                             course.getCurrentCapacity(),
-                            course.getStatus()
+                            course.getStatus(),
+                            course.getWaitList()
                     ));
                 } else {
                     updatedCourses.add(course);

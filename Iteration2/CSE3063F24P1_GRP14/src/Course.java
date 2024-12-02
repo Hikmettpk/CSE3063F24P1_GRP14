@@ -1,3 +1,4 @@
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -41,12 +42,16 @@ class Course {
     @JsonProperty("status")
     private String status;
 
+    @JsonProperty("waitList")
+    private List<String> waitList;
+
     public Course() {
 
     }
     // Constructor
     public Course(String courseId, String courseName, int credit, boolean prerequisite, String prerequisiteLessonId,
-                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status) {
+                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status,
+                  List<String> waitList) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.credit = credit;
@@ -59,6 +64,7 @@ class Course {
         this.enrollmentCapacity = enrollmentCapacity;
         this.currentCapacity = currentCapacity;
         this.status = status;
+        this.waitList = waitList != null ? waitList : new ArrayList<>();
     }
 
     // Getters
@@ -108,6 +114,22 @@ class Course {
         return status;
     }
 
+    public List<String> getWaitList(){return waitList;}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Course course = (Course) obj;
+        return courseId.equals(course.courseId); // Kursu `courseId` ile karşılaştırıyoruz
+    }
+
+    @Override
+    public int hashCode() {
+        return courseId.hashCode(); // `courseId`'yi hash değeri olarak kullanıyoruz
+    }
+
+
     // toString method for printing
     @Override
     public String toString() {
@@ -123,6 +145,7 @@ class Course {
                 ", instructor='" + instructor + '\'' +
                 ", enrollmentCapacity=" + enrollmentCapacity +
                 ", status='" + status + '\'' +
+                ", waitList=" + waitList +
            '}';
 }
 

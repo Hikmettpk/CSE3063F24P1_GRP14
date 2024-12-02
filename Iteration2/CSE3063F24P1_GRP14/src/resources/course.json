@@ -22,7 +22,8 @@
   "instructor" : "Betül Boz",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "CSE2246",
   "courseName" : "Analysis of Algorithms",
@@ -35,7 +36,8 @@
   "instructor" : "Sanem Arslan",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "STAT2253",
   "courseName" : "Probability and Statistics",
@@ -48,7 +50,8 @@
   "instructor" : "Borahan Tümer",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "CSE3055",
   "courseName" : "Database Systems",
@@ -61,7 +64,8 @@
   "instructor" : "Betül Boz",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "CSE3055",
   "courseName" : "Operating Systems",
@@ -74,7 +78,8 @@
   "instructor" : "Betül Boz",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "CSE3063",
   "courseName" : "Object-Oriented Software Design",
@@ -86,8 +91,9 @@
   "year" : 3,
   "instructor" : "Borahan Tümer",
   "enrollmentCapacity" : 5,
-  "currentCapacity" : 0,
-  "status" : "Active"
+  "currentCapacity" : 1,
+  "status" : "Active",
+  "waitList" : [ "" ]
 }, {
   "courseId" : "IE3081",
   "courseName" : "Modeling and Simulation",
@@ -100,5 +106,6 @@
   "instructor" : "Sanem Arslan",
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
-  "status" : "Active"
+  "status" : "Active",
+  "waitList" : [ "" ]
 } ]

@@ -62,43 +62,63 @@ class Advisor extends User {
         }
 
         try {
-            // Öğrenci JSON'dan yükleniyor
+            // JSON'dan öğrenci ve kurs yükleme
             Student updatedStudent = jsonMethods.loadStudent(student.getStudentID());
-            if (updatedStudent == null) {
-                System.err.println("Failed to load student data from JSON.");
+            Course updatedCourse = jsonMethods.loadCourseFromJson(course.getCourseId());
+
+            if (updatedStudent == null || updatedCourse == null) {
+                System.err.println("Failed to load student or course data from JSON.");
                 return;
             }
 
-            // Ders JSON'dan yükleniyor
-            List<Course> allCourses = jsonMethods.loadAllCourses();
-            Course fullCourse = allCourses.stream()
-                    .filter(c -> c.getCourseId().equals(course.getCourseId()))
-                    .findFirst()
-                    .orElse(null);
+            // Yeni Course nesnesi (kapasite artırımı dahil)
+            Course newCourse = new Course(
+                    updatedCourse.getCourseId(),
+                    updatedCourse.getCourseName(),
+                    updatedCourse.getCredit(),
+                    updatedCourse.hasPrerequisite(),
+                    updatedCourse.getPrerequisiteLessonId(),
+                    updatedCourse.getCourseSection(),
+                    updatedCourse.getWeeklyCourseCount(),
+                    updatedCourse.getYear(),
+                    updatedCourse.getInstructor(),
+                    updatedCourse.getEnrollmentCapacity(),
+                    updatedCourse.getCurrentCapacity() + 1, // Kapasite artırılıyor
+                    updatedCourse.getStatus(),
+                    updatedCourse.getWaitList()
+            );
 
-            if (fullCourse == null) {
-                System.err.println("Failed to load course data from JSON.");
-                return;
+            // Yeni Student nesnesi oluşturma
+            Student newStudent = new Student(
+                    updatedStudent.getUsername(),
+                    updatedStudent.getName(),
+                    updatedStudent.getSurname(),
+                    updatedStudent.getPassword(),
+                    updatedStudent.getStudentID(),
+                    updatedStudent.getTranscript(),
+                    updatedStudent.getAdvisor()
+            );
 
-            }
+            // Yeni öğrencinin enrolled ve requested kurs listelerini doldurma
+            newStudent.getEnrolledCourses().addAll(updatedStudent.getEnrolledCourses());
+            newStudent.getEnrolledCourses().add(newCourse);
 
-            // Enrolled Courses'a kurs ekleniyor (section bilgileri dahil)
-            updatedStudent.getEnrolledCourses().add(fullCourse);
+            newStudent.getRequestedCourses().addAll(updatedStudent.getRequestedCourses());
 
-            // Requested Courses listesinden kurs kaldırılıyor
-            updatedStudent.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+            // RequestedCourses'dan kursu doğru şekilde kaldır
+            crs.removeCourseFromRequestList(newStudent, course);
 
-            // Öğrenci JSON'u güncelleniyor
-            jsonMethods.updateStudentInJson(updatedStudent);
+            // JSON dosyalarını güncelle
+            jsonMethods.updateCourseInJson(newCourse);
+            jsonMethods.updateStudentInJson(newStudent);
 
-            // Console çıktısı
-            System.out.println("Course '" + fullCourse.getCourseName() + "' approved successfully for " + updatedStudent.getName());
-
-            // Öğrenci nesnesini güncel tut
+            // Bellekteki öğrenci nesnesini güncel tut
             student.getEnrolledCourses().clear();
-            student.getEnrolledCourses().addAll(updatedStudent.getEnrolledCourses());
+            student.getEnrolledCourses().addAll(newStudent.getEnrolledCourses());
             student.getRequestedCourses().clear();
-            student.getRequestedCourses().addAll(updatedStudent.getRequestedCourses());
+            student.getRequestedCourses().addAll(newStudent.getRequestedCourses());
+
+            System.out.println("Course '" + newCourse.getCourseName() + "' approved successfully for " + updatedStudent.getName());
 
         } catch (IOException e) {
             System.err.println("Error during course approval: " + e.getMessage());
@@ -106,13 +126,40 @@ class Advisor extends User {
     }
 
 
-    public void rejectRequestedCourse(Student student, Course course) {
+
+
+
+    public void rejectRequestedCourse(Student student, Course course) throws IOException {
+        // Öğrencinin talep ettiği kursu listeden çıkarıyoruz
         if (student.getRequestedCourses().remove(course)) {
+            // Eğer waitList boş değilse, waitList'teki ilk öğrenciye kursu veriyoruz
+            if (!course.getWaitList().get(1).isEmpty()) { //?
+                // waitList'teki ilk öğrencinin ID'sini alıyoruz
+                //1 olmasının sebebi 0. index boş "".
+                String firstStudentId = course.getWaitList().get(1);
+
+                // Öğrenciyi ID ile JSON'dan yüklüyoruz
+                Student waitListStudent = jsonMethods.loadStudent(firstStudentId);
+                if (waitListStudent != null) {
+                    // waitList'teki öğrenciye course'u ekliyoruz
+                    waitListStudent.getRequestedCourses().add(course);
+
+                    // Öğrenci nesnesini güncelliyoruz
+                    jsonMethods.updateStudentInJson(waitListStudent);
+
+                    // waitList'ten ilk öğrenciyi çıkarıyoruz
+                    course.getWaitList().remove(1);
+
+                    // Güncellenen kursu JSON'a yazıyoruz
+                    jsonMethods.updateCourseInJson(course);
+                }
+            }
             System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
         } else {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
         }
     }
+
 
 
 

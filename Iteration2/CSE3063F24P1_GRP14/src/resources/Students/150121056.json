@@ -1,65 +1,104 @@
 {
-  "username": "o150121056",
-  "name": "Esra",
-  "surname": "Uğurbaş",
-  "password": "mar21056",
-  "studentID": "150121056",
-  "enrolledCourses": [],
-  "advisor": null,
-  "requestedCourses": [],
-  "transcript": {
-    "grades": [
-      {
-        "course": {
-          "courseId": "CSE2225",
-          "courseName": "Data Structures",
-          "credit": 7,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": [
-            {
-              "place": "M1-Z06",
-              "day": "Monday",
-              "hour": "13:00-14:50"
-            }
-          ]
-        },
-        "gradeValue": "AA"
+  "username" : "o150121056",
+  "name" : "Esra",
+  "surname" : "Uğurbaş",
+  "password" : "mar21056",
+  "studentID" : "150121056",
+  "transcript" : {
+    "grades" : [ {
+      "course" : {
+        "courseId" : "CSE2225",
+        "courseName" : "Data Structures",
+        "credit" : 7,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Monday",
+          "place" : "M1-Z06",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null,
+        "waitList" : null
       },
-      {
-        "course": {
-          "courseId": "CSE2246",
-          "courseName": "Analysis of Algorithms",
-          "credit": 6,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": [
-            {
-              "place": "M1-Z01",
-              "day": "Tuesday",
-              "hour": "13:00-14:50"
-            }
-          ]
-        },
-        "gradeValue": "BA"
+      "gradeValue" : "AA"
+    }, {
+      "course" : {
+        "courseId" : "CSE2246",
+        "courseName" : "Analysis of Algorithms",
+        "credit" : 6,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Tuesday",
+          "place" : "M1-Z01",
+          "hour" : "13:00-14:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null,
+        "waitList" : null
       },
-      {
-        "course": {
-          "courseId": "STAT2253",
-          "courseName": "Probability and Statistics",
-          "credit": 5,
-          "prerequisite": false,
-          "prerequisiteLessonId": "None",
-          "courseSection": [
-            {
-              "place": "M1-Z01",
-              "day": "Wednesday",
-              "hour": "10:00-11:50"
-            }
-          ]
-        },
-        "gradeValue": "CB"
-      }
-    ]
-  }
+      "gradeValue" : "BA"
+    }, {
+      "course" : {
+        "courseId" : "STAT2253",
+        "courseName" : "Probability and Statistics",
+        "credit" : 5,
+        "prerequisite" : false,
+        "prerequisiteLessonId" : "None",
+        "courseSection" : [ {
+          "day" : "Wednesday",
+          "place" : "M1-Z01",
+          "hour" : "10:00-11:50"
+        } ],
+        "weeklyCourseCount" : 0,
+        "year" : 0,
+        "instructor" : null,
+        "enrollmentCapacity" : 0,
+        "currentCapacity" : 0,
+        "status" : null,
+        "waitList" : null
+      },
+      "gradeValue" : "CB"
+    } ]
+  },
+  "advisor" : null,
+  "enrolledCourses" : [ {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 1,
+    "status" : "Active",
+    "waitList" : [ "" ]
+  } ],
+  "requestedCourses" : [ {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
+    "prerequisite" : false,
+    "prerequisiteLessonId" : "None",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 2,
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active",
+    "waitList" : [ "" ]
+  } ]
 }

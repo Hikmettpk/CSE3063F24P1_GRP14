@@ -22,7 +22,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "FF"
     }, {
@@ -42,7 +43,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "CC"
     }, {
@@ -62,11 +64,27 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [ ]
+  "enrolledCourses" : [ ],
+  "requestedCourses" : [ {
+    "courseId" : "IE3081",
+    "courseName" : "Modeling and Simulation",
+    "credit" : 4,
+    "prerequisite" : true,
+    "prerequisiteLessonId" : "STAT2253",
+    "courseSection" : [ ],
+    "weeklyCourseCount" : 3,
+    "year" : 3,
+    "instructor" : "Sanem Arslan",
+    "enrollmentCapacity" : 5,
+    "currentCapacity" : 0,
+    "status" : "Active",
+    "waitList" : [ "" ]
+  } ]
 }

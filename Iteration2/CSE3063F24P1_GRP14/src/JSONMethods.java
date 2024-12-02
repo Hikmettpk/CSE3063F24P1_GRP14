@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -187,6 +188,69 @@ public class JSONMethods {
         }
         return null;
     }
+
+    public void updateCourseInJson(Course updatedCourse) {
+        try {
+            // ObjectMapper ve dosya tanımlamaları
+            ObjectMapper objectMapper = new ObjectMapper();
+            File courseFile = new File("CSE3063F24P1_GRP14/src/resources/course.json");
+
+            // Mevcut JSON dosyasını listeye çevir
+            List<Course> courses = objectMapper.readValue(courseFile, new TypeReference<List<Course>>() {});
+
+            // Güncellenen kursu bul ve değiştir
+            boolean courseFound = false;
+            for (int i = 0; i < courses.size(); i++) {
+                Course currentCourse = courses.get(i);
+                if (currentCourse.getCourseId().equals(updatedCourse.getCourseId())) {
+                    // Bulunan kursu güncelle
+                    courses.set(i, updatedCourse);
+                    courseFound = true;
+                    break;
+                }
+            }
+
+            // Kurs bulunamadıysa hata mesajı yazdırabiliriz
+            if (!courseFound) {
+                System.err.println("Course with ID " + updatedCourse.getCourseId() + " not found!");
+                return;
+            }
+
+            // Güncellenmiş listeyi JSON dosyasına yaz
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(courseFile, courses);
+            System.out.println("Course JSON updated successfully!");
+
+        } catch (IOException e) {
+            System.err.println("Error updating course JSON: " + e.getMessage());
+        }
+    }
+
+    /*public void updateCourseInJsonAndStudents(Course updatedCourse, List<Student> allStudents) {
+        // Kursu güncellemeyi yapalım
+        updateCourseInJson(updatedCourse); // Kurs güncellemesi
+
+        // Öğrenciler üzerinde döngü kurarak, her öğrencinin ilgili requestedCourses listesini kontrol et
+        for (Student student : allStudents) {
+            List<Course> updatedRequestedCourses = new ArrayList<>(student.getRequestedCourses());
+
+            // Eğer öğrenci requestedCourses listesinde güncellenmiş kursu bulursa, işlemi gerçekleştir
+            for (Course course : updatedRequestedCourses) {
+                if (course.getCourseId().equals(updatedCourse.getCourseId())) {
+                    // Öğrenci bilgilerini güncelle
+                    student.getRequestedCourses().remove(course);
+                    student.getRequestedCourses().add(updatedCourse); // Kursu güncelle
+
+                    // Öğrenci JSON'unu güncelle
+                    updateStudentInJson(student);
+                    break; // Bu öğrenci için işlemi bitir
+                }
+            }
+        }
+
+    }*/
+
+
+
 
 
 }
