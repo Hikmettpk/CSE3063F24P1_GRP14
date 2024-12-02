@@ -163,7 +163,8 @@ public class CourseRegistrationSystem {
         }
 
         // Kursun kapasitesini kontrol et
-        if (course.getCurrentCapacity() + countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
+        if (countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
+            System.out.println("gg requestlist dolu seni waitliste attım kral : "+ countRequestedStudents(jsonMethods.loadAllStudents(), course));
             addToWaitList(student, course);
             jsonMethods.updateCourseInJson(course);
             jsonMethods.updateStudentInJson(student);

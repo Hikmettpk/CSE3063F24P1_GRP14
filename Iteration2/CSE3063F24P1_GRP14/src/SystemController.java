@@ -255,7 +255,7 @@ public class SystemController {
 
                         case 3: // Reject Request
                             System.out.print("Enter the request number to reject: ");
-                            int rejectRequestIndex = input.nextInt();
+                            int rejectRequestIndex = input.nextInt()-1; //to fit the list
                             input.nextLine(); // Consume newline
 
                             count = 1;
