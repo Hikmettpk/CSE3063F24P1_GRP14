@@ -297,6 +297,10 @@ public class SystemController {
 
             // -----------------------Student menu-----------------------------
             if (role.equals("Student")) {
+                Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                if (refreshedStudent != null) {
+                    loggedInStudent = refreshedStudent; // Güncel veriyi kullan
+                }
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
 
                 while (true) {
@@ -328,7 +332,7 @@ public class SystemController {
                             break;
 
                         case 2: // Request Course
-                            Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
                             if (refreshedStudent != null) {
                                 loggedInStudent = refreshedStudent; // Güncel veriyi kullan
                             }

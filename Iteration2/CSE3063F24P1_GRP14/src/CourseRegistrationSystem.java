@@ -105,15 +105,25 @@ public class CourseRegistrationSystem {
 
     // Check for schedule conflicts
     public boolean checkScheduleConflict(Course newCourse, Student student) throws IOException {
+        List<Course> allCourses = jsonMethods.loadAllCourses();
+        Course fullCourse = allCourses.stream()
+                .filter(c -> c.getCourseId().equals(newCourse.getCourseId()))
+                .findFirst()
+                .orElse(null);
+
+        if (fullCourse == null) {
+            System.err.println("Full course data could not be found.");
+            return false;
+        }
         for (Course enrolledCourse : student.getEnrolledCourses()) {
-            if (isScheduleConflict(enrolledCourse, newCourse)) {
+            if (isScheduleConflict(enrolledCourse, fullCourse)) {
                 System.out.println("Schedule conflict with enrolled course: " + enrolledCourse.getCourseName());
                 return true;
             }
         }
 
         for (Course requestedCourse : student.getRequestedCourses()) {
-            if (isScheduleConflict(requestedCourse, newCourse)) {
+            if (isScheduleConflict(requestedCourse, fullCourse)) {
                 System.out.println("Schedule conflict with requested course: " + requestedCourse.getCourseName());
                 System.out.println("Please choose one course to keep:");
                 System.out.println("1. " + requestedCourse.getCourseName());
@@ -121,12 +131,12 @@ public class CourseRegistrationSystem {
 
                 int choice = getUserChoice();
                 if (choice == 1) {
-                    System.out.println("Keeping " + requestedCourse.getCourseName() + " and rejecting " + newCourse.getCourseName());
+                    System.out.println("Keeping " + requestedCourse.getCourseName() + " and rejecting " + fullCourse.getCourseName());
                     return true;
                 } else if (choice == 2) {
                     student.getRequestedCourses().remove(requestedCourse);
                     jsonMethods.saveStudentToFile(student);
-                    System.out.println("Removed " + requestedCourse.getCourseName() + " and added " + newCourse.getCourseName());
+                    System.out.println("Removed " + requestedCourse.getCourseName() + " and added " + fullCourse.getCourseName());
                     return false;
                 } else {
                     System.out.println("Invalid choice. No action taken.");
