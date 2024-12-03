@@ -28,27 +28,31 @@ public class DepartmentScheduler extends User {
 
     @Override
     protected void getMenu() {
-
+        System.out.println("1. View All Courses");
+        System.out.println("2. Update Course Sections");
+        System.out.println("3. Reset All Course Sections");
+        System.out.println("4. Logout");
+        System.out.print("Please choose an operation (or 'q' to go back): ");
     }
 
     @Override
     protected String getUsername() {
-        return "";
+        return getUsernameField(); // Access via the getter method in User
     }
 
     @Override
     protected String getName() {
-        return "";
+        return getNameField(); // Access via the getter method in User
     }
 
     @Override
     protected String getSurname() {
-        return "";
+        return getSurnameField(); // Access via the getter method in User
     }
 
     @Override
     protected String getPassword() {
-        return "";
+        return getPasswordField(); // Access via the getter method in User
     }
 
     public void printAllCourses() {
