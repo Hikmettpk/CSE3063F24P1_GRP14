@@ -148,7 +148,6 @@ public class SystemController {
                 }
 
 
-
                 while (true) {
                     System.out.println("1. See requests");
                     System.out.println("2. Approve request");
@@ -222,7 +221,6 @@ public class SystemController {
                             break;
 
 
-
                         case 2: // Approve Request
                             System.out.print("Enter the request number to approve: ");
                             int approveRequestIndex = input.nextInt();
@@ -255,15 +253,16 @@ public class SystemController {
 
                         case 3: // Reject Request
                             System.out.print("Enter the request number to reject: ");
-                            int rejectRequestIndex = input.nextInt()-1; //to fit the list
+                            int rejectRequestIndex = input.nextInt();
                             input.nextLine(); // Consume newline
 
-                            count = 1;
-                            selectedStudent = null;
-                            selectedCourse = null;
+                             count = 1;
+                             selectedStudent = null;
+                             selectedCourse = null;
 
+                            // Yalnızca advisor'ın öğrencilerinin isteklerini dolaş
                             outerLoop:
-                            for (Student student : students) {
+                            for (Student student : loggedInAdvisor.getAdvisedStudents()) {
                                 for (Course course : student.getRequestedCourses()) {
                                     if (count == rejectRequestIndex) {
                                         selectedStudent = student;
@@ -276,10 +275,12 @@ public class SystemController {
 
                             if (selectedStudent != null && selectedCourse != null) {
                                 loggedInAdvisor.rejectRequestedCourse(selectedStudent, selectedCourse);
+                                System.out.println("Request rejected successfully.");
                             } else {
                                 System.out.println("Invalid request number.");
                             }
                             break;
+
 
                         case 4: // Logout
                             System.out.println("Logging out...");

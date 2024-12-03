@@ -104,7 +104,7 @@ class Advisor extends User {
         // Öğrencinin talep ettiği kursu listeden çıkarıyoruz
         if (student.getRequestedCourses().remove(course)) {
             // Eğer waitList boş değilse, waitList'teki ilk öğrenciye kursu veriyoruz
-            if (!course.getWaitList().get(1).isEmpty()) { //?
+            if (course.getWaitList().size()>1) { //?
                 // waitList'teki ilk öğrencinin ID'sini alıyoruz
                 //1 olmasının sebebi 0. index boş "".
                 String firstStudentId = course.getWaitList().get(1);

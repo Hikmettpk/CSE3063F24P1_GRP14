@@ -149,7 +149,7 @@ public class CourseRegistrationSystem {
 
 
 
-    public void requestInCourse(Course course, Student student) {
+    public void requestInCourse(Course course, Student student) throws IOException {
         // Öğrencinin kayıtlı kurslarını kontrol et
         if (student.getEnrolledCourses().contains(course)) {
             System.out.println("You are already enrolled in this course.");
@@ -162,10 +162,12 @@ public class CourseRegistrationSystem {
             return;
         }
 
+        System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
         // Kursun kapasitesini kontrol et
         if (countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
-            System.out.println("gg requestlist dolu seni waitliste attım kral : "+ countRequestedStudents(jsonMethods.loadAllStudents(), course));
+            System.out.println("hopp waitlistte giriyosun");
             addToWaitList(student, course);
+            System.out.println("waitlisttesin");
             jsonMethods.updateCourseInJson(course);
             jsonMethods.updateStudentInJson(student);
             System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
@@ -178,21 +180,25 @@ public class CourseRegistrationSystem {
 
         // JSON'da güncelleme
         jsonMethods.updateStudentInJson(student);
+        System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
-
     private void addToWaitList(Student student, Course course){
         course.getWaitList().add(student.getStudentID());
     }
     private int countRequestedStudents(List<Student> allStudents, Course course) {
         int count = 0;
         for (Student student : allStudents) {
-            if (student.getRequestedCourses().contains(course)) {
-                count++;
+            for (Course requestedCourse : student.getRequestedCourses()) {
+                if (requestedCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
             }
         }
         return count;
     }
+
 
 }
