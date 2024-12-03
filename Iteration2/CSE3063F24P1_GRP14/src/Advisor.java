@@ -99,15 +99,22 @@ class Advisor extends User {
         boolean removedSuccessfully = student.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
 
         if (removedSuccessfully) {
+            for (String denemecourse :course.getWaitList()
+                 ) {
+                System.out.println("selam : "+denemecourse);
+
+            }
             // Öğrenci JSON dosyasını güncelle
             jsonMethods.updateStudentInJson(student);
-
+            System.out.println("waitlist dolu mu ? :" + (course.getWaitList() != null) );
+            System.out.println("waitlist size: "+ course.getWaitList().size());
             // Eğer waitList boş değilse ve en az bir öğrenci varsa
-            if (course.getWaitList() != null && course.getWaitList().size() > 1) {
+            if (course.getWaitList().size() > 1) {
+                System.out.println("waitlistte birileri var");
                 try {
                     // waitList'teki ilk öğrencinin ID'sini alıyoruz (1. index, çünkü 0. index boş)
                     String firstStudentId = course.getWaitList().get(1);
-
+                    System.out.println("waitliste eklenecek öğrenci: "+firstStudentId);
                     // Öğrenciyi ID ile JSON'dan yüklüyoruz
                     Student waitListStudent = jsonMethods.loadStudent(firstStudentId);
                     if (waitListStudent != null) {

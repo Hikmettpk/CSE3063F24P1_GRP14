@@ -160,10 +160,9 @@ public class CourseRegistrationSystem {
             return;
         }
 
-        System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
+        //System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
         // Kursun kapasitesini kontrol et
-        if (countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
-            System.out.println("hopp waitlistte giriyosun");
+        if (countEnrolledStudents(jsonMethods.loadAllStudents(), course)+countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
             addToWaitList(student, course);
             System.out.println("waitlisttesin");
             jsonMethods.updateCourseInJson(course);
@@ -198,6 +197,22 @@ public class CourseRegistrationSystem {
         }
         return count;
     }
+
+    private int countEnrolledStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            for (Course enrolledCourse : student.getEnrolledCourses()) {
+                if (enrolledCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+
+
 
 
 }

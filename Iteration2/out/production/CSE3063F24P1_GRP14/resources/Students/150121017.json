@@ -18,7 +18,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "BB"
     }, {
@@ -38,7 +39,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "CB"
     }, {
@@ -58,12 +60,13 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "CC"
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [],
+  "enrolledCourses" : [ ],
   "requestedCourses" : [ ]
 }
