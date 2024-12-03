@@ -18,8 +18,7 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null,
-        "waitList" : null
+        "status" : null
       },
       "gradeValue" : "FF"
     } ]

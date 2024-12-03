@@ -147,8 +147,6 @@ public class CourseRegistrationSystem {
 
 
 
-
-
     public void requestInCourse(Course course, Student student) throws IOException {
         // Öğrencinin kayıtlı kurslarını kontrol et
         if (student.getEnrolledCourses().contains(course)) {
@@ -187,6 +185,7 @@ public class CourseRegistrationSystem {
     private void addToWaitList(Student student, Course course){
         course.getWaitList().add(student.getStudentID());
     }
+
     private int countRequestedStudents(List<Student> allStudents, Course course) {
         int count = 0;
         for (Student student : allStudents) {

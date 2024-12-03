@@ -94,37 +94,42 @@ class Advisor extends User {
 
 
 
-
-
-
-
-
-
     public void rejectRequestedCourse(Student student, Course course) throws IOException {
         // Öğrencinin talep ettiği kursu listeden çıkarıyoruz
-        if (student.getRequestedCourses().remove(course)) {
-            // Eğer waitList boş değilse, waitList'teki ilk öğrenciye kursu veriyoruz
-            if (course.getWaitList().size()>1) { //?
-                // waitList'teki ilk öğrencinin ID'sini alıyoruz
-                //1 olmasının sebebi 0. index boş "".
-                String firstStudentId = course.getWaitList().get(1);
+        boolean removedSuccessfully = student.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
 
-                // Öğrenciyi ID ile JSON'dan yüklüyoruz
-                Student waitListStudent = jsonMethods.loadStudent(firstStudentId);
-                if (waitListStudent != null) {
-                    // waitList'teki öğrenciye course'u ekliyoruz
-                    waitListStudent.getRequestedCourses().add(course);
+        if (removedSuccessfully) {
+            // Öğrenci JSON dosyasını güncelle
+            jsonMethods.updateStudentInJson(student);
 
-                    // Öğrenci nesnesini güncelliyoruz
-                    jsonMethods.updateStudentInJson(waitListStudent);
+            // Eğer waitList boş değilse ve en az bir öğrenci varsa
+            if (course.getWaitList() != null && course.getWaitList().size() > 1) {
+                try {
+                    // waitList'teki ilk öğrencinin ID'sini alıyoruz (1. index, çünkü 0. index boş)
+                    String firstStudentId = course.getWaitList().get(1);
 
-                    // waitList'ten ilk öğrenciyi çıkarıyoruz
-                    course.getWaitList().remove(1);
+                    // Öğrenciyi ID ile JSON'dan yüklüyoruz
+                    Student waitListStudent = jsonMethods.loadStudent(firstStudentId);
+                    if (waitListStudent != null) {
+                        // waitList'teki öğrenciye course'u ekliyoruz
+                        waitListStudent.getRequestedCourses().add(course);
 
-                    // Güncellenen kursu JSON'a yazıyoruz
-                    jsonMethods.updateCourseInJson(course);
+                        // Öğrenci nesnesini güncelliyoruz
+                        jsonMethods.updateStudentInJson(waitListStudent);
+
+                        // waitList'ten ilk öğrenciyi çıkarıyoruz
+                        course.getWaitList().remove(1);
+
+                        // Güncellenen kursu JSON'a yazıyoruz
+                        jsonMethods.updateCourseInJson(course);
+
+                        System.out.println("Next student from waitlist added for course: " + course.getCourseName());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error processing waitlist: " + e.getMessage());
                 }
             }
+
             System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
         } else {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
