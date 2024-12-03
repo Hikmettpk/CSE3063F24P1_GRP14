@@ -254,8 +254,9 @@ public class SystemController {
                             selectedStudent = null;
                             selectedCourse = null;
 
+                            // Yalnızca advisor'ın öğrencilerinin isteklerini dolaş
                             outerLoop:
-                            for (Student student : students) {
+                            for (Student student : loggedInAdvisor.getAdvisedStudents()) {
                                 for (Course course : student.getRequestedCourses()) {
                                     if (count == rejectRequestIndex) {
                                         selectedStudent = student;
@@ -267,7 +268,9 @@ public class SystemController {
                             }
 
                             if (selectedStudent != null && selectedCourse != null) {
-                                loggedInAdvisor.rejectRequestedCourse(selectedStudent, selectedCourse);
+                                CourseRegistrationSystem crs1 = new CourseRegistrationSystem(selectedStudent,courses);
+                                loggedInAdvisor.rejectRequestedCourse(students,crs1,selectedStudent, selectedCourse);
+                                System.out.println("Request rejected successfully.");
                             } else {
                                 System.out.println("Invalid request number.");
                             }

@@ -99,13 +99,56 @@ class Advisor extends User {
         }
     }
 
-    public void rejectRequestedCourse(Student student, Course course) {
-        if (student.getRequestedCourses().remove(course)) {
-            System.out.println("The course " + course.getCourseName() + " has been rejected for student " + student.getName());
+    public void rejectRequestedCourse(List<Student> allStudents,CourseRegistrationSystem crs, Student student, Course course) throws IOException {
+        // Remove the course from the student's requested course list
+        boolean removedSuccessfully = student.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
+
+        if (removedSuccessfully) {
+            // Update the student in the JSON file
+            jsonMethods.updateStudentInJson(student);
+
+            // Check if the waitlist is not empty
+            if (!course.getWaitList().isEmpty()) {
+                // Get the first student ID from the waitlist
+                String firstStudentId = course.getWaitList().get(0);
+
+                // Find the Student object by ID from the CRS student list
+                Student nextStudent = allStudents.stream()
+                        .filter(s -> s.getStudentID().equals(firstStudentId))
+                        .findFirst()
+                        .orElse(null);
+
+                if (nextStudent != null) {
+                    // Add the course to the student's requested course list
+                    nextStudent.getRequestedCourses().add(course);
+
+                    // Remove the student ID from the course's waitlist
+                    course.getWaitList().remove(0);
+
+                    // Update the Student and Course in the JSON files
+                    jsonMethods.updateStudentInJson(nextStudent);
+                    jsonMethods.updateCourseInJson(course);
+
+                    System.out.println("The course " + course.getCourseName() +
+                            " has been assigned to the next student in the waitlist: " + nextStudent.getName());
+                } else {
+                    System.out.println("Failed to find the student with ID: " + firstStudentId);
+                }
+            } else {
+                System.out.println("The waitlist for the course " + course.getCourseName() + " is empty.");
+            }
         } else {
             System.out.println("Failed to reject the course. Course might not exist in the requested list.");
         }
     }
+
+    private void removeFromWaitList(Student student, Course course) throws IOException {
+        if (course.getWaitList().remove(student.getStudentID())) {
+            jsonMethods.updateCourseInJson(course); // Update course in JSON
+            System.out.println("Student removed from waitlist for course: " + course.getCourseId());
+        }
+    }
+
 
     // toString() method
     @Override
