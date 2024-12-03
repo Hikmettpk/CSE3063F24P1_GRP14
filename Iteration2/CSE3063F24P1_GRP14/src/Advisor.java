@@ -23,26 +23,34 @@ class Advisor extends User {
         this.advisorID = advisorID;
     }
 
-    // Getters and setters
+    // Getters
     @Override
-    public String getUsername() {
-        return super.getUsername();
+    protected void getMenu() {
+        System.out.println("1. See requests");
+        System.out.println("2. Approve request");
+        System.out.println("3. Reject request");
+        System.out.println("4. Logout");
+        System.out.print("Please choose an operation (or 'q' to go back): ");
     }
 
     @Override
-    public String getName() {
-        return super.getName();
+    protected String getUsername() {
+        return getUsernameField(); // Access via the getter method in User
     }
 
     @Override
-    public String getSurname() {
-        return super.getSurname();
+    protected String getName() {
+        return getNameField(); // Access via the getter method in User
     }
 
+    @Override
+    protected String getSurname() {
+        return getSurnameField(); // Access via the getter method in User
+    }
 
     @Override
-    public String getPassword() {
-        return super.getPassword();
+    protected String getPassword() {
+        return getPasswordField(); // Access via the getter method in User
     }
 
 

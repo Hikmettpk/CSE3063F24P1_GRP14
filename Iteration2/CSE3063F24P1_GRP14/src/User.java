@@ -1,6 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-abstract class  User {
+abstract class User {
     @JsonProperty("username")
     private String username;
 
@@ -13,27 +13,41 @@ abstract class  User {
     @JsonProperty("password")
     private String password;
 
-    public User(@JsonProperty("username") String username,@JsonProperty("name")  String name, @JsonProperty("surname") String surname, @JsonProperty("password") String password) {
+    public User(@JsonProperty("username") String username,
+                @JsonProperty("name") String name,
+                @JsonProperty("surname") String surname,
+                @JsonProperty("password") String password) {
         this.username = username;
         this.name = name;
-        this.password = password;
         this.surname = surname;
+        this.password = password;
     }
 
-    protected String getUsername() {
+    // Getter methods for private fields
+    protected String getUsernameField() {
         return username;
     }
 
-    protected String getName() {
+    protected String getNameField() {
         return name;
     }
 
-    protected String getSurname() {
+    protected String getSurnameField() {
         return surname;
     }
 
-    protected String getPassword() {
+    protected String getPasswordField() {
         return password;
     }
 
+    // Abstract methods for subclasses
+    protected abstract void getMenu();
+
+    protected abstract String getUsername();
+
+    protected abstract String getName();
+
+    protected abstract String getSurname();
+
+    protected abstract String getPassword();
 }

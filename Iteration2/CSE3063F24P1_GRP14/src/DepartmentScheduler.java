@@ -4,6 +4,36 @@ import java.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DepartmentScheduler extends User {
+
+    @Override
+    protected void getMenu() {
+        System.out.println("1. View All Courses");
+        System.out.println("2. Update Course Sections");
+        System.out.println("3. Reset All Course Sections");
+        System.out.println("4. Logout");
+        System.out.print("Please choose an operation (or 'q' to go back): ");
+    }
+
+    @Override
+    protected String getUsername() {
+        return getUsernameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getName() {
+        return getNameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getSurname() {
+        return getSurnameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getPassword() {
+        return getPasswordField(); // Access via the getter method in User
+    }
+
     private List<Course> courses;
     private static final String COURSE_JSON_PATH = "CSE3063F24P1_GRP14/src/resources/course.json";
 

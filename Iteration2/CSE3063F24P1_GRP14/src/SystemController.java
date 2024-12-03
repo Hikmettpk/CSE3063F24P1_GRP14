@@ -76,11 +76,7 @@ public class SystemController {
             // -----------------------Department Scheduler menu-----------------------------
             if (role.equals("DepartmentScheduler")) {
                 while (true) {
-                    System.out.println("1. View All Courses");
-                    System.out.println("2. Update Course Sections");
-                    System.out.println("3. Reset All Course Sections");
-                    System.out.println("4. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    departmentScheduler.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
@@ -150,11 +146,7 @@ public class SystemController {
 
 
                 while (true) {
-                    System.out.println("1. See requests");
-                    System.out.println("2. Approve request");
-                    System.out.println("3. Reject request");
-                    System.out.println("4. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    loggedInAdvisor.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
@@ -304,12 +296,7 @@ public class SystemController {
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
 
                 while (true) {
-                    System.out.println("1. View Transcript");
-                    System.out.println("2. Request Course");
-                    System.out.println("3. View Enrolled Courses");
-                    System.out.println("4. Display Schedule");
-                    System.out.println("5. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    loggedInStudent.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
