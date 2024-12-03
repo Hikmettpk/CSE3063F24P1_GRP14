@@ -7,7 +7,6 @@ public class SystemController {
         List<Course> courses = jsonMethods.loadAllCourses();
         List<Student> students = jsonMethods.loadAllStudents();
         List<Advisor> advisors = jsonMethods.loadAllAdvisors();
-
         // DepartmentScheduler'ı JSON'dan yükleme
         DepartmentScheduler departmentScheduler = jsonMethods.loadDepartmentScheduler();
         Scanner input = new Scanner(System.in);
@@ -274,7 +273,8 @@ public class SystemController {
                             }
 
                             if (selectedStudent != null && selectedCourse != null) {
-                                loggedInAdvisor.rejectRequestedCourse(selectedStudent, selectedCourse);
+                                CourseRegistrationSystem crs1 = new CourseRegistrationSystem(selectedStudent,courses);
+                                loggedInAdvisor.rejectRequestedCourse(students,crs1,selectedStudent, selectedCourse);
                                 System.out.println("Request rejected successfully.");
                             } else {
                                 System.out.println("Invalid request number.");

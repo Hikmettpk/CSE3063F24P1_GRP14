@@ -25,8 +25,7 @@
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [ ],
-  "requestedCourses" : [{
+  "enrolledCourses" : [ {
     "courseId" : "CSE3063",
     "courseName" : "Object-Oriented Software Design",
     "credit" : 5,
@@ -39,6 +38,7 @@
     "enrollmentCapacity" : 5,
     "currentCapacity" : 4,
     "status" : "Active",
-    "waitList" : [ "" ]
-  } ]
+    "waitList" : [ ]
+  }],
+  "requestedCourses" : [ ]
 }

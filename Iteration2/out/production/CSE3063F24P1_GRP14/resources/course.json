@@ -23,7 +23,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 }, {
   "courseId" : "CSE2246",
   "courseName" : "Analysis of Algorithms",
@@ -37,7 +37,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 }, {
   "courseId" : "STAT2253",
   "courseName" : "Probability and Statistics",
@@ -51,7 +51,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 }, {
   "courseId" : "CSE3055",
   "courseName" : "Database Systems",
@@ -65,7 +65,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 }, {
   "courseId" : "CSE3055",
   "courseName" : "Operating Systems",
@@ -79,7 +79,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 }, {
   "courseId" : "CSE3063",
   "courseName" : "Object-Oriented Software Design",
@@ -93,7 +93,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 4,
   "status" : "Active",
-  "waitList" : [ "", "150121056", "150121056" ]
+  "waitList" : [ "150121056", "150121060" ]
 }, {
   "courseId" : "IE3081",
   "courseName" : "Modeling and Simulation",
@@ -107,5 +107,5 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 0,
   "status" : "Active",
-  "waitList" : [ "" ]
+  "waitList" : [ ]
 } ]

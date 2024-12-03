@@ -165,8 +165,8 @@ public class CourseRegistrationSystem {
         if (countEnrolledStudents(jsonMethods.loadAllStudents(), course)+countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
             addToWaitList(student, course);
             System.out.println("waitlisttesin");
-            jsonMethods.updateCourseInJson(course);
-            jsonMethods.updateStudentInJson(student);
+            jsonMethods.updateCourseInJson(course); //?
+            jsonMethods.updateStudentInJson(student); //?
             System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
                     + course.getCourseId() + ".");
             return;
@@ -177,13 +177,20 @@ public class CourseRegistrationSystem {
 
         // JSON'da güncelleme
         jsonMethods.updateStudentInJson(student);
-        System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
+        //System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
-    private void addToWaitList(Student student, Course course){
-        course.getWaitList().add(student.getStudentID());
+    private void addToWaitList(Student student, Course course) throws IOException {
+        if (!course.getWaitList().contains(student.getStudentID())) {
+            course.getWaitList().add(student.getStudentID());
+            jsonMethods.updateCourseInJson(course); // Update course in JSON
+            System.out.println("Student added to waitlist for course: " + course.getCourseId());
+        }
     }
+
+
+
 
     private int countRequestedStudents(List<Student> allStudents, Course course) {
         int count = 0;

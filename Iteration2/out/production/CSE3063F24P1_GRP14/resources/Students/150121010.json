@@ -22,7 +22,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     }, {
@@ -42,7 +43,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "BA"
     }, {
@@ -62,13 +64,15 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [{
+  "enrolledCourses" : [ ],
+  "requestedCourses" : [ {
     "courseId" : "CSE3063",
     "courseName" : "Object-Oriented Software Design",
     "credit" : 5,
@@ -81,7 +85,6 @@
     "enrollmentCapacity" : 5,
     "currentCapacity" : 4,
     "status" : "Active",
-    "waitList" : [ "" ]
-  } ],
-  "requestedCourses" : [  ]
+    "waitList" : [ ]
+  }]
 }
