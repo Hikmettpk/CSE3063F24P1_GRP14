@@ -328,7 +328,11 @@ public class SystemController {
                             break;
 
                         case 2: // Request Course
-                            List<Course> availableCourses = crs.listAvailableCourses();
+                            Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            if (refreshedStudent != null) {
+                                loggedInStudent = refreshedStudent; // Güncel veriyi kullan
+                            }
+                            List<Course> availableCourses = crs.listAvailableCourses(loggedInStudent);
 
                             if (availableCourses.isEmpty()) {
                                 System.out.println("No courses are available to request.");
@@ -374,7 +378,7 @@ public class SystemController {
 
                         case 3: // View Enrolled Courses
                             // JSON dosyasından en güncel öğrenciyi yükle
-                            Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
                             if (refreshedStudent != null) {
                                 loggedInStudent = refreshedStudent; // Güncel veriyi kullan
                             }

@@ -52,14 +52,15 @@ public class CourseRegistrationSystem {
     }
 
     // List available course sections for a given student
-    public List<Course> listAvailableCourses() {
+    public List<Course> listAvailableCourses(Student loggedInStudent) {
+
         List<Course> availableCourses = new ArrayList<>();
         List<Course> takenCourses = new ArrayList<>();
         List<String> failedCourses = new ArrayList<>();
         List<String> passedCourses = new ArrayList<>();
         List<String> passingGrades = Arrays.asList("AA", "BA", "BB", "CB", "CC");
 
-        for (Grade grade : student.getTranscript().allGrades()) {
+        for (Grade grade : loggedInStudent.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
@@ -75,8 +76,8 @@ public class CourseRegistrationSystem {
         for (Course course : courses) {
             if (passedCourses.contains(course.getCourseId()) ||
                     takenCourses.contains(course) ||
-                    student.getRequestedCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId())) ||
-                    student.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
+                    loggedInStudent.getRequestedCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId())) ||
+                    loggedInStudent.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
                 continue;
             }
 
@@ -155,8 +156,23 @@ public class CourseRegistrationSystem {
             return;
         }
 
-        student.getRequestedCourses().add(course);
+        List<Course> allCourses = jsonMethods.loadAllCourses();
+        Course fullCourse = allCourses.stream()
+                .filter(c -> c.getCourseId().equals(course.getCourseId()))
+                .findFirst()
+                .orElse(null);
+
+        if (fullCourse == null) {
+            System.err.println("Full course data could not be found.");
+            return;
+        }
+
+        // Enrolled Courses listesine tam kurs bilgilerini ekle
+        student.getRequestedCourses().add(fullCourse);
+
+        // Öğrenci bilgilerini JSON dosyasına güncelle
         jsonMethods.updateStudentInJson(student);
+
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
 
