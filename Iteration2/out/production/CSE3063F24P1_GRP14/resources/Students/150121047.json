@@ -64,52 +64,20 @@
     } ]
   },
   "advisor" : null,
-  "enrolledCourses" : [ {
-    "courseId" : "CSE2225",
-    "courseName" : "Data Structures",
-    "credit" : 7,
+  "enrolledCourses" : [],
+  "requestedCourses" : [ {
+    "courseId" : "CSE3063",
+    "courseName" : "Object-Oriented Software Design",
+    "credit" : 5,
     "prerequisite" : false,
     "prerequisiteLessonId" : "None",
-    "courseSection" : [ {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
-      "hour" : "9:30-10:20"
-    }, {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
-      "hour" : "10:30-11:20"
-    }, {
-      "day" : "Tuesday",
-      "place" : "M1-Z06",
-      "hour" : "11:30-12:20"
-    } ],
-    "weeklyCourseCount" : 3,
-    "year" : 2,
-    "instructor" : "Betül Boz",
-    "enrollmentCapacity" : 5,
-    "currentCapacity" : 0,
-    "status" : "Active"
-  }, {
-    "courseId" : "CSE2246",
-    "courseName" : "Analysis of Algorithms",
-    "credit" : 6,
-    "prerequisite" : false,
-    "prerequisiteLessonId" : "None",
-    "courseSection" : [ {
-      "day" : "Wednesday",
-      "place" : "M1-110",
-      "hour" : "10:30-11:20"
-    }, {
-      "day" : "Wednesday",
-      "place" : "M1-110",
-      "hour" : "11:30-12:20"
-    } ],
+    "courseSection" : [ ],
     "weeklyCourseCount" : 2,
-    "year" : 2,
-    "instructor" : "Sanem Arslan",
+    "year" : 3,
+    "instructor" : "Borahan Tümer",
     "enrollmentCapacity" : 5,
-    "currentCapacity" : 0,
-    "status" : "Active"
-  } ],
-  "requestedCourses" : [ ]
+    "currentCapacity" : 4,
+    "status" : "Active",
+    "waitList" : [ ]
+  }]
 }

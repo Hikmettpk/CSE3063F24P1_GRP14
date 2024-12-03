@@ -150,40 +150,75 @@ public class CourseRegistrationSystem {
 
     // Handle the logic of requesting a course
     public void requestInCourse(Course course, Student student) throws IOException {
-        if (checkScheduleConflict(course, student)) {
+        // Öğrencinin kayıtlı kurslarını kontrol et
+        if (student.getEnrolledCourses().contains(course)) {
+            System.out.println("You are already enrolled in this course.");
             return;
         }
 
-        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
-            System.out.println("This course is full and cannot accept more students.");
-            return;
-        }
-
-        boolean isAlreadyRequested = student.getRequestedCourses().stream()
-                .anyMatch(c -> c.getCourseId().equals(course.getCourseId()));
-        if (isAlreadyRequested) {
+        // Öğrencinin daha önce talep ettiği kursları kontrol et
+        if (student.getRequestedCourses().contains(course)) {
             System.out.println("You have already requested this course.");
             return;
         }
 
-        List<Course> allCourses = jsonMethods.loadAllCourses();
-        Course fullCourse = allCourses.stream()
-                .filter(c -> c.getCourseId().equals(course.getCourseId()))
-                .findFirst()
-                .orElse(null);
-
-        if (fullCourse == null) {
-            System.err.println("Full course data could not be found.");
+        //System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
+        // Kursun kapasitesini kontrol et
+        if (countEnrolledStudents(jsonMethods.loadAllStudents(), course)+countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
+            addToWaitList(student, course);
+            System.out.println("waitlisttesin");
+            jsonMethods.updateCourseInJson(course); //?
+            jsonMethods.updateStudentInJson(student); //?
+            System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
+                    + course.getCourseId() + ".");
             return;
         }
 
-        // Enrolled Courses listesine tam kurs bilgilerini ekle
-        student.getRequestedCourses().add(fullCourse);
+        // Öğrencinin requestedCourses listesine ekle
+        student.getRequestedCourses().add(course);
 
-        // Öğrenci bilgilerini JSON dosyasına güncelle
+        // JSON'da güncelleme
         jsonMethods.updateStudentInJson(student);
+        //System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
+    }
+
+    private void addToWaitList(Student student, Course course) throws IOException {
+        if (!course.getWaitList().contains(student.getStudentID())) {
+            course.getWaitList().add(student.getStudentID());
+            jsonMethods.updateCourseInJson(course); // Update course in JSON
+            System.out.println("Student added to waitlist for course: " + course.getCourseId());
+        }
+    }
+
+
+
+
+    private int countRequestedStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            for (Course requestedCourse : student.getRequestedCourses()) {
+                if (requestedCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    private int countEnrolledStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            for (Course enrolledCourse : student.getEnrolledCourses()) {
+                if (enrolledCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
     }
 
     // Utility method to check schedule conflict between two courses

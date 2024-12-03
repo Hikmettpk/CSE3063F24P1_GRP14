@@ -1,143 +1,82 @@
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import static org.junit.jupiter.api.Assertions.*;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class UnitTest {
-//    private CourseRegistrationSystem registrationSystem;
-//    private Student student;
-//    private Advisor advisor;
-//    private List<Course> courses;
-//    private Course programmingCourse;
-//    private Course circuitsCourse;
-//    private Course dataStructuresCourse;
-//    private Transcript transcript;
-//    private JSONMethods jsonMethods;
-//
-//    @BeforeEach
-//    void setUp() {
-//        CourseSection programmingSection = new CourseSection("Sanem Arslan", 5, "Active");
-//        programmingCourse = new Course("CSE1241", "Programming 1", 6, false, "None", programmingSection);
-//
-//        CourseSection circuitsSection = new CourseSection("Borahan Tümer", 5, "Active");
-//        circuitsCourse = new Course("EE2031", "Electric Circuits", 5, false, "None", circuitsSection);
-//
-//        CourseSection dsSection = new CourseSection("Ali Veli", 5, "Active");
-//        dataStructuresCourse = new Course("CSE2225", "Data Structures", 6, true, "CSE1241", dsSection);
-//
-//        List<Grade> grades = new ArrayList<>();
-//        grades.add(new Grade(programmingCourse, "CB"));
-//        grades.add(new Grade(circuitsCourse, "CC"));
-//        transcript = new Transcript(grades);
-//
-//        student = new Student("o150121065", "Azra", "ÇetinTürk", "mar21065", "150121065", transcript, null);
-//
-//        advisor = new Advisor("advisor123", "Ali", "Veli", "password123", "A123");
-//
-//        courses = new ArrayList<>();
-//        courses.add(programmingCourse);
-//        courses.add(circuitsCourse);
-//        courses.add(dataStructuresCourse);
-//
-//        registrationSystem = new CourseRegistrationSystem(student, courses);
-//    }
-//
-//
-//
-//    @Test
-//    void testRequestInCourse() throws IOException {
-//        assertTrue(student.getRequestedCourses().isEmpty());
-//
-//        registrationSystem.requestInCourse(dataStructuresCourse, student);
-//        assertTrue(student.getRequestedCourses().contains(dataStructuresCourse));
-//        assertEquals(1, student.getRequestedCourses().size());
-//    }
-//
-//
-//
-//    @Test
-//    void testRemoveCourseFromRequestList() throws IOException {
-//        // Given: Öğrenci bir ders talep etmiş durumda
-//        registrationSystem.requestInCourse(dataStructuresCourse, student);
-//        assertTrue(student.getRequestedCourses().contains(dataStructuresCourse));
-//        boolean result = registrationSystem.removeCourseFromRequestList(student, dataStructuresCourse);
-//
-//        assertTrue(result);
-//        assertFalse(student.getRequestedCourses().contains(dataStructuresCourse));
-//    }
-//
-//
-//
-//    @Test
-//    void testTranscriptToString() {
-//        String expected = String.format("%-10s %-30s %-10s\n", "Course ID", "Course Name", "Grade Value")
-//                + "CSE1241    Programming 1                  CB        \n"  // Programming 1 dersi
-//                + "EE2031     Electric Circuits              CC        \n"; // Electric Circuits dersi
-//
-//
-//        String actual = transcript.toString();
-//        assertEquals(expected, actual);
-//    }
-//
-//    @Test
-//    void testAdvisorToString() {
-//
-//        advisor.getAdvisedStudents().add(student);
-//
-//        String expected = "Advisor{" +
-//                "username='advisor123', " +
-//                "name='Ali', " +
-//                "surname='Veli', " +
-//                "advisorID='A123', " +
-//                "advisedStudents=[" +
-//                "Student{username='o150121065', name='Azra', surname='ÇetinTürk', " +
-//                "studentID='150121065', " +
-//                "enrolledCourses=[], " +
-//                "requestedCourses=[], " +
-//                "transcript=Course ID  Course Name                    Grade Value\n" +
-//                "CSE1241    Programming 1                  CB        \n" +
-//                "EE2031     Electric Circuits              CC        \n" +
-//                "}]}";
-//
-//        String actual = advisor.toString();
-//        assertEquals(expected, actual);
-//    }
-//
-//
-//
-//    @Test
-//    void testCourseToString() {
-//        CourseSection courseSection = new CourseSection("Sanem Arslan", 5, "Active");
-//        Course course = new Course("CSE1241", "Programming 1", 6, false, "None", courseSection);
-//
-//        String expected = "Course{" +
-//                "courseId='CSE1241'" +
-//                ", courseName='Programming 1'" +
-//                ", credit=6" +
-//                ", prerequisite=false" +
-//                ", prerequisiteLessonId='None'" +
-//                ", courseSection=" + courseSection +
-//                '}';
-//
-//        assertEquals(expected, course.toString());
-//    }
-//
-//    @Test
-//    void testStudentToString() {
-//        String expected = "Student{" +
-//                "username='o150121065', " +
-//                "name='Azra', " +
-//                "surname='ÇetinTürk', " +
-//                "studentID='150121065', " +
-//                "enrolledCourses=" + student.getEnrolledCourses() +
-//                ", requestedCourses=" + student.getRequestedCourses() +
-//                ", transcript=" + transcript +
-//                '}';
-//
-//        assertEquals(expected, student.toString());
-//    }
-//
-//
-//}
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UnitTest {
+
+    private Transcript testTranscript;
+    private Advisor testAdvisor;
+    private Student testStudent;
+    private Course testCourse;
+
+    @BeforeEach
+    void setUp() {
+        // Test Course
+        testCourse = new Course("C101", "Test Course", 3, false, null,
+                new ArrayList<>(), 1, 2023, "Dr. Smith", 30, 0, "active");
+
+        // Test Transcript
+        List<Grade> grades = new ArrayList<>();
+        grades.add(new Grade(testCourse, "AA"));
+        testTranscript = new Transcript(grades);
+
+        // Test Student
+        testStudent = new Student("student1", "Test", "Student", "password123", "S123",
+                testTranscript, null);
+
+        // Test Advisor
+        testAdvisor = new Advisor("advisor1", "Test", "Advisor", "password123", "A101");
+        testAdvisor.getAdvisedStudents().add(testStudent);
+    }
+
+
+    @Test
+    void testAdvisorToString() {
+        String advisorString = testAdvisor.toString();
+        assertNotNull(advisorString);
+        assertTrue(advisorString.contains("advisor1"));
+        assertTrue(advisorString.contains("A101"));
+    }
+
+    @Test
+    void testStudentInitialization() {
+        assertEquals("student1", testStudent.getUsername());
+        assertEquals("S123", testStudent.getStudentID());
+        assertNotNull(testStudent.getTranscript());
+    }
+
+    @Test
+    void testAddGradeToTranscript() {
+        Grade newGrade = new Grade(new Course("C102", "New Course", 3, false, null, new ArrayList<>(), 1, 2023, "Dr. Brown", 30, 0, "active"), "BB");
+        testTranscript.getGrades().add(newGrade);
+        assertEquals(2, testTranscript.getGrades().size());
+        assertTrue(testTranscript.getGrades().stream().anyMatch(g -> g.getGradeValue().equals("BB")));
+    }
+
+    @Test
+    void testAdvisorAdvisedStudents() {
+        assertEquals(1, testAdvisor.getAdvisedStudents().size());
+        assertEquals("student1", testAdvisor.getAdvisedStudents().get(0).getUsername());
+    }
+
+    @Test
+    void testStudentAddRequestedCourse() {
+        testStudent.getRequestedCourses().add(testCourse);
+        assertEquals(1, testStudent.getRequestedCourses().size());
+        assertTrue(testStudent.getRequestedCourses().contains(testCourse));
+    }
+
+    @Test
+    void testStudentRemoveRequestedCourse() {
+        testStudent.getRequestedCourses().add(testCourse);
+        testStudent.getRequestedCourses().remove(testCourse);
+        assertEquals(0, testStudent.getRequestedCourses().size());
+        assertFalse(testStudent.getRequestedCourses().contains(testCourse));
+    }
+
+
+}

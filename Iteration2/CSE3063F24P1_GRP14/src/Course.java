@@ -64,6 +64,9 @@ class Course {
         this.waitList = waitList != null ? waitList : new ArrayList<>();
     }
 
+    public <E> Course(String c101, String testCourse, int i, boolean b, Object o, ArrayList<E> es, int i1, int i2, String s, int i3, int i4, String active) {
+    }
+
     // Getters
     public String getCourseId() {
         return courseId;

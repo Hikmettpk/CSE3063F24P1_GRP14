@@ -93,7 +93,7 @@
   "enrollmentCapacity" : 5,
   "currentCapacity" : 4,
   "status" : "Active",
-  "waitList" : [ ]
+  "waitList" : [ "150121056", "150121060" ]
 }, {
   "courseId" : "IE3081",
   "courseName" : "Modeling and Simulation",
