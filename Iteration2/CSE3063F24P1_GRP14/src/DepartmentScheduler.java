@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DepartmentScheduler extends User {
@@ -23,6 +24,31 @@ public class DepartmentScheduler extends User {
     public DepartmentScheduler(String username, String name, String surname, String password) {
         super(username, name, surname, password);
         this.courses = loadCoursesFromJson();
+    }
+
+    @Override
+    protected void getMenu() {
+
+    }
+
+    @Override
+    protected String getUsername() {
+        return "";
+    }
+
+    @Override
+    protected String getName() {
+        return "";
+    }
+
+    @Override
+    protected String getSurname() {
+        return "";
+    }
+
+    @Override
+    protected String getPassword() {
+        return "";
     }
 
     public void printAllCourses() {
@@ -206,7 +232,8 @@ public class DepartmentScheduler extends User {
                             course.getInstructor(),
                             course.getEnrollmentCapacity(),
                             course.getCurrentCapacity(),
-                            course.getStatus()
+                            course.getStatus(),
+                            course.getWaitList()
                     ));
                 } else {
                     updatedCourses.add(course);

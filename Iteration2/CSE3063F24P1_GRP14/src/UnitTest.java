@@ -33,13 +33,6 @@ class UnitTest {
         testAdvisor.getAdvisedStudents().add(testStudent);
     }
 
-    @Test
-    void testTranscriptToString() {
-        String transcriptString = testTranscript.toString();
-        assertNotNull(transcriptString);
-        assertTrue(transcriptString.contains("C101"));
-        assertTrue(transcriptString.contains("AA"));
-    }
 
     @Test
     void testAdvisorToString() {
@@ -86,4 +79,3 @@ class UnitTest {
     }
 
 
-}

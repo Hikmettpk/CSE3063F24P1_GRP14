@@ -5,131 +5,91 @@ import java.util.List;
 
 public class CourseRegistrationSystem {
     private Student student;
-    //private List<Student> students;
     private List<Course> courses;
     private JSONMethods jsonMethods = new JSONMethods(); // Assuming JSONMethods class handles JSON operations
 
     // Constructor
     public CourseRegistrationSystem(Student student, List<Course> courses) {
         this.student = student;
-        //this.students = students;
         this.courses = courses;
     }
 
-
     // Method to add a student to a course
     public void addToEnrollList(Course course, Student student) throws IOException {
-        // Check if the student is already enrolled in the course by comparing course IDs
-        boolean isAlreadyEnrolled = false;
-        for (Course enrolledCourse : student.getEnrolledCourses()) {
-            if (enrolledCourse.getCourseId().equals(course.getCourseId())) {
-                isAlreadyEnrolled = true;
-                break;
-            }
-        }
+        boolean isAlreadyEnrolled = student.getEnrolledCourses().stream()
+                .anyMatch(enrolledCourse -> enrolledCourse.getCourseId().equals(course.getCourseId()));
 
         if (isAlreadyEnrolled) {
             System.out.println("Student is already enrolled in this course.");
             return;
         }
 
-
-        // Enroll the student in the course
         student.getEnrolledCourses().add(course);
-
-        // Update the course's enrollment capacity
-        // section.setEnrollmentCapacity(section.getEnrollmentCapacity() - 1);
-
-        // Save the updated student object to JSON file
         jsonMethods.saveStudentToFile(student);
-
         System.out.println("Student enrolled in course successfully.");
     }
 
-    //Remove the course from the students request list
+    // Remove the course from the student's request list
     public boolean removeCourseFromRequestList(Student student, Course course) throws IOException {
-        if(student.getRequestedCourses().size() > 0 && student.getRequestedCourses().contains(course)){
+        if (student.getRequestedCourses().contains(course)) {
             student.getRequestedCourses().remove(course);
             jsonMethods.saveStudentToFile(student);
-            return true; //succesfully removed
-
-        }
-        else{
-            System.out.println("You did not take any course. Firstly, please request at least one course.");
-            return false; //removal failed
+            return true; // Successfully removed
+        } else {
+            System.out.println("Course is not in the request list.");
+            return false; // Removal failed
         }
     }
 
+    // Remove the course from the student's enrolled list
     public void removeCourseFromEnrolledList(Student student, Course course) throws IOException {
-        if(student.getEnrolledCourses().size() > 0 && student.getEnrolledCourses().contains(course)){
+        if (student.getEnrolledCourses().contains(course)) {
             student.getEnrolledCourses().remove(course);
             jsonMethods.saveStudentToFile(student);
-
-        }
-        else{
-            System.out.println("You are not enrolled to any course. Firstly, please request at least one course.");
+        } else {
+            System.out.println("Course is not in the enrolled list.");
         }
     }
 
-    // Method to list available course sections for a given student
-    public List<Course> listAvailableCourses() {
+    // List available course sections for a given student
+    public List<Course> listAvailableCourses(Student loggedInStudent) {
+
         List<Course> availableCourses = new ArrayList<>();
         List<Course> takenCourses = new ArrayList<>();
         List<String> failedCourses = new ArrayList<>();
         List<String> passedCourses = new ArrayList<>();
-
-        // Geçerli notlar
         List<String> passingGrades = Arrays.asList("AA", "BA", "BB", "CB", "CC");
 
-        // Transcript'teki dersleri kategorize et
-        for (Grade grade : student.getTranscript().allGrades()) {
+        for (Grade grade : loggedInStudent.getTranscript().allGrades()) {
             String gradeValue = grade.getGradeValue();
             Course course = grade.getCourse();
 
-            // Başarısız dersler
             if (gradeValue.equals("FF") || gradeValue.equals("FD")) {
                 failedCourses.add(course.getCourseId());
-            }
-            // Başarılı dersler
-            else if (passingGrades.contains(gradeValue)) {
+            } else if (passingGrades.contains(gradeValue)) {
                 passedCourses.add(course.getCourseId());
-            }
-            // Düşük notlar
-            else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
+            } else if (gradeValue.equals("DD") || gradeValue.equals("DC")) {
                 takenCourses.add(course);
             }
         }
 
-        // Diğer dersleri kontrol et
         for (Course course : courses) {
-            // Halihazırda alınan, başarıyla tamamlanan veya requested/enrolled listesinde olan dersleri atla
             if (passedCourses.contains(course.getCourseId()) ||
                     takenCourses.contains(course) ||
-                    student.getRequestedCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId())) ||
-                    student.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
+                    loggedInStudent.getRequestedCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId())) ||
+                    loggedInStudent.getEnrolledCourses().stream().anyMatch(c -> c.getCourseId().equals(course.getCourseId()))) {
                 continue;
             }
 
-            // Prerequisite kontrolü
-            if (course.hasPrerequisite()) {
-                String prerequisiteId = course.getPrerequisiteLessonId();
-                if (!passedCourses.contains(prerequisiteId)) {
-                    continue; // Prerequisite geçilmemiş, eklemeyi atla
-                }
+            if (course.hasPrerequisite() && !passedCourses.contains(course.getPrerequisiteLessonId())) {
+                continue;
             }
 
-            // Tüm kontrolleri geçen dersleri listeye ekle
             availableCourses.add(course);
         }
 
         return availableCourses;
     }
-
-
-
-
-
-
 
     public String availableCoursesToString(List<Course> availableCourses) {
         StringBuilder sb = new StringBuilder();
@@ -137,19 +97,59 @@ public class CourseRegistrationSystem {
         sb.append("------------------------------------------------------------\n");
 
         for (Course course : availableCourses) {
-            sb.append(String.format("%-10s %-40s\n",
-                    course.getCourseId(),
-                    course.getCourseName()));
+            sb.append(String.format("%-10s %-40s\n", course.getCourseId(), course.getCourseName()));
         }
 
         return sb.toString();
     }
 
+    // Check for schedule conflicts
+    public boolean checkScheduleConflict(Course newCourse, Student student) throws IOException {
+        List<Course> allCourses = jsonMethods.loadAllCourses();
+        Course fullCourse = allCourses.stream()
+                .filter(c -> c.getCourseId().equals(newCourse.getCourseId()))
+                .findFirst()
+                .orElse(null);
 
+        if (fullCourse == null) {
+            System.err.println("Full course data could not be found.");
+            return false;
+        }
+        for (Course enrolledCourse : student.getEnrolledCourses()) {
+            if (isScheduleConflict(enrolledCourse, fullCourse)) {
+                System.out.println("Schedule conflict with enrolled course: " + enrolledCourse.getCourseName());
+                return true;
+            }
+        }
 
+        for (Course requestedCourse : student.getRequestedCourses()) {
+            if (isScheduleConflict(requestedCourse, fullCourse)) {
+                System.out.println("Schedule conflict with requested course: " + requestedCourse.getCourseName());
+                System.out.println("Please choose one course to keep:");
+                System.out.println("1. " + requestedCourse.getCourseName());
+                System.out.println("2. " + newCourse.getCourseName());
 
+                int choice = getUserChoice();
+                if (choice == 1) {
+                    System.out.println("Keeping " + requestedCourse.getCourseName() + " and rejecting " + fullCourse.getCourseName());
+                    return true;
+                } else if (choice == 2) {
+                    student.getRequestedCourses().remove(requestedCourse);
+                    jsonMethods.saveStudentToFile(student);
+                    System.out.println("Removed " + requestedCourse.getCourseName() + " and added " + fullCourse.getCourseName());
+                    return false;
+                } else {
+                    System.out.println("Invalid choice. No action taken.");
+                    return true;
+                }
+            }
+        }
 
-    public void requestInCourse(Course course, Student student) {
+        return false;
+    }
+
+    // Handle the logic of requesting a course
+    public void requestInCourse(Course course, Student student) throws IOException {
         // Öğrencinin kayıtlı kurslarını kontrol et
         if (student.getEnrolledCourses().contains(course)) {
             System.out.println("You are already enrolled in this course.");
@@ -162,9 +162,15 @@ public class CourseRegistrationSystem {
             return;
         }
 
+        //System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
         // Kursun kapasitesini kontrol et
-        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
-            System.out.println("This course is full and cannot accept more students.");
+        if (countEnrolledStudents(jsonMethods.loadAllStudents(), course)+countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
+            addToWaitList(student, course);
+            System.out.println("waitlisttesin");
+            jsonMethods.updateCourseInJson(course); //?
+            jsonMethods.updateStudentInJson(student); //?
+            System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
+                    + course.getCourseId() + ".");
             return;
         }
 
@@ -173,10 +179,64 @@ public class CourseRegistrationSystem {
 
         // JSON'da güncelleme
         jsonMethods.updateStudentInJson(student);
+        //System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
 
+    private void addToWaitList(Student student, Course course) throws IOException {
+        if (!course.getWaitList().contains(student.getStudentID())) {
+            course.getWaitList().add(student.getStudentID());
+            jsonMethods.updateCourseInJson(course); // Update course in JSON
+            System.out.println("Student added to waitlist for course: " + course.getCourseId());
+        }
+    }
 
 
+
+
+    private int countRequestedStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            for (Course requestedCourse : student.getRequestedCourses()) {
+                if (requestedCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    private int countEnrolledStudents(List<Student> allStudents, Course course) {
+        int count = 0;
+        for (Student student : allStudents) {
+            for (Course enrolledCourse : student.getEnrolledCourses()) {
+                if (enrolledCourse.getCourseId().equals(course.getCourseId())) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    // Utility method to check schedule conflict between two courses
+    private boolean isScheduleConflict(Course course1, Course course2) {
+       for (CourseSection section1 : course1.getCourseSection()) {
+            for (CourseSection section2 : course2.getCourseSection()) {
+                if (section1.getDay().equals(section2.getDay()) && section1.getHour().equals(section2.getHour())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Utility method to get user's choice
+    private int getUserChoice() {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        System.out.print("Enter your choice (1 or 2): ");
+        return scanner.nextInt();
+    }
 }

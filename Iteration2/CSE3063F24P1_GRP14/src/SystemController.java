@@ -76,11 +76,7 @@ public class SystemController {
             // -----------------------Department Scheduler menu-----------------------------
             if (role.equals("DepartmentScheduler")) {
                 while (true) {
-                    System.out.println("1. View All Courses");
-                    System.out.println("2. Update Course Sections");
-                    System.out.println("3. Reset All Course Sections");
-                    System.out.println("4. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    departmentScheduler.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
@@ -150,11 +146,7 @@ public class SystemController {
 
 
                 while (true) {
-                    System.out.println("1. See requests");
-                    System.out.println("2. Approve request");
-                    System.out.println("3. Reject request");
-                    System.out.println("4. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    loggedInAdvisor.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
@@ -262,8 +254,9 @@ public class SystemController {
                             selectedStudent = null;
                             selectedCourse = null;
 
+                            // Yalnızca advisor'ın öğrencilerinin isteklerini dolaş
                             outerLoop:
-                            for (Student student : students) {
+                            for (Student student : loggedInAdvisor.getAdvisedStudents()) {
                                 for (Course course : student.getRequestedCourses()) {
                                     if (count == rejectRequestIndex) {
                                         selectedStudent = student;
@@ -275,7 +268,9 @@ public class SystemController {
                             }
 
                             if (selectedStudent != null && selectedCourse != null) {
-                                loggedInAdvisor.rejectRequestedCourse(selectedStudent, selectedCourse);
+                                CourseRegistrationSystem crs1 = new CourseRegistrationSystem(selectedStudent,courses);
+                                loggedInAdvisor.rejectRequestedCourse(students,crs1,selectedStudent, selectedCourse);
+                                System.out.println("Request rejected successfully.");
                             } else {
                                 System.out.println("Invalid request number.");
                             }
@@ -297,14 +292,14 @@ public class SystemController {
 
             // -----------------------Student menu-----------------------------
             if (role.equals("Student")) {
+                Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                if (refreshedStudent != null) {
+                    loggedInStudent = refreshedStudent; // Güncel veriyi kullan
+                }
                 CourseRegistrationSystem crs = new CourseRegistrationSystem(loggedInStudent, courses);
+
                 while (true) {
-                    System.out.println("1. View Transcript");
-                    System.out.println("2. Request course");
-                    System.out.println("3. Enrolled Courses");
-                    System.out.println("4. Display Schedule");
-                    System.out.println("5. Logout");
-                    System.out.print("Please choose an operation (or 'q' to go back): ");
+                    loggedInStudent.getMenu();
                     String choiceInput = input.nextLine();
 
                     if (choiceInput.equalsIgnoreCase("q")) {
@@ -322,13 +317,24 @@ public class SystemController {
 
                     switch (choice) {
                         case 1: // View Transcript
-                            System.out.println("Showing transcript...");
+                            System.out.println("Your transcript:");
                             System.out.println(loggedInStudent.getTranscript().toString());
                             break;
 
                         case 2: // Request Course
-                            System.out.println("Requesting course...");
-                            System.out.println(crs.availableCoursesToString(crs.listAvailableCourses()));
+                            refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            if (refreshedStudent != null) {
+                                loggedInStudent = refreshedStudent; // Güncel veriyi kullan
+                            }
+                            List<Course> availableCourses = crs.listAvailableCourses(loggedInStudent);
+
+                            if (availableCourses.isEmpty()) {
+                                System.out.println("No courses are available to request.");
+                                break;
+                            }
+
+                            System.out.println("Available courses:");
+                            System.out.println(crs.availableCoursesToString(availableCourses));
 
                             String courseCode;
                             Course selectedCourse = null;
@@ -342,7 +348,7 @@ public class SystemController {
                                     break;
                                 }
 
-                                for (Course course : crs.listAvailableCourses()) {
+                                for (Course course : availableCourses) {
                                     if (course.getCourseId().equals(courseCode)) {
                                         selectedCourse = course;
                                         validCourseCode = true;
@@ -356,13 +362,17 @@ public class SystemController {
                             }
 
                             if (selectedCourse != null) {
-                                crs.requestInCourse(selectedCourse, loggedInStudent);
+                                try {
+                                    crs.requestInCourse(selectedCourse, loggedInStudent);
+                                } catch (IOException e) {
+                                    System.out.println("Error occurred while requesting the course: " + e.getMessage());
+                                }
                             }
                             break;
 
                         case 3: // View Enrolled Courses
                             // JSON dosyasından en güncel öğrenciyi yükle
-                            Student refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
+                            refreshedStudent = jsonMethods.loadStudent(loggedInStudent.getStudentID());
                             if (refreshedStudent != null) {
                                 loggedInStudent = refreshedStudent; // Güncel veriyi kullan
                             }
@@ -386,12 +396,13 @@ public class SystemController {
                             break;
 
 
-                        case 4: //Display schedule
-                            System.out.println("Displaying your schedule...");
-                            loggedInStudent.displaySchedule(loggedInStudent);
 
+                        case 4: // Display Schedule
+                            System.out.println("Your schedule:");
+                            loggedInStudent.displaySchedule(loggedInStudent);
                             break;
-                        case 5:
+
+                        case 5: // Logout
                             System.out.println("Logging out...");
                             isLoggedIn = false;
                             break;
@@ -403,6 +414,7 @@ public class SystemController {
                     if (!isLoggedIn) break;
                 }
             }
+
         }
     }
 }
