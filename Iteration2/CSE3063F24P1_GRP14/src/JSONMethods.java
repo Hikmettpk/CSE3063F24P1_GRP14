@@ -59,36 +59,13 @@ public class JSONMethods {
                 // JSON dosyasından mevcut öğrenciyi oku
                 Student existingStudent = objectMapper.readValue(studentFile, Student.class);
 
-                // Enrolled Courses'u güncelle ve Requested Courses'dan kaldır
-                for (Course course : updatedStudent.getEnrolledCourses()) {
-                    boolean existsInEnrolled = false;
-                    for (Course existingCourse : existingStudent.getEnrolledCourses()) {
-                        if (existingCourse.getCourseId().equals(course.getCourseId())) {
-                            existsInEnrolled = true;
-                            break;
-                        }
-                    }
-                    if (!existsInEnrolled) {
-                        existingStudent.getEnrolledCourses().add(course);
+                // Enrolled Courses'u tamamen güncelle
+                existingStudent.getEnrolledCourses().clear();
+                existingStudent.getEnrolledCourses().addAll(updatedStudent.getEnrolledCourses());
 
-                        // Eğer enrolled courses'a eklendiyse requested'dan kaldır
-                        existingStudent.getRequestedCourses().removeIf(c -> c.getCourseId().equals(course.getCourseId()));
-                    }
-                }
-
-                // Requested Courses'u güncelle (tekrar kontrol)
-                for (Course course : updatedStudent.getRequestedCourses()) {
-                    boolean existsInRequested = false;
-                    for (Course existingRequest : existingStudent.getRequestedCourses()) {
-                        if (existingRequest.getCourseId().equals(course.getCourseId())) {
-                            existsInRequested = true;
-                            break;
-                        }
-                    }
-                    if (!existsInRequested) {
-                        existingStudent.getRequestedCourses().add(course);
-                    }
-                }
+                // Requested Courses'u tamamen güncelle
+                existingStudent.getRequestedCourses().clear();
+                existingStudent.getRequestedCourses().addAll(updatedStudent.getRequestedCourses());
 
                 // Güncellenmiş nesneyi JSON'a yaz
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(studentFile, existingStudent);

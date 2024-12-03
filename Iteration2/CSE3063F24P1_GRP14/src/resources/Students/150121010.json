@@ -22,7 +22,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     }, {
@@ -42,7 +43,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "BA"
     }, {
@@ -62,12 +64,13 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     } ]
   },
   "advisor" : null,
   "enrolledCourses" : [ ],
-  "requestedCourses" : [  ]
+  "requestedCourses" : [ ]
 }

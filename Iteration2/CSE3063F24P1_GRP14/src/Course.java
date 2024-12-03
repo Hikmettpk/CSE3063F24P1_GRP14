@@ -41,12 +41,14 @@ class Course {
     @JsonProperty("status")
     private String status;
 
-    public Course() {
+    @JsonProperty("waitList")
+    private List<String> waitList;
 
-    }
+    public Course() {}
     // Constructor
     public Course(String courseId, String courseName, int credit, boolean prerequisite, String prerequisiteLessonId,
-                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status) {
+                  List<CourseSection> courseSection, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status,
+                  List<String> waitList) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.credit = credit;
@@ -59,7 +61,14 @@ class Course {
         this.enrollmentCapacity = enrollmentCapacity;
         this.currentCapacity = currentCapacity;
         this.status = status;
+        this.waitList = waitList != null ? waitList : new ArrayList<>();
     }
+
+    public Course(String courseId, String courseName, int credit, boolean hasPrerequisite, String prerequisiteLessonId, List<CourseSection> updatedSections, int weeklyCourseCount, int year, String instructor, int enrollmentCapacity, int currentCapacity, String status) {
+    }
+
+//    public <E> Course(String c101, String testCourse, int i, boolean b, Object o, ArrayList<E> es, int i1, int i2, String s, int i3, int i4, String active) {
+//    }
 
     // Getters
     public String getCourseId() {
@@ -108,6 +117,22 @@ class Course {
         return status;
     }
 
+    public List<String> getWaitList(){return waitList;}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Course course = (Course) obj;
+        return courseId.equals(course.courseId); // Kursu `courseId` ile karşılaştırıyoruz
+    }
+
+    @Override
+    public int hashCode() {
+        return courseId.hashCode(); // `courseId`'yi hash değeri olarak kullanıyoruz
+    }
+
+
     // toString method for printing
     @Override
     public String toString() {
@@ -123,8 +148,9 @@ class Course {
                 ", instructor='" + instructor + '\'' +
                 ", enrollmentCapacity=" + enrollmentCapacity +
                 ", status='" + status + '\'' +
-           '}';
-}
+                ", waitList=" + waitList +
+                '}';
+    }
 
 
 }

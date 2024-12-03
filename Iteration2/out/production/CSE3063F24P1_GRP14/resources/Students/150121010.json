@@ -22,7 +22,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     }, {
@@ -42,7 +43,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "BA"
     }, {
@@ -62,33 +64,13 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null
+        "status" : null,
+        "waitList" : null
       },
       "gradeValue" : "AA"
     } ]
   },
   "advisor" : null,
   "enrolledCourses" : [ ],
-  "requestedCourses" : [ {
-    "courseId" : "CSE2246",
-    "courseName" : "Analysis of Algorithms",
-    "credit" : 6,
-    "prerequisite" : false,
-    "prerequisiteLessonId" : "None",
-    "courseSection" : [ {
-      "day" : "Wednesday",
-      "place" : "M1-110",
-      "hour" : "10:30-11:20"
-    }, {
-      "day" : "Wednesday",
-      "place" : "M1-110",
-      "hour" : "11:30-12:20"
-    } ],
-    "weeklyCourseCount" : 2,
-    "year" : 2,
-    "instructor" : "Sanem Arslan",
-    "enrollmentCapacity" : 5,
-    "currentCapacity" : 0,
-    "status" : "Active"
-  } ]
+  "requestedCourses" : [ ]
 }

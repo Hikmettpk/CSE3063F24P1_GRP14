@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DepartmentScheduler extends User {
@@ -23,6 +24,35 @@ public class DepartmentScheduler extends User {
     public DepartmentScheduler(String username, String name, String surname, String password) {
         super(username, name, surname, password);
         this.courses = loadCoursesFromJson();
+    }
+
+    @Override
+    protected void getMenu() {
+        System.out.println("1. View All Courses");
+        System.out.println("2. Update Course Sections");
+        System.out.println("3. Reset All Course Sections");
+        System.out.println("4. Logout");
+        System.out.print("Please choose an operation (or 'q' to go back): ");
+    }
+
+    @Override
+    protected String getUsername() {
+        return getUsernameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getName() {
+        return getNameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getSurname() {
+        return getSurnameField(); // Access via the getter method in User
+    }
+
+    @Override
+    protected String getPassword() {
+        return getPasswordField(); // Access via the getter method in User
     }
 
     public void printAllCourses() {
@@ -206,7 +236,8 @@ public class DepartmentScheduler extends User {
                             course.getInstructor(),
                             course.getEnrollmentCapacity(),
                             course.getCurrentCapacity(),
-                            course.getStatus()
+                            course.getStatus(),
+                            course.getWaitList()
                     ));
                 } else {
                     updatedCourses.add(course);
