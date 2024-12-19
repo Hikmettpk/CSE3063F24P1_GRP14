@@ -1,8 +1,8 @@
 class CourseSection:
     def __init__(self, day: str = "", place: str = "", hour: str = ""):
-        self.day = day
-        self.place = place
-        self.hour = hour
+        self._day = day
+        self._place = place
+        self._hour = hour
 
     # Getter methods
     def getDay(self) -> str:

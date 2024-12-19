@@ -17,19 +17,19 @@ class Course:
                  status: str = "",
                  waitList: List[str] = None):
 
-        self.courseId = courseId
-        self.courseName = courseName
-        self.credit = credit
-        self.prerequisite = prerequisite
-        self.prerequisiteLessonId = prerequisiteLessonId
-        self.courseSection = courseSection if courseSection is not None else []
-        self.weeklyCourseCount = weeklyCourseCount
-        self.year = year
-        self.instructor = instructor
-        self.enrollmentCapacity = enrollmentCapacity
-        self.currentCapacity = currentCapacity
-        self.status = status
-        self.waitList = waitList if waitList is not None else []
+        self._courseId = courseId
+        self._courseName = courseName
+        self._credit = credit
+        self._prerequisite = prerequisite
+        self._prerequisiteLessonId = prerequisiteLessonId
+        self._courseSection = courseSection if courseSection is not None else []
+        self._weeklyCourseCount = weeklyCourseCount
+        self._year = year
+        self._instructor = instructor
+        self._enrollmentCapacity = enrollmentCapacity
+        self._currentCapacity = currentCapacity
+        self._status = status
+        self._waitList = waitList if waitList is not None else []
 
     # Getter methods
     def getCourseName(self) -> str:
