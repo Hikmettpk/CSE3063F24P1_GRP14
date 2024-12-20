@@ -43,7 +43,7 @@ class DepartmentHead(Staff):
         print(f"{'Course ID':<10} {'Course Name':<45} {'Credits':<10} {'Year':<10} {'Instructor':<25} {'Type':<10}")
         print("-" * 110)
         for course in self.courses:
-            print(f"{course.courseId:<10} {course.courseName:<45} {course.credit:<10} {course.year:<10} {course.instructor:<25} {course.type:<10}")
+            print(f"{course.get_course_id():<10} {course.get_course_name():<45} {course.get_credit():<10} {course.get_year():<10} {course.get_instructor():<25} {course.get_type():<10}")
 
     def add_course(self):
         """
@@ -71,7 +71,7 @@ class DepartmentHead(Staff):
 
         self.courses.append(new_course)
         self.json_methods.update_course_json(self.courses)
-        print(f"Course {new_course.courseName} added successfully.")
+        print(f"Course {new_course.get_course_name} added successfully.")
 
     def remove_course(self):
         """
@@ -79,7 +79,7 @@ class DepartmentHead(Staff):
         """
         self.courses = self.json_methods.load_course_json()
         course_id = input("Enter the Course ID to remove: ").strip()
-        self.courses = [course for course in self.courses if course.courseId != course_id]
+        self.courses = [course for course in self.courses if course.get_course_id() != course_id]
         self.json_methods.update_course_json(self.courses)
         print(f"Course with ID {course_id} removed successfully.")
 
@@ -89,12 +89,12 @@ class DepartmentHead(Staff):
         """
         self.courses = self.json_methods.load_course_json()
         course_id = input("Enter the Course ID to update: ").strip()
-        course = next((c for c in self.courses if c.courseId == course_id), None)
+        course = next((c for c in self.courses if c.get_course_id() == course_id), None)
         if not course:
             print(f"Course with ID {course_id} not found.")
             return
 
-        print(f"Updating course: {course.courseName}")
+        print(f"Updating course: {course.get_course_name()}")
 
         while True:
             print("1. Update Course Name")
@@ -110,23 +110,23 @@ class DepartmentHead(Staff):
             choice = input("Enter your choice: ").strip()
 
             if choice == "1":
-                course.courseName = input("Enter the new Course Name: ").strip()
+                course.set_course_name(input("Enter the new Course Name: ").strip())
             elif choice == "2":
-                course.credit = self.get_int_input("Enter the new Credit Hours: ")
+                course.set_credit(self.get_int_input("Enter the new Credit Hours: "))
             elif choice == "3":
                 prerequisite = self.get_choice_input("Does the course have prerequisites? (yes/no): ", ["yes", "no"]) == 'yes'
-                course.prerequisite = prerequisite
-                course.prerequisiteLessonId = input("Enter Prerequisite Lesson ID (or None): ").strip() if prerequisite else "None"
+                course.set_prerequisite(prerequisite)
+                course.set_prerequisite_lesson_id(input("Enter Prerequisite Lesson ID (or None): ").strip() if prerequisite else "None")
             elif choice == "4":
-                course.weeklyCourseCount = self.get_int_input("Enter the Weekly Course Count: ")
+                course.set_weekly_course_count(self.get_int_input("Enter the Weekly Course Count: "))
             elif choice == "5":
-                course.year = self.get_choice_input("Enter the Year of the Course (1, 2, 3, or 4): ", ["1", "2", "3", "4"])
+                course.set_year(self.get_choice_input("Enter the Year of the Course (1, 2, 3, or 4): ", ["1", "2", "3", "4"]))
             elif choice == "6":
-                course.instructor = input("Enter the new Instructor Name: ").strip()
+                course.set_instructor(input("Enter the new Instructor Name: ").strip())
             elif choice == "7":
-                course.enrollmentCapacity = self.get_int_input("Enter the new Enrollment Capacity: ")
+                course.set_enrollment_capacity(self.get_int_input("Enter the new Enrollment Capacity: "))
             elif choice == "8":
-                course.type = self.get_choice_input("Enter the new Course Type (Mandatory/Elective): ", ["mandatory", "elective"])
+                course.set_type(self.get_choice_input("Enter the new Course Type (Mandatory/Elective): ", ["mandatory", "elective"]))
             elif choice == "9":
                 print("Exiting update menu.")
                 break
@@ -134,4 +134,4 @@ class DepartmentHead(Staff):
                 print("Invalid choice. Please try again.")
 
         self.json_methods.update_course_json(self.courses)
-        print(f"Course with ID {course.courseId} updated successfully.")
+        print(f"Course with ID {course.get_course_id()} updated successfully.")

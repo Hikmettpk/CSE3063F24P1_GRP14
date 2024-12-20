@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 
 class Staff(ABC):
     def __init__(self, username, name, surname, password):
-        self.username = username
-        self.name = name
-        self.surname = surname
-        self.password = password
+        self.__username = username
+        self.__name = name
+        self.__surname = surname
+        self.__password = password
 
     @abstractmethod
     def display_menu(self):

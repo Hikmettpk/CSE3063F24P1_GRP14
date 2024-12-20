@@ -1,28 +1,28 @@
-from DepartmentScheduler import DepartmentScheduler
+from DepartmentHead import DepartmentHead
 
 def main():
-    # Initialize DepartmentScheduler
-    scheduler = DepartmentScheduler("schedulerUser", "John", "Doe", "password123")
+    # Initialize DepartmentHead
+    head = DepartmentHead("headUser", "John", "Doe", "password123")
 
     while True:
-        scheduler.display_menu()
+        head.display_menu()
         choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            # View all courses
-            scheduler.print_all_courses()
+            # Add a course
+            head.add_course()
 
         elif choice == "2":
-            # Update course sections
-            scheduler.update_course_sections()
+            # Remove a course
+            head.remove_course()
 
         elif choice == "3":
-            # Reset one course section
-            scheduler.reset_course_section()
+            # Update course information
+            head.update_course()
 
         elif choice == "4":
-            # Reset all course sections
-            scheduler.reset_all_course_sections()
+            # Display all courses
+            head.display_all_courses()
 
         elif choice == "5":
             # Logout
