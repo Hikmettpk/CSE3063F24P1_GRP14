@@ -3,96 +3,96 @@ from course_section import CourseSection
 
 class Course:
     def __init__(self,
-                 courseId: str = "",
-                 courseName: str = "",
+                 course_id: str = "",
+                 course_name: str = "",
                  credit: int = 0,
                  prerequisite: bool = False,
-                 prerequisiteLessonId: str = "",
-                 courseSection: List[CourseSection] = None,
-                 weeklyCourseCount: int = 0,
+                 prerequisite_lesson_id: str = "",
+                 course_section: List['CourseSection'] = None,
+                 weekly_course_count: int = 0,
                  year: int = 0,
                  instructor: str = "",
-                 enrollmentCapacity: int = 0,
-                 currentCapacity: int = 0,
+                 enrollment_capacity: int = 0,
+                 current_capacity: int = 0,
                  status: str = "",
-                 waitList: List[str] = None):
+                 wait_list: List[str] = None):
 
-        self._courseId = courseId
-        self._courseName = courseName
+        self._course_id = course_id
+        self._course_name = course_name
         self._credit = credit
         self._prerequisite = prerequisite
-        self._prerequisiteLessonId = prerequisiteLessonId
-        self._courseSection = courseSection if courseSection is not None else []
-        self._weeklyCourseCount = weeklyCourseCount
+        self._prerequisite_lesson_id = prerequisite_lesson_id
+        self._course_section = course_section if course_section is not None else []
+        self._weekly_course_count = weekly_course_count
         self._year = year
         self._instructor = instructor
-        self._enrollmentCapacity = enrollmentCapacity
-        self._currentCapacity = currentCapacity
+        self._enrollment_capacity = enrollment_capacity
+        self._current_capacity = current_capacity
         self._status = status
-        self._waitList = waitList if waitList is not None else []
+        self._wait_list = wait_list if wait_list is not None else []
 
     # Getter methods
-    def getCourseName(self) -> str:
-        return self.courseName
+    def get_course_name(self) -> str:
+        return self._course_name
 
-    def getCourseId(self) -> str:
-        return self.courseId
+    def get_course_id(self) -> str:
+        return self._course_id
 
-    def getCredit(self) -> int:
-        return self.credit
+    def get_credit(self) -> int:
+        return self._credit
 
-    def getCourseSection(self) -> List[CourseSection]:
-        return self.courseSection
+    def get_course_section(self) -> List['CourseSection']:
+        return self._course_section
 
-    def getPrerequisiteLessonId(self) -> str:
-        return self.prerequisiteLessonId
+    def get_prerequisite_lesson_id(self) -> str:
+        return self._prerequisite_lesson_id
 
-    def hasPrerequisite(self) -> bool:
-        return self.prerequisite
+    def has_prerequisite(self) -> bool:
+        return self._prerequisite
 
-    def getWeeklyCourseCount(self) -> int:
-        return self.weeklyCourseCount
+    def get_weekly_course_count(self) -> int:
+        return self._weekly_course_count
 
-    def getYear(self) -> int:
-        return self.year
+    def get_year(self) -> int:
+        return self._year
 
-    def getInstructor(self) -> str:
-        return self.instructor
+    def get_instructor(self) -> str:
+        return self._instructor
 
-    def getEnrollmentCapacity(self) -> int:
-        return self.enrollmentCapacity
+    def get_enrollment_capacity(self) -> int:
+        return self._enrollment_capacity
 
-    def getCurrentCapacity(self) -> int:
-        return self.currentCapacity
+    def get_current_capacity(self) -> int:
+        return self._current_capacity
 
-    def getStatus(self) -> str:
-        return self.status
+    def get_status(self) -> str:
+        return self._status
 
-    def getWaitList(self) -> List[str]:
-        return self.waitList
+    def get_wait_list(self) -> List[str]:
+        return self._wait_list
 
     # Utility methods
     def __eq__(self, other) -> bool:
         if not isinstance(other, Course):
             return False
-        return self.courseId == other.courseId
+        return self._course_id == other._course_id
 
     def __hash__(self) -> int:
-        return hash(self.courseId)
+        return hash(self._course_id)
 
     def __str__(self) -> str:
         return ("Course{" +
-                "courseId='" + self.courseId + '\'' +
-                ", courseName='" + self.courseName + '\'' +
-                ", credit=" + str(self.credit) +
-                ", prerequisite=" + str(self.prerequisite) +
-                ", prerequisiteLessonId='" + self.prerequisiteLessonId + '\'' +
-                ", courseSection=" + str([str(section) for section in self.courseSection]) +
-                ", weeklyCourseCount=" + str(self.weeklyCourseCount) +
-                ", year=" + str(self.year) +
-                ", instructor='" + self.instructor + '\'' +
-                ", enrollmentCapacity=" + str(self.enrollmentCapacity) +
-                ", currentCapacity=" + str(self.currentCapacity) +
-                ", status='" + self.status + '\'' +
-                ", waitList=" + str(self.waitList) +
+                "course_id='" + self._course_id + '\'' +
+                ", course_name='" + self._course_name + '\'' +
+                ", credit=" + str(self._credit) +
+                ", prerequisite=" + str(self._prerequisite) +
+                ", prerequisite_lesson_id='" + self._prerequisite_lesson_id + '\'' +
+                ", course_section=" + str([str(section) for section in self._course_section]) +
+                ", weekly_course_count=" + str(self._weekly_course_count) +
+                ", year=" + str(self._year) +
+                ", instructor='" + self._instructor + '\'' +
+                ", enrollment_capacity=" + str(self._enrollment_capacity) +
+                ", current_capacity=" + str(self._current_capacity) +
+                ", status='" + self._status + '\'' +
+                ", wait_list=" + str(self._wait_list) +
                 '}')
