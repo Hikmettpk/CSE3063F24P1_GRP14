@@ -63,7 +63,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "DepartmentScheduler",
+    "git-widget-placeholder": "HikmetPython",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/emran/Desktop/GitHub/CSE3063F24P1_GRP14/Iteration 1",
     "node.js.detected.package.eslint": "true",
@@ -85,7 +85,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SystemController">
+  <component name="RunManager">
     <configuration name="SystemController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SystemController" />
       <module name="CSE3063F24P1_GRP14" />
@@ -132,21 +132,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.SystemController" />
-        <item itemvalue="JUnit.UnitTest" />
-        <item itemvalue="JUnit.CalculateTest.twoPlusTwoEqualFour" />
-        <item itemvalue="JUnit.UnitTest.testListAvailableCourses" />
-        <item itemvalue="JUnit.UnitTest.testGetTranscript" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -184,6 +175,7 @@
       <workItem from="1731395466168" duration="38000" />
       <workItem from="1731395560503" duration="22000" />
       <workItem from="1732796008368" duration="280000" />
+      <workItem from="1734692562074" duration="1041000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Json Files added">
       <option name="closed" value="true" />
