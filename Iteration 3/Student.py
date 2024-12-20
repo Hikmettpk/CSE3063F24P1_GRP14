@@ -1,5 +1,8 @@
+from Transcript import Transcript
+
+
 class Student:
-    def __init__(self, username, name, surname, password, studentID, enrolledCourses, requestedCourses, transcript, advisor):
+    def __init__(self, username, name, surname, password, studentID, enrolledCourses, requestedCourses, transcript : Transcript, advisor):
         self.__username = username
         self.__name = name
         self.__surname = surname

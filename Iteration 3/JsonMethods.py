@@ -2,9 +2,9 @@ import os
 from Staff import Staff
 from Course import Course 
 from Student import Student
-
+from Grade import Grade
+from Transcript import Transcript
 import json
-
 
 class JsonMethods:
     def __init__(self, courses_file="./resources/course.json", students_folder="./resources/Students"):
@@ -60,17 +60,20 @@ class JsonMethods:
             with open(student_file, "r", encoding="utf-8") as file:
                 student_data = json.load(file)
 
-            # Parsing nested objects (e.g., Transcript and Courses)
+            # Parse transcript data
             transcript_data = student_data.get("transcript", {})
             grades = transcript_data.get("grades", [])
 
-            # Convert grades into Course objects
-            parsed_grades = [
-                {"course": Course(**grade["course"]), "gradeValue": grade["gradeValue"]}
-                for grade in grades
-            ]
+            # Convert grades into Grade objects
+            grade_objects = []
+            for grade in grades:
+                course = Course(**grade["course"])
+                grade_obj = Grade(course, grade["gradeValue"])
+                grade_objects.append(grade_obj)
 
-            student_data["transcript"]["grades"] = parsed_grades
+            # Create Transcript object with grade objects
+            transcript = Transcript(grade_objects)
+            student_data["transcript"] = transcript
 
             # Convert enrolledCourses and requestedCourses into Course objects
             student_data["enrolledCourses"] = [Course(**course) for course in student_data.get("enrolledCourses", [])]
@@ -87,4 +90,3 @@ class JsonMethods:
         except Exception as e:
             print(f"Unexpected error while loading student ID {student_id}: {e}")
             return None
-
