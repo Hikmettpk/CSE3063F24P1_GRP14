@@ -1,36 +1,18 @@
 from DepartmentHead import DepartmentHead
+from JsonMethods import JsonMethods
 
 def main():
-    # Initialize DepartmentHead
-    head = DepartmentHead("headUser", "John", "Doe", "password123")
+    json_methods = JsonMethods()
+    student_id = input("Enter the student ID: ").strip()
+    student = json_methods.load_student(student_id)
 
-    while True:
-        head.display_menu()
-        choice = input("Enter your choice: ").strip()
-
-        if choice == "1":
-            # Add a course
-            head.add_course()
-
-        elif choice == "2":
-            # Remove a course
-            head.remove_course()
-
-        elif choice == "3":
-            # Update course information
-            head.update_course()
-
-        elif choice == "4":
-            # Display all courses
-            head.display_all_courses()
-
-        elif choice == "5":
-            # Logout
-            print("Logging out...")
-            break
-
-        else:
-            print("Invalid choice. Please try again.")
+    if student:
+        print(student.__str__())
+    else:
+        print("Failed to load student.")
 
 if __name__ == "__main__":
     main()
+
+
+

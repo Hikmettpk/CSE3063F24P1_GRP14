@@ -15,10 +15,10 @@
         "courseSection" : null,
         "weeklyCourseCount" : 0,
         "year" : 0,
+        "type" : "mandatory",
         "instructor" : null,
         "enrollmentCapacity" : 0,
-        "currentCapacity" : 0,
-        "status" : null
+        "currentCapacity" : 0
       },
       "gradeValue" : "FF"
     } ]

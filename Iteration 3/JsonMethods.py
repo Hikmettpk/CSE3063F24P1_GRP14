@@ -1,10 +1,15 @@
+import os
 from Staff import Staff
 from Course import Course 
+from Student import Student
+
 import json
 
+
 class JsonMethods:
-    def __init__(self, courses_file="./resources/course.json"):
+    def __init__(self, courses_file="./resources/course.json", students_folder="./resources/Students"):
         self.courses_file = courses_file
+        self.students_folder = students_folder
 
     def load_course_json(self):
         """
@@ -38,4 +43,48 @@ class JsonMethods:
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
+
+    def load_student(self, student_id):
+        """
+        Loads a student from the corresponding JSON file based on their student ID.
+
+        Args:
+            student_id (str): The ID of the student to load.
+
+        Returns:
+            Student: A Student object if the file exists and loads successfully, otherwise None.
+        """
+        student_file = os.path.join(self.students_folder, f"{student_id}.json")
+
+        try:
+            with open(student_file, "r", encoding="utf-8") as file:
+                student_data = json.load(file)
+
+            # Parsing nested objects (e.g., Transcript and Courses)
+            transcript_data = student_data.get("transcript", {})
+            grades = transcript_data.get("grades", [])
+
+            # Convert grades into Course objects
+            parsed_grades = [
+                {"course": Course(**grade["course"]), "gradeValue": grade["gradeValue"]}
+                for grade in grades
+            ]
+
+            student_data["transcript"]["grades"] = parsed_grades
+
+            # Convert enrolledCourses and requestedCourses into Course objects
+            student_data["enrolledCourses"] = [Course(**course) for course in student_data.get("enrolledCourses", [])]
+            student_data["requestedCourses"] = [Course(**course) for course in student_data.get("requestedCourses", [])]
+
+            # Create and return the Student object
+            return Student(**student_data)
+        except FileNotFoundError:
+            print(f"Error: Student file for ID {student_id} not found.")
+            return None
+        except json.JSONDecodeError:
+            print(f"Error: Failed to parse the JSON file for student ID {student_id}.")
+            return None
+        except Exception as e:
+            print(f"Unexpected error while loading student ID {student_id}: {e}")
+            return None
 
