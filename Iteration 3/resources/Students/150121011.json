@@ -7,8 +7,8 @@
     "transcript": {
         "grades": []
     },
-    "enrolledCourses": [
+    "enrolledCourses": [],
+    "requestedCourses": [
     ],
-    "requestedCourses": [],
     "advisor": null
 }

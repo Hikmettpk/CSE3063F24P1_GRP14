@@ -82,87 +82,56 @@ class Advisor(User):
         else:
             print("Invalid request number.")
 
+
+
+
     def reject_requested_course(self, student: Student, course: Course):
         if course in student.get_requested_courses():
+            # Requested courses'tan kursu kaldır
             student.get_requested_courses().remove(course)
-
-            # Bekleme listesinden ilk öğrenciyi al
-            if course.get_wait_list():
-                next_student_data = course.get_wait_list().pop(0)  # JSON'dan gelen sözlük
-                next_student = self.json_methods.load_student(next_student_data["studentID"])  # Student nesnesine dönüştür
-
-                if next_student:
-                    # Öğrencinin `requestedCourses` kısmına ekle
-                    next_student.get_requested_courses().append(course)
-                    self.json_methods.save_student_to_file(next_student)
-
-                    print(f"{next_student.get_name()} {next_student.get_surname()} is now requesting {course.get_course_name()}.")
-
-            # JSON dosyalarını güncelle
             self.json_methods.save_student_to_file(student)
-            self.json_methods.update_course_json([course])
-            print(f"Course {course.get_course_name()} rejected for {student.get_name()} {student.get_surname()}.")
-        else:
-            print("The course is not in the student's requested courses.")
-
-
-    def reject_requested_course(self, student: Student, course: Course):
-        if course in student.get_requested_courses():
-            # Remove the course from the student's requested courses
-            student.get_requested_courses().remove(course)
-            self.json_methods.save_student_to_file(student)  # Update the student's JSON file
             print(f"Course {course.get_course_name()} removed from {student.get_name()} {student.get_surname()}'s requested courses.")
 
-            # Increment the course's capacity
+            # Kurs kapasitesini artır
             course.set_current_capacity(course.get_current_capacity() + 1)
-            # Check if the waitlist exists and has entries
+
+            # Kurs bilgisini güncelle (Reject'ten önce kaydet)
+            self.json_methods.update_course_json([course])
+            print(f"Course {course.get_course_name()} JSON data updated before processing waitlist.")
+
+            # WaitList'i kontrol et
             wait_list = course.get_wait_list()
+            if wait_list.__sizeof__ > 0:
+                next_student_id = wait_list.pop(0)  # İlk öğrenciyi al
+                next_student_username = f"o{next_student_id}"  # 'o' ekle
 
-            if wait_list and isinstance(wait_list, list) and len(wait_list) > 0:
-                # Debug: Display the current waitlist
-                print(f"Waitlist before processing for course {course.get_course_name()}: {wait_list}")
+                try:
+                    next_student = self.json_methods.load_student(next_student_username)
+                    if not next_student:
+                        raise ValueError(f"Student with ID {next_student_username} could not be loaded.")
 
-                # Get the first student from the waitlist
-                next_student_data = wait_list.pop(0)
-
-                # Debug: Print the waitlist entry being processed
-                print(f"Processing waitlist entry: {next_student_data}")
-
-                # Convert the data to a `Student` object
-                if isinstance(next_student_data, str):
-                    next_student = self.json_methods.load_student(next_student_data)
-                elif isinstance(next_student_data, dict) and "studentID" in next_student_data:
-                    next_student = self.json_methods.load_student(next_student_data["studentID"])
-                else:
-                    print(f"Error: Invalid waitlist entry format: {next_student_data}")
-                    return
-
-                # If the student is successfully loaded, update their requested courses
-                if next_student:
-                    print(f"Loaded waitlisted student: {next_student.get_name()} {next_student.get_surname()}")
-
-                    # Add the course to the student's requested courses
+                    # Bekleme listesindeki öğrencinin requestedCourses kısmına kursu ekle
                     next_student.get_requested_courses().append(course)
-                    self.json_methods.save_student_to_file(next_student)  # Save the updated student data
+
+                    # Waitlist'ten öğrenci çıkar
+                    course.set_wait_list(wait_list)
+
+                    self.json_methods.save_student_to_file(next_student)  # Güncellenmiş öğrenciyi kaydet
+
+                    # Kurs kapasitesini düşür
+                    course.set_current_capacity(course.get_current_capacity() - 1)
                     print(f"Course {course.get_course_name()} added to {next_student.get_name()} {next_student.get_surname()}'s requested courses.")
 
-                    # Decrement the course's capacity again
-                    course.set_current_capacity(course.get_current_capacity() - 1)
-                else:
-                    print("Failed to load the next student from the waitlist.")
+                except Exception as e:
+                    print(f"Error processing waitlist student: {e}")
             else:
                 print(f"No students in waitlist for course {course.get_course_name()}.")
 
-
-            # Update the course JSON file
+            # Güncellenmiş kurs bilgilerini kaydet
             self.json_methods.update_course_json([course])
-            print(f"Course {course.get_course_name()} rejected for {student.get_name()} {student.get_surname()}.")
+            print(f"Course {course.get_course_name()} JSON data updated successfully.")
         else:
             print("The course is not in the student's requested courses.")
-
-
-
-
 
 
 
