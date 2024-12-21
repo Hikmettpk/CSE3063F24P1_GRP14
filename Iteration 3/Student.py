@@ -99,3 +99,18 @@ class Student(User):
 
     def __str__(self):
         return f"Student: {self.name} {self.surname} ({self.__studentID})"
+
+    def to_dict(self):
+        return {
+            "username": self.get_username(),
+            "name": self.get_name(),
+            "surname": self.get_surname(),
+            "password": self.get_password(),
+            "studentID": self.get_studentID(),
+            "transcript": {
+                "grades": [grade.to_dict() for grade in self.get_transcript().all_grades()]
+            },
+            "enrolledCourses": [course.to_dict() for course in self.get_enrolled_courses()],
+            "requestedCourses": [course.to_dict() for course in self.get_requested_courses()],
+            "advisor": self.get_advisor()
+        }

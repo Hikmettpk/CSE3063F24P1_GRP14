@@ -20,37 +20,55 @@ class JsonMethods:
         try:
             with open(self.courses_file, "r", encoding="utf-8") as file:
                 courses_data = json.load(file)
-            return [Course(**course) for course in courses_data]
+
+            courses = []
+            for course_data in courses_data:
+                wait_list = [
+                    self.load_student(student["studentID"]) if isinstance(student, dict) else student
+                    for student in course_data.get("waitList", [])
+                ]
+                course_data["waitList"] = wait_list
+                courses.append(Course(**course_data))
+
+            return courses
         except Exception as e:
             print(f"Error loading courses: {e}")
             return []
 
 
     def update_course_json(self, updated_courses):
-        """
-        Updates the courses JSON file while preserving existing courses not in updated_courses.
-
-        Args:
-            updated_courses (list): List of updated Course objects.
-        """
         try:
-            # Mevcut dersleri yükle
-            current_courses = self.load_course_json()
+            # Mevcut kursları yükle
+            with open(self.courses_file, "r", encoding="utf-8") as file:
+                existing_courses_data = json.load(file)
 
-            # Mevcut dersler içinde güncellenenleri değiştir
-            updated_course_ids = {course.get_course_id() for course in updated_courses}
-            all_courses = [
-                course for course in current_courses
-                if course.get_course_id() not in updated_course_ids
-            ] + updated_courses
+            # Mevcut kursları bir dictionary'e çevirerek kolay erişim sağla
+            existing_courses = {course["courseId"]: course for course in existing_courses_data}
 
-            # Tüm dersleri dosyaya yaz
-            courses_data = [course.to_dict() for course in all_courses]
+            # Güncellenen kursları mevcut listeye ekle veya güncelle
+            for course in updated_courses:
+                course_dict = course.to_dict()
+
+                # WaitList içindeki öğeleri uygun formatta güncelle
+                wait_list = []
+                for student in course.get_wait_list():
+                    if isinstance(student, str):
+                        wait_list.append(student)
+                    elif hasattr(student, "get_studentID"):
+                        wait_list.append(student.get_studentID())
+                    else:
+                        print(f"Invalid wait list entry: {student}")
+
+                course_dict["waitList"] = wait_list
+                existing_courses[course.get_course_id()] = course_dict
+
+            # Tüm kursları yeniden yaz
             with open(self.courses_file, "w", encoding="utf-8") as file:
-                json.dump(courses_data, file, indent=4, ensure_ascii=False)
+                json.dump(list(existing_courses.values()), file, indent=4, ensure_ascii=False)
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
+
 
 
 

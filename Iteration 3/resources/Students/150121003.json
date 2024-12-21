@@ -87,9 +87,7 @@
             "currentCapacity": 0,
             "type": "Mandatory",
             "waitList": []
-        }
-    ],
-    "requestedCourses": [
+        },
         {
             "courseId": "CSE4040",
             "courseName": "Cloud Computing",
@@ -108,5 +106,6 @@
             ]
         }
     ],
+    "requestedCourses": [],
     "advisor": null
 }

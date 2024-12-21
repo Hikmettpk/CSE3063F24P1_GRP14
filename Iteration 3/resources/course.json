@@ -46,16 +46,16 @@
     },
     {
         "courseId": "CSE3055",
-        "courseName": "Database Systems",
-        "credit": 7,
-        "prerequisite": true,
-        "prerequisiteLessonId": "CSE2225",
+        "courseName": "Object-Oriented Software Design",
+        "credit": 5,
+        "prerequisite": false,
+        "prerequisiteLessonId": "None",
         "courseSection": [],
         "weeklyCourseCount": 2,
         "year": 3,
-        "instructor": "Betül Boz",
+        "instructor": "Borahan Tümer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 4,
         "type": "Mandatory",
         "waitList": []
     },
@@ -71,21 +71,6 @@
         "instructor": "Betül Boz",
         "enrollmentCapacity": 5,
         "currentCapacity": 0,
-        "type": "Mandatory",
-        "waitList": []
-    },
-    {
-        "courseId": "CSE3055",
-        "courseName": "Object-Oriented Software Design",
-        "credit": 5,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 2,
-        "year": 3,
-        "instructor": "Borahan Tümer",
-        "enrollmentCapacity": 5,
-        "currentCapacity": 4,
         "type": "Mandatory",
         "waitList": []
     },
@@ -145,7 +130,7 @@
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "mandatory",
         "waitList": []
     }

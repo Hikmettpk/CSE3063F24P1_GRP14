@@ -122,7 +122,7 @@ class CourseRegistrationSystem:
 
     
         
-        
+            
     def request_in_course(self, course: Course, student: Student):
         student = self.json_methods.load_student(student.get_studentID())
 
@@ -130,13 +130,9 @@ class CourseRegistrationSystem:
             course.set_current_capacity(course.get_current_capacity() - 1)
             student.get_requested_courses().append(course)
         else:
-            # Bekleme listesine tam `Student` nesnesi ekleniyor
+            # Bekleme listesine `Student` nesnesi ekleniyor
             course.get_wait_list().append(student)
-            print(f"The course {course.get_course_name()} is full. You have been added to the waitlist.")
 
         self.json_methods.save_student_to_file(student)
         self.json_methods.update_course_json([course])
 
-
-
-    
