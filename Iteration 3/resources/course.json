@@ -66,7 +66,18 @@
         "credit": 7,
         "prerequisite": true,
         "prerequisiteLessonId": "CSE2225",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Tuesday",
+                "hour": "13:00-13:50",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Tuesday",
+                "hour": "14:00-14:50",
+                "place": "M1-Z06"
+            }
+        ],
         "weeklyCourseCount": 2,
         "year": 3,
         "instructor": "Betül Boz",
@@ -111,7 +122,23 @@
         "credit": 4,
         "prerequisite": true,
         "prerequisiteLessonId": "STAT2253",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Tuesday",
+                "hour": "9:30-10:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Tuesday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Tuesday",
+                "hour": "11:30-12:20",
+                "place": "M1-Z06"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 3,
         "instructor": "Sanem Arslan",
@@ -141,7 +168,23 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z01"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Haydar Özer",
@@ -156,58 +199,29 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-110"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-110"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z06"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
         "currentCapacity": 0,
         "type": "mandatory",
-        "waitList": []
-    },
-    {
-        "courseId": "CSE1907",
-        "courseName": "Fenerbahce Kurs",
-        "credit": 4,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 3,
-        "year": "4",
-        "instructor": "Aziz Yildirim",
-        "enrollmentCapacity": 20,
-        "currentCapacity": 0,
-        "type": "mandatory",
-        "waitList": []
-    },
-    {
-        "courseId": "CSE1903",
-        "courseName": "BESIKTASKURS",
-        "credit": 3,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 3,
-        "year": "3",
-        "instructor": "SERGEN YALCIN",
-        "enrollmentCapacity": 13,
-        "currentCapacity": 0,
-        "type": "mandatory",
-        "waitList": []
-    },
-    {
-        "courseId": "CSE1903",
-        "courseName": "BESIKTAS",
-        "credit": 3,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 3,
-        "year": "3",
-        "instructor": "SERGEN YALÇİN",
-        "enrollmentCapacity": 13,
-        "currentCapacity": 0,
-        "type": "elective",
         "waitList": []
     }
 ]

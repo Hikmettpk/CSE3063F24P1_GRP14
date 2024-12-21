@@ -2,25 +2,38 @@ from typing import List
 from Grade import Grade
 
 class Transcript:
-    def __init__(self, grades_data=None):
-        self.__grades = []
-        if grades_data:
-            if isinstance(grades_data, list):
-                # Check if the input is raw JSON data that needs conversion
-                if grades_data and isinstance(grades_data[0], dict):
-                    for grade_data in grades_data:
-                        # Create Grade object from the dictionary data
-                        grade = Grade(grade_data['course'], grade_data['gradeValue'])
-                        self.__grades.append(grade)
-                else:
-                    # Input is already a list of Grade objects
-                    self.__grades = grades_data
+    def __init__(self, grades: List[Grade]):
+        """
+        Initializes a Transcript object with a list of Grade objects.
 
-    # Getter method to return all grades
+        Args:
+            grades (List[Grade]): A list of Grade objects.
+        """
+        self.__grades = grades if grades is not None else []
+
     def all_grades(self) -> List[Grade]:
+        """
+        Returns all grades in the transcript.
+
+        Returns:
+            List[Grade]: A list of Grade objects.
+        """
         return self.__grades
 
-    # Method to provide a string representation of the Transcript
+    def add_grade(self, grade: Grade):
+        """
+        Adds a grade to the transcript.
+
+        Args:
+            grade (Grade): The Grade object to add.
+        """
+        self.__grades.append(grade)
+
     def __str__(self):
-        grades_info = "\n".join(str(grade) for grade in self.__grades) if self.__grades else "No grades available"
-        return f"Transcript:\n{grades_info}"
+        """
+        Returns a string representation of the transcript.
+
+        Returns:
+            str: A formatted string of all grades.
+        """
+        return "\n".join(str(grade) for grade in self.__grades)

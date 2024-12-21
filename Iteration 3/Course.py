@@ -13,7 +13,7 @@ class Course:
         self.__enrollmentCapacity = enrollmentCapacity
         self.__currentCapacity = currentCapacity
         self.__type = type
-        self.__waitList = waitList if waitList is not None else []
+        self.__waitList = waitList if waitList else []
 
     # Getter methods
     def get_course_id(self):
@@ -56,9 +56,6 @@ class Course:
         return self.__waitList
 
     # Setter methods
-    def set_course_id(self, courseId):
-        self.__courseId = courseId
-
     def set_course_name(self, courseName):
         self.__courseName = courseName
 
@@ -95,10 +92,8 @@ class Course:
     def set_wait_list(self, waitList):
         self.__waitList = waitList
 
+    # Convert object to dictionary
     def to_dict(self):
-        """
-        Converts the Course object into a dictionary.
-        """
         return {
             "courseId": self.__courseId,
             "courseName": self.__courseName,

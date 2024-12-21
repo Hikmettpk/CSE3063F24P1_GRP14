@@ -13,18 +13,7 @@
       "studentID": "150121011",
       "advisor": null,
       "transcript": {
-        "grades": [
-          {
-            "course": {
-              "courseId": "CSE1241",
-              "courseName": "Programming 1",
-              "credit": 6,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None"
-            },
-            "gradeValue": "FF"
-          }
-        ]
+        "grades": []
       },
       "enrolledCourses": [],
       "requestedCourses": []
@@ -38,16 +27,6 @@
       "advisor": null,
       "transcript": {
         "grades": [
-          {
-            "course": {
-              "courseId": "CSE1241",
-              "courseName": "Programming 1",
-              "credit": 6,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None"
-            },
-            "gradeValue": "BA"
-          }
         ]
       },
       "enrolledCourses": [],
@@ -62,16 +41,7 @@
       "advisor": null,
       "transcript": {
         "grades": [
-          {
-            "course": {
-              "courseId": "CSE1241",
-              "courseName": "Programming 1",
-              "credit": 6,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None"
-            },
-            "gradeValue": "CB"
-          }
+          
         ]
       },
       "enrolledCourses": [],
@@ -86,16 +56,7 @@
       "advisor": null,
       "transcript": {
         "grades": [
-          {
-            "course": {
-              "courseId": "CSE1241",
-              "courseName": "Programming 1",
-              "credit": 6,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None"
-            },
-            "gradeValue": "FF"
-          }
+          
         ]
       },
       "enrolledCourses": [],
@@ -110,16 +71,7 @@
       "advisor": null,
       "transcript": {
         "grades": [
-          {
-            "course": {
-              "courseId": "CSE1241",
-              "courseName": "Programming 1",
-              "credit": 6,
-              "prerequisite": false,
-              "prerequisiteLessonId": "None"
-            },
-            "gradeValue": "BA"
-          }
+          
         ]
       },
       "enrolledCourses": [],

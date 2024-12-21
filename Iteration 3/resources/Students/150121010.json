@@ -21,8 +21,8 @@
         "year" : 0,
         "instructor" : null,
         "enrollmentCapacity" : 0,
-        "currentCapacity" : 0,
-        "status" : null,
+    "type" : "Mandatory",
+    "currentCapacity" : 0,
         "waitList" : null
       },
       "gradeValue" : "AA"
@@ -42,8 +42,8 @@
         "year" : 0,
         "instructor" : null,
         "enrollmentCapacity" : 0,
-        "currentCapacity" : 0,
-        "status" : null,
+    "type" : "Mandatory",
+    "currentCapacity" : 0,
         "waitList" : null
       },
       "gradeValue" : "BA"
@@ -64,8 +64,8 @@
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
-        "status" : null,
-        "waitList" : null
+    "type" : "Mandatory",
+    "waitList" : null
       },
       "gradeValue" : "AA"
     } ]

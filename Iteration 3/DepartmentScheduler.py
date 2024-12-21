@@ -1,7 +1,6 @@
 from Staff import Staff
-from json_methods import JsonMethods
+from JsonMethods import JsonMethods
 from Course import Course
-
 class DepartmentScheduler(Staff):
     def __init__(self, username, name, surname, password):
         super().__init__(username, name, surname, password)
@@ -17,9 +16,6 @@ class DepartmentScheduler(Staff):
     PLACES = ["M1-Z01", "M1-Z06", "M1-110", "M2-Z11", "M2-Z06", "M2-110", "M2-103"]
 
     def display_menu(self):
-        """
-        Displays the menu options for the DepartmentScheduler.
-        """
         print("1. View All Courses")
         print("2. Update Course Sections")
         print("3. Reset One Course Section")
@@ -38,7 +34,7 @@ class DepartmentScheduler(Staff):
 
         print(f"{'Course Code':<10} {'Course Name':<30}")
         for course in self.courses:
-            print(f"{course.courseId:<10} {course.courseName:<30}")
+            print(f"{course.get_course_id():<10} {course.get_course_name():<30}")
 
     def find_course_by_id(self, course_id):
         """
@@ -51,7 +47,7 @@ class DepartmentScheduler(Staff):
             Course: The course object if found, None otherwise.
         """
         self.courses = self.json_methods.load_course_json()
-        return next((course for course in self.courses if course.courseId == course_id), None)
+        return next((course for course in self.courses if course.get_course_id() == course_id), None)
 
     def reset_course_section(self):
         """
@@ -64,9 +60,9 @@ class DepartmentScheduler(Staff):
             print(f"Course with ID {course_id} not found.")
             return
 
-        course.courseSection = []
+        course.set_course_section([])
         self.json_methods.update_course_json(self.courses)
-        print(f"Sections reset for course {course.courseId}.")
+        print(f"Sections reset for course {course.get_course_id()}.")
 
     def reset_all_course_sections(self):
         """
@@ -74,7 +70,7 @@ class DepartmentScheduler(Staff):
         """
         self.courses = self.json_methods.load_course_json()
         for course in self.courses:
-            course.courseSection = []
+            course.set_course_section([])
         self.json_methods.update_course_json(self.courses)
         print("All course sections have been reset.")
 
@@ -90,9 +86,9 @@ class DepartmentScheduler(Staff):
             return
 
         sections = []
-        print(f"Updating sections for course: {course.courseName}")
+        print(f"Updating sections for course: {course.get_course_name()}")
 
-        for i in range(course.weeklyCourseCount):
+        for i in range(course.get_weekly_course_count()):
             print(f"Section {i + 1}:")
             day = self.select_option(self.DAYS, "Select a day:")
             hour = self.select_available_hour(day, sections, course)
@@ -107,52 +103,44 @@ class DepartmentScheduler(Staff):
 
             sections.append({"day": day, "hour": hour, "place": place})
 
-        course.courseSection = sections
+        course.set_course_section(sections)
         self.json_methods.update_course_json(self.courses)
-        print(f"Sections updated successfully for course {course.courseName}.")
+        print(f"Sections updated successfully for course {course.get_course_name()}.")
 
     def select_available_hour(self, day, current_sections, current_course):
         occupied_hours = set()
-        current_year = current_course.year
-
+        current_year = current_course.get_year()
         for section in current_sections:
             if section['day'] == day:
                 occupied_hours.add(section['hour'])
-
         for course in self.courses:
-            if course.year == current_year:
-                if course.type == "Mandatory" or current_course.type == "Mandatory":
-                    for section in course.courseSection:
+            if course.get_year() == current_year:
+                if course.get_type() == "Mandatory" or current_course.get_type() == "Mandatory":
+                    for section in course.get_course_section():
                         if section['day'] == day:
                             occupied_hours.add(section['hour'])
-
         available_hours = [hour for hour in self.HOURS if hour not in occupied_hours]
         if not available_hours:
             return None
-
         return self.select_option(available_hours, "Available hours (conflicts depend on course type):")
 
     def select_available_place(self, day, hour):
         occupied_places = set()
         for course in self.courses:
-            for section in course.courseSection:
+            for section in course.get_course_section():
                 if section['day'] == day and section['hour'] == hour:
                     occupied_places.add(section['place'])
-
         available_places = [place for place in self.PLACES if place not in occupied_places]
         if not available_places:
             return None
-
         return self.select_option(available_places, "Available places:")
 
     def select_option(self, options, prompt):
         """
         Displays a list of options for the user to select from.
-
         Args:
             options (list): List of options to display.
             prompt (str): Prompt message for the user.
-
         Returns:
             str: The selected option.
         """
