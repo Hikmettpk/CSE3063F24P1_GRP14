@@ -130,6 +130,11 @@ class CourseRegistrationSystem:
         # Reload student data
         student = self.json_methods.load_student(student.get_studentID())
 
+        # Check if the course has already been requested
+        if course in student.get_requested_courses():
+            print("You have already requested this course.")
+            return
+
         # Capacity check
         if course.get_current_capacity() <= 0:
             print("This course is full. Adding to the waitlist.")
@@ -145,10 +150,7 @@ class CourseRegistrationSystem:
                 print("Student is already in the waitlist for this course.")
             return
 
-        # Check if the course has already been requested
-        if course in student.get_requested_courses():
-            print("You have already requested this course.")
-            return
+
 
         # Add the course to the student's requested courses list
         student.get_requested_courses().append(course)
