@@ -1,13 +1,29 @@
 {
-  "username" : "o150121074",
-  "name" : "Efe",
-  "surname" : "Yalım",
-  "password" : "mar2174",
-  "studentID" : "150121074",
-  "transcript" : {
-    "grades" : [ ]
-  },
-  "advisor" : null,
-  "enrolledCourses" : [ ],
-  "requestedCourses" : [ ]
+    "username": "o150121074",
+    "name": "Efe",
+    "surname": "Yalım",
+    "password": "mar2174",
+    "studentID": "150121074",
+    "transcript": {
+        "grades": []
+    },
+    "enrolledCourses": [],
+    "requestedCourses": [
+        {
+            "courseId": "CSE4040",
+            "courseName": "Cloud Computing",
+            "credit": 5,
+            "prerequisite": false,
+            "prerequisiteLessonId": "None",
+            "courseSection": [],
+            "weeklyCourseCount": 3,
+            "year": 4,
+            "instructor": "Ali Fuat Alkaya",
+            "enrollmentCapacity": 5,
+            "currentCapacity": 0,
+            "type": "mandatory",
+            "waitList": []
+        }
+    ],
+    "advisor": null
 }

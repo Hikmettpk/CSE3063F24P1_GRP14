@@ -26,20 +26,33 @@ class JsonMethods:
             return []
 
 
-    def update_course_json(self, courses):
+    def update_course_json(self, updated_courses):
         """
-        Updates the courses JSON file with the provided list of Course objects.
+        Updates the courses JSON file while preserving existing courses not in updated_courses.
 
         Args:
-            courses (list): A list of Course objects to save back to the JSON file.
+            updated_courses (list): List of updated Course objects.
         """
         try:
-            courses_data = [course.to_dict() for course in courses]
+            # Mevcut dersleri yükle
+            current_courses = self.load_course_json()
+
+            # Mevcut dersler içinde güncellenenleri değiştir
+            updated_course_ids = {course.get_course_id() for course in updated_courses}
+            all_courses = [
+                course for course in current_courses
+                if course.get_course_id() not in updated_course_ids
+            ] + updated_courses
+
+            # Tüm dersleri dosyaya yaz
+            courses_data = [course.to_dict() for course in all_courses]
             with open(self.courses_file, "w", encoding="utf-8") as file:
                 json.dump(courses_data, file, indent=4, ensure_ascii=False)
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
+
+
 
     def load_student(self, username):
         """

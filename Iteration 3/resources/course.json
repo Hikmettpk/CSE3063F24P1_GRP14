@@ -5,23 +5,7 @@
         "credit": 7,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [
-            {
-                "day": "Monday",
-                "hour": "8:30-9:20",
-                "place": "M1-Z01"
-            },
-            {
-                "day": "Tuesday",
-                "hour": "8:30-9:20",
-                "place": "M1-Z01"
-            },
-            {
-                "day": "Monday",
-                "hour": "9:30-10:20",
-                "place": "M1-Z01"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 3,
         "year": 2,
         "instructor": "Betül Boz",
@@ -66,18 +50,7 @@
         "credit": 7,
         "prerequisite": true,
         "prerequisiteLessonId": "CSE2225",
-        "courseSection": [
-            {
-                "day": "Tuesday",
-                "hour": "13:00-13:50",
-                "place": "M1-Z06"
-            },
-            {
-                "day": "Tuesday",
-                "hour": "14:00-14:50",
-                "place": "M1-Z06"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 2,
         "year": 3,
         "instructor": "Betül Boz",
@@ -122,23 +95,7 @@
         "credit": 4,
         "prerequisite": true,
         "prerequisiteLessonId": "STAT2253",
-        "courseSection": [
-            {
-                "day": "Tuesday",
-                "hour": "9:30-10:20",
-                "place": "M1-Z06"
-            },
-            {
-                "day": "Tuesday",
-                "hour": "10:30-11:20",
-                "place": "M1-Z06"
-            },
-            {
-                "day": "Tuesday",
-                "hour": "11:30-12:20",
-                "place": "M1-Z06"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 3,
         "year": 3,
         "instructor": "Sanem Arslan",
@@ -168,23 +125,7 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [
-            {
-                "day": "Monday",
-                "hour": "8:30-9:20",
-                "place": "M1-Z06"
-            },
-            {
-                "day": "Monday",
-                "hour": "9:30-10:20",
-                "place": "M1-Z06"
-            },
-            {
-                "day": "Monday",
-                "hour": "10:30-11:20",
-                "place": "M1-Z01"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Haydar Özer",
@@ -199,23 +140,7 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [
-            {
-                "day": "Monday",
-                "hour": "8:30-9:20",
-                "place": "M1-110"
-            },
-            {
-                "day": "Monday",
-                "hour": "9:30-10:20",
-                "place": "M1-110"
-            },
-            {
-                "day": "Monday",
-                "hour": "10:30-11:20",
-                "place": "M1-Z06"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Fuat Alkaya",

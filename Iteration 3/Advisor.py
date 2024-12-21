@@ -9,6 +9,8 @@ class Advisor(User):
         super().__init__(username, name, surname, password)
         self.__advisorID = advisorID
         self.__advisedStudents = advisedStudents if advisedStudents else []
+        self.json_methods = JsonMethods()  # JsonMethods nesnesi eklendi
+
 
     def get_advisor_id(self):
         """
@@ -35,30 +37,24 @@ class Advisor(User):
             print(f"Error refreshing advised students: {e}")
 
     def view_requests(self):
-        """
-        Displays a table of all course requests for advised students.
-        """
         print("\nYour advised student list:")
         has_requests = False
-
-        # Create the table header
         table = []
         table.append(f"{'No':<5} {'Student Name':<20} {'Surname':<20} {'Course ID':<10} {'Course Name':<40}")
         table.append("-" * 95)
 
-        # Map requests to a numbered list
         request_no = 1
         requests_map = []
+
         for student in self.__advisedStudents:
             for course in student.get_requested_courses():
                 has_requests = True
                 table.append(
                     f"{request_no:<5} {student.get_name():<20} {student.get_surname():<20} {course.get_course_id():<10} {course.get_course_name():<40}"
                 )
-                requests_map.append((student, course))  # Save the mapping for later actions
+                requests_map.append((student, course))
                 request_no += 1
 
-        # Display the table
         if has_requests:
             print("\n".join(table))
         else:
@@ -97,13 +93,32 @@ class Advisor(User):
             print(f"Course {course.get_course_name()} approved for {student.get_name()} {student.get_surname()}.")
 
     def reject_requested_course(self, student: Student, course: Course):
-        """
-        Rejects a requested course for a student.
-        """
         if course in student.get_requested_courses():
             student.get_requested_courses().remove(course)
-            JsonMethods().save_student_to_file(student)
+
+            # Dersin bekleme listesinden ilk öğrenciyi al
+            if course.get_wait_list():
+                next_student = course.get_wait_list().pop(0)  # Tam `Student` nesnesini al
+
+                # Öğrencinin `requestedCourses` kısmına ekle
+                next_student.get_requested_courses().append(course)
+
+                # Öğrenci JSON dosyasını güncelle
+                self.json_methods.save_student_to_file(next_student)
+
+                # Yeni öğrenci danışmanının `View Requests` ekranına ekleniyor
+                print(f"{next_student.get_name()} {next_student.get_surname()} is now requesting {course.get_course_name()}.")
+
+            # JSON dosyalarını güncelle
+            self.json_methods.save_student_to_file(student)
+            self.json_methods.update_course_json([course])
             print(f"Course {course.get_course_name()} rejected for {student.get_name()} {student.get_surname()}.")
+        else:
+            print("The course is not in the student's requested courses.")
+
+
+
+
 
     def display_menu(self):
         """

@@ -121,34 +121,22 @@ class CourseRegistrationSystem:
         return available_courses
 
     
-
+        
+        
     def request_in_course(self, course: Course, student: Student):
-        """
-        Adds a course to the student's requested courses if eligible.
-        """
-        # Reload student data
         student = self.json_methods.load_student(student.get_studentID())
 
-        # Capacity check
-        if course.get_current_capacity() >= course.get_enrollment_capacity():
-            print("This course is full and cannot accept more students.")
-            return
+        if course.get_current_capacity() > 0:
+            course.set_current_capacity(course.get_current_capacity() - 1)
+            student.get_requested_courses().append(course)
+        else:
+            # Bekleme listesine tam `Student` nesnesi ekleniyor
+            course.get_wait_list().append(student)
+            print(f"The course {course.get_course_name()} is full. You have been added to the waitlist.")
 
-        # Check if the course has already been requested
-        if course in student.get_requested_courses():
-            print("You have already requested this course.")
-            return
-
-        # Add the course to the student's requested courses list
-        student.get_requested_courses().append(course)
-
-        # Save updated student data
         self.json_methods.save_student_to_file(student)
+        self.json_methods.update_course_json([course])
 
-        # Update the `_student` attribute to reflect the changes
-        self._student = self.json_methods.load_student(student.get_studentID())
-
-        print(f"Successfully requested the course: {course.get_course_name()}")
 
 
     
