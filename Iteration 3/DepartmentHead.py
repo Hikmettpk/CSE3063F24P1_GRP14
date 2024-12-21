@@ -1,5 +1,5 @@
 from Staff import Staff
-from JsonMethods import JsonMethods
+from json_methods import JsonMethods
 from Course import Course
 
 class DepartmentHead(Staff):

@@ -46,12 +46,11 @@ class Student(User):
         return self.__requestedCourses
 
     # Display schedule
-    def display_schedule(self, json_methods):
+    def display_schedule(self, json_methods=None):
         # Check if json_methods is provided
         if json_methods:
             # Refresh enrolled courses from JSON
             student = json_methods.load_student(self.get_studentID())
-
             if not student:
                 print("Error: Could not refresh student data.")
                 return

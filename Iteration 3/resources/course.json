@@ -76,7 +76,7 @@
         "waitList": []
     },
     {
-        "courseId": "CSE3055",
+        "courseId": "CSE3033",
         "courseName": "Operating Systems",
         "credit": 7,
         "prerequisite": false,
@@ -91,7 +91,7 @@
         "waitList": []
     },
     {
-        "courseId": "CSE3063",
+        "courseId": "CSE3055",
         "courseName": "Object-Oriented Software Design",
         "credit": 5,
         "prerequisite": false,
