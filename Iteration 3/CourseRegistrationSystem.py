@@ -131,9 +131,10 @@ class CourseRegistrationSystem:
         student = self.json_methods.load_student(student.get_studentID())
 
         # Check if the course has already been requested
-        if course in student.get_requested_courses():
-            print("You have already requested this course.")
-            return
+        for course in student.get_requested_courses():
+            if course.get_course_id == course.get_course_id:
+                print("You have already requested this course.")
+                return
 
         # Capacity check
         if course.get_current_capacity() <= 0:

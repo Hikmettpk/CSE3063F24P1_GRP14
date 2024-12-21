@@ -132,6 +132,8 @@
         "enrollmentCapacity": 5,
         "currentCapacity": 1,
         "type": "mandatory",
-        "waitList": []
+        "waitList": [
+            "150121074"
+        ]
     }
 ]
