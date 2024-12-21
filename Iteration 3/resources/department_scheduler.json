@@ -2,5 +2,6 @@
   "username": "deptScheduler",
   "password": "pass123",
   "name": "Serap",
-  "surname": "Korkmaz"
+  "surname": "Korkmaz",
+  "role": "Scheduler"
 }
