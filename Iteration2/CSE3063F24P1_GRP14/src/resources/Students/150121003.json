@@ -19,10 +19,10 @@
         } ],
         "weeklyCourseCount" : 0,
         "year" : 0,
-        "type" : "Mandatory",
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
+        "status" : null,
         "waitList" : null
       },
       "gradeValue" : "CC"
@@ -40,10 +40,10 @@
         } ],
         "weeklyCourseCount" : 0,
         "year" : 0,
-        "type" : "Mandatory",
         "instructor" : null,
         "enrollmentCapacity" : 0,
         "currentCapacity" : 0,
+        "status" : null,
         "waitList" : null
       },
       "gradeValue" : "AA"
@@ -72,10 +72,10 @@
     } ],
     "weeklyCourseCount" : 3,
     "year" : 2,
-    "type" : "Mandatory",
     "instructor" : "Betül Boz",
     "enrollmentCapacity" : 5,
     "currentCapacity" : 0,
+    "status" : "Active",
     "waitList" : [ ]
   } ]
 }
