@@ -101,7 +101,7 @@ class Advisor(User):
 
             # WaitList'i kontrol et
             wait_list = course.get_wait_list()
-            if wait_list.__sizeof__ > 0:
+            if wait_list:
                 next_student_id = wait_list.pop(0)  # İlk öğrenciyi al
                 next_student_username = f"o{next_student_id}"  # 'o' ekle
 
