@@ -150,36 +150,38 @@ public class CourseRegistrationSystem {
 
     // Handle the logic of requesting a course
     public void requestInCourse(Course course, Student student) throws IOException {
-        // Öğrencinin kayıtlı kurslarını kontrol et
-        if (student.getEnrolledCourses().contains(course)) {
-            System.out.println("You are already enrolled in this course.");
+        // Çakışma kontrolü
+        if (checkScheduleConflict(course, student)) {
+            return; // Çakışma varsa işlem sonlanır
+        }
+
+        // Kapasite kontrolü
+        if (course.getCurrentCapacity() >= course.getEnrollmentCapacity()) {
+            System.out.println("This course is full and cannot accept more students.");
             return;
         }
 
-        // Öğrencinin daha önce talep ettiği kursları kontrol et
+        // Talep edilmiş mi kontrolü
         if (student.getRequestedCourses().contains(course)) {
             System.out.println("You have already requested this course.");
             return;
         }
+        List<Course> allCourses = jsonMethods.loadAllCourses();
+        Course fullCourse = allCourses.stream()
+                .filter(c -> c.getCourseId().equals(course.getCourseId()))
+                .findFirst()
+                .orElse(null);
 
-        //System.out.println( " counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
-        // Kursun kapasitesini kontrol et
-        if (countEnrolledStudents(jsonMethods.loadAllStudents(), course)+countRequestedStudents(jsonMethods.loadAllStudents(), course) >= course.getEnrollmentCapacity()) {
-            addToWaitList(student, course);
-            System.out.println("waitlisttesin");
-            jsonMethods.updateCourseInJson(course); //?
-            jsonMethods.updateStudentInJson(student); //?
-            System.out.println("This course is full and cannot accept more students. You are added to wait list of course "
-                    + course.getCourseId() + ".");
-            return;
+        if (fullCourse == null) {
+            System.err.println("Full course data could not be found.");
+            return ;
         }
 
         // Öğrencinin requestedCourses listesine ekle
-        student.getRequestedCourses().add(course);
+        student.getRequestedCourses().add(fullCourse);
 
         // JSON'da güncelleme
         jsonMethods.updateStudentInJson(student);
-        //System.out.println( " updated counted :" +countRequestedStudents(jsonMethods.loadAllStudents(), course));
 
         System.out.println("Successfully requested the course: " + course.getCourseName());
     }
