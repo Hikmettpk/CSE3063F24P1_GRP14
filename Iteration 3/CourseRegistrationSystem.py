@@ -120,9 +120,35 @@ class CourseRegistrationSystem:
 
         return available_courses
 
-    
+    def is_schedule_conflict(self, course1: Course, course2: Course) -> bool:
+        """
+        Checks if there is a schedule conflict between two courses.
+        """
+        for section1 in course1.get_course_section():
+            for section2 in course2.get_course_section():
+                if section1["day"] == section2["day"] and section1["hour"] == section2["hour"]:
+                    return True
+        return False
+
+
+    def get_user_choice(self) -> int:
+        """
+        Utility method to get the user's choice via input.
+        """
+        while True:
+            try:
+                choice = int(input("Enter your choice (1 or 2): "))
+                if choice in {1, 2}:
+                    return choice
+                else:
+                    print("Invalid choice. Please enter 1 or 2.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         
             
+    
+    
+    
     def request_in_course(self, course: Course, student: Student):
         """
         Adds a course to the student's requested courses if eligible.
@@ -150,10 +176,36 @@ class CourseRegistrationSystem:
             print("You are already enrolled in this course.")
             return
 
+        # Check for schedule conflicts with both requested and enrolled courses
+        for existing_course in student.get_requested_courses() + student.get_enrolled_courses():
+            if self.is_schedule_conflict(course, existing_course):
+                print(f"\nSchedule conflict detected between courses!")
+                print(f"1. Keep {existing_course.get_course_id()} ({existing_course.get_course_name()})")
+                print(f"2. Choose {course.get_course_id()} ({course.get_course_name()})")
+                
+                choice = self.get_user_choice()
+                
+                if choice == 1:
+                    print(f"\nKeeping {existing_course.get_course_id()}")
+                    return
+                else:
+                    if existing_course in student.get_requested_courses():
+                        # Remove the old course from requested courses
+                        student.get_requested_courses().remove(existing_course)
+                        # Increase the capacity of the removed course
+                        existing_course.set_current_capacity(existing_course.get_current_capacity() + 1)
+                        # Update the removed course in JSON
+                        self.json_methods.update_course_json([existing_course])
+                        print(f"\nRemoved {existing_course.get_course_id()} from requested courses")
+                    else:
+                        print("Cannot remove enrolled course. Please drop it first.")
+                        return
+                    break
+
         # Capacity check
         if course.get_current_capacity() <= 0:
             print("This course is full. Adding to the waitlist.")
-
+            
             # Add student to the course's waitlist
             waitlist = course.get_wait_list()
             if student.get_studentID() not in waitlist:
@@ -176,8 +228,5 @@ class CourseRegistrationSystem:
 
         # Update the course data in course.json
         self.json_methods.update_course_json([course])
-
-        # Update the `_student` attribute to reflect the changes
-        self._student = self.json_methods.load_student(student.get_studentID())
 
         print(f"Successfully requested the course: {course.get_course_name()}")

@@ -63,6 +63,8 @@ class JsonMethods:
                 found = False
                 for i, existing_course in enumerate(current_data):
                     if existing_course["courseId"] == updated_course["courseId"]:
+                        if not updated_course.get("courseSection"):
+                            updated_course["courseSection"] = existing_course.get("courseSection", [])
                         # Varsa, mevcut kursu güncelle
                         current_data[i] = updated_course
                         found = True

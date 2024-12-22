@@ -112,12 +112,28 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-Z01"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-Z01"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z01"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Haydar Özer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "Elective",
         "waitList": []
     },
@@ -127,45 +143,29 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z06"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
-        "type": "mandatory",
-        "waitList": [
-            "150121060"
-        ]
-    },
-    {
-        "courseId": "QWE123",
-        "courseName": "asd",
-        "credit": 2,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 2,
-        "year": "3",
-        "instructor": "asd",
-        "enrollmentCapacity": 2,
-        "currentCapacity": 0,
-        "type": "mandatory",
-        "waitList": []
-    },
-    {
-        "courseId": "za",
-        "courseName": "qwe",
-        "credit": 2,
-        "prerequisite": false,
-        "prerequisiteLessonId": "None",
-        "courseSection": [],
-        "weeklyCourseCount": 2,
-        "year": "3",
-        "instructor": "asd",
-        "enrollmentCapacity": 2,
-        "currentCapacity": 0,
-        "type": "mandatory",
+        "currentCapacity": 1,
+        "type": "Elective",
         "waitList": []
     }
 ]
