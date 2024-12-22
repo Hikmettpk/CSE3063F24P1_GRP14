@@ -125,11 +125,12 @@ def main():
 
             if advisor:
                 print(f"Welcome, {advisor.get_name()}!")
-                advisor.refresh_advised_students()
-
-                requests_map = {}  # Initialize requests_map as an empty dictionary
 
                 while True:
+                    # Refresh advisor's data at the start of each loop
+                    advisor.refresh_advised_students()
+                    requests_map = {}  # Reset requests_map each time
+
                     print("\nAdvisor Menu:")
                     print("1. View Requests")
                     print("2. Approve a Request")
@@ -139,16 +140,20 @@ def main():
 
                     if advisor_choice.lower() == 'b':
                         break
-
+                    
                     if advisor_choice == "1":
                         requests_map = advisor.view_requests()
                     elif advisor_choice == "2":
+                        # Always view requests before approval to ensure fresh data
+                        requests_map = advisor.view_requests()
                         if not requests_map:
                             print("No requests available to approve.")
                             continue
                         request_index = int(input("Enter the request number to approve: ").strip()) - 1
                         advisor.approve_request_by_index(requests_map, request_index)
                     elif advisor_choice == "3":
+                        # Always view requests before rejection to ensure fresh data
+                        requests_map = advisor.view_requests()
                         if not requests_map:
                             print("No requests available to reject.")
                             continue

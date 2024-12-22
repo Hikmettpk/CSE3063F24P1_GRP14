@@ -164,7 +164,7 @@
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "Elective",
         "waitList": []
     }

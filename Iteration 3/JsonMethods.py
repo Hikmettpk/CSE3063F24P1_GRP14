@@ -13,7 +13,7 @@ class JsonMethods:
         self.courses_file = courses_file
         self.students_folder = students_folder
         self.advisors_folder = advisors_folder
-        print(f"Advisors folder set to: {self.advisors_folder}")  # Debugging
+        #print(f"Advisors folder set to: {self.advisors_folder}")  # Debugging
 
 
     def load_course_json(self):
@@ -151,7 +151,7 @@ class JsonMethods:
         Loads an advisor from the corresponding JSON file based on their username.
         """
         advisors_folder = self.advisors_folder
-        print(f"Looking for advisor with username: {username}")  # Debugging
+        #print(f"Looking for advisor with username: {username}")  # Debugging
 
         try:
             from Advisor import Advisor  # Lazy import for Advisor
