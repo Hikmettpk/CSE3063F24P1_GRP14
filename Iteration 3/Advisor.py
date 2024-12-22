@@ -37,6 +37,7 @@ class Advisor(User):
             print(f"Error refreshing advised students: {e}")
 
     def view_requests(self):
+        self.json_methods.load_advisor(self.get_username())
         print("\nYour advised student list:")
         has_requests = False
         table = []
@@ -86,10 +87,27 @@ class Advisor(User):
     def reject_request_by_index(self, requests_map, index):
         """
         Rejects a course request based on the table index.
+        Uses courses.json for waitlist data while maintaining the student's course reference.
         """
         if 0 <= index < len(requests_map):
-            student, course = requests_map[index]
-            self.reject_requested_course(student, course)
+            student, student_course = requests_map[index]
+            
+            # Load all courses to find the matching one with correct waitlist
+            courses = self.json_methods.load_course_json()
+            master_course = next((c for c in courses if c.get_course_id() == student_course.get_course_id()), None)
+            
+            if master_course:
+                # Copy waitlist from master course to student's course instance
+                student_course.set_wait_list(master_course.get_wait_list())
+                
+                # Now reject using student's course instance (which now has the correct waitlist)
+                self.reject_requested_course(student, student_course)
+                
+                # After rejection, update the master course in courses.json with the new waitlist
+                master_course.set_wait_list(student_course.get_wait_list())
+                self.json_methods.update_course_json([master_course])
+            else:
+                print(f"Error: Could not find course {student_course.get_course_id()} in courses.json")
         else:
             print("Invalid request number.")
 
