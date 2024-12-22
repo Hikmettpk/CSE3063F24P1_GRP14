@@ -165,33 +165,8 @@ class Advisor(User):
 
 
     def display_menu(self):
-        """
-        Displays the Advisor Menu.
-        """
-        while True:
-            print("\nAdvisor Menu:")
-            print("1. View Requests")
-            print("2. Approve a Request")
-            print("3. Reject a Request")
-            print("b. Back")
-            choice = input("Enter your choice: ").strip()
-
-            if choice.lower() == 'b':
-                break
-
-            if choice == "1":
-                requests_map = self.view_requests()  # Get the list of requests for approval/rejection
-            elif choice == "2":
-                if not requests_map:
-                    print("No requests available to approve.")
-                    continue
-                request_index = int(input("Enter the request number to approve: ").strip()) - 1
-                self.approve_request_by_index(requests_map, request_index)
-            elif choice == "3":
-                if not requests_map:
-                    print("No requests available to reject.")
-                    continue
-                request_index = int(input("Enter the request number to reject: ").strip()) - 1
-                self.reject_request_by_index(requests_map, request_index)
-            else:
-                print("Invalid choice. Please try again.")
+        print("\nAdvisor Menu:")
+        print("1. View Requests")
+        print("2. Approve a Request")
+        print("3. Reject a Request")
+        print("b. Back")

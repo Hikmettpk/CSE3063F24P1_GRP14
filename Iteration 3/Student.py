@@ -77,8 +77,10 @@ class Student(User):
 
     # Method to display menu (stub method, implement as needed)
     def display_menu(self):
-        print("Menu for Student:")
-        # Implementation logic for displaying menu goes here
+            print("\nStudent Menu:")
+            print("1. View Available Courses")
+            print("2. Request a Course")
+            print("b. Back")
 
     def __str__(self):
         return f"Student: {self.name} {self.surname} ({self.__studentID})"

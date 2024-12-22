@@ -87,10 +87,7 @@ class LoginSystem:
         crs = CourseRegistrationSystem(self.json_methods, student, self.courses)
 
         while True:
-            print("\nStudent Menu:")
-            print("1. View Available Courses")
-            print("2. Request a Course")
-            print("b. Back")
+            student.display_menu()
             student_choice = input("Enter your choice: ").strip()
 
             if student_choice.lower() == 'b':
@@ -120,11 +117,9 @@ class LoginSystem:
         requests_map = {}
 
         while True:
-            print("\nAdvisor Menu:")
-            print("1. View Requests")
-            print("2. Approve a Request")
-            print("3. Reject a Request")
-            print("b. Back")
+            advisor.refresh_advised_students()
+            requests_map = {}  # Reset requests_map each time
+            advisor.display_menu()
             advisor_choice = input("Enter your choice: ").strip()
 
             if advisor_choice.lower() == 'b':
@@ -133,6 +128,7 @@ class LoginSystem:
             if advisor_choice == "1":
                 requests_map = advisor.view_requests()
             elif advisor_choice == "2":
+                requests_map = advisor.view_requests()
                 if not requests_map:
                     print("No requests available to approve. Please try again.")
                     continue
@@ -142,6 +138,7 @@ class LoginSystem:
                 except (ValueError, IndexError):
                     print("Invalid request number. Please try again.")
             elif advisor_choice == "3":
+                requests_map = advisor.view_requests()
                 if not requests_map:
                     print("No requests available to reject. Please try again.")
                     continue
