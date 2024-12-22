@@ -66,12 +66,10 @@ def main():
                 if head_choice == "1":
                     department_head.add_course()
                 elif head_choice == "2":
-                    department_head.remove_course()
-                elif head_choice == "3":
                     department_head.update_course()
-                elif head_choice == "4":
+                elif head_choice == "3":
                     department_head.display_all_courses()
-                elif head_choice == "5":
+                elif head_choice == "4":
                     print("Logging out...")
                     break
                 else:

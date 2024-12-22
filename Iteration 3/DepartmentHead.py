@@ -12,10 +12,9 @@ class DepartmentHead(Staff):
         Displays the menu options for the DepartmentHead.
         """
         print("1. Add a Course")
-        print("2. Remove a Course")
-        print("3. Update Course Information")
-        print("4. Display All Courses")
-        print("5. Logout")
+        print("2. Update Course Information")
+        print("3. Display All Courses")
+        print("4. Logout")
 
     def get_int_input(self, prompt, error_message="Invalid input. Please enter a number."):
         while True:
@@ -73,25 +72,6 @@ class DepartmentHead(Staff):
         self.json_methods.update_course_json(self.courses)
         print(f"Course {new_course.get_course_name} added successfully.")
 
-    def remove_course(self):
-        """
-        Removes a course from the JSON file specific to the DepartmentHead.
-        """
-        # Kursları JSON dosyasından yükle
-        self.courses = self.json_methods.load_course_json()
-        course_id = input("Enter the Course ID to remove: ").strip()
-
-        # `Course` nesneleri üzerinden `get_course_id` ile filtreleme
-        filtered_courses = [course for course in self.courses if course.get_course_id() != course_id]
-
-        # Kurs listesi değişmediyse, kurs bulunamadı mesajı
-        if len(filtered_courses) == len(self.courses):
-            print(f"Course with ID {course_id} not found.")
-            return
-
-        # Güncellenmiş kurs listesini JSON'a yaz
-        self.json_methods.update_course_json(filtered_courses)
-        print(f"Course with ID {course_id} removed successfully.")
 
 
     def update_course(self):
