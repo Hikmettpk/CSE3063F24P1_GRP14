@@ -133,9 +133,11 @@
         "year": 4,
         "instructor": "Ali Haydar Özer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "Elective",
-        "waitList": []
+        "waitList": [
+            "150121074"
+        ]
     },
     {
         "courseId": "CSE4040",

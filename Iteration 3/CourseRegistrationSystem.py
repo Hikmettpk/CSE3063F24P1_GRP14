@@ -131,10 +131,24 @@ class CourseRegistrationSystem:
         student = self.json_methods.load_student(student.get_studentID())
 
         # Check if the course has already been requested
-        for course in student.get_requested_courses():
-            if course.get_course_id == course.get_course_id:
-                print("You have already requested this course.")
-                return
+        is_already_requested = any(
+            requested_course.get_course_id() == course.get_course_id()
+            for requested_course in student.get_requested_courses()
+        )
+        
+        # Check if the course is already enrolled
+        is_already_enrolled = any(
+            enrolled_course.get_course_id() == course.get_course_id()
+            for enrolled_course in student.get_enrolled_courses()
+        )
+
+        if is_already_requested:
+            print("You have already requested this course.")
+            return
+            
+        if is_already_enrolled:
+            print("You are already enrolled in this course.")
+            return
 
         # Capacity check
         if course.get_current_capacity() <= 0:
@@ -150,8 +164,6 @@ class CourseRegistrationSystem:
             else:
                 print("Student is already in the waitlist for this course.")
             return
-
-
 
         # Add the course to the student's requested courses list
         student.get_requested_courses().append(course)

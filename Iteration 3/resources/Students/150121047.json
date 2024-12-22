@@ -23,6 +23,37 @@
             "currentCapacity": 0,
             "type": "Mandatory",
             "waitList": []
+        },
+        {
+            "courseId": "CSE4082",
+            "courseName": "Artificial Intelligence",
+            "credit": 5,
+            "prerequisite": false,
+            "prerequisiteLessonId": "None",
+            "courseSection": [
+                {
+                    "day": "Monday",
+                    "hour": "8:30-9:20",
+                    "place": "M1-Z06"
+                },
+                {
+                    "day": "Monday",
+                    "hour": "9:30-10:20",
+                    "place": "M1-Z06"
+                },
+                {
+                    "day": "Monday",
+                    "hour": "10:30-11:20",
+                    "place": "M1-Z06"
+                }
+            ],
+            "weeklyCourseCount": 3,
+            "year": 4,
+            "instructor": "Ali Haydar Özer",
+            "enrollmentCapacity": 5,
+            "currentCapacity": 0,
+            "type": "Elective",
+            "waitList": []
         }
     ],
     "advisor": null
