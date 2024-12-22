@@ -129,6 +129,8 @@ def main():
                 print(f"Welcome, {advisor.get_name()}!")
                 advisor.refresh_advised_students()
 
+                requests_map = {}  # Initialize requests_map as an empty dictionary
+
                 while True:
                     print("\nAdvisor Menu:")
                     print("1. View Requests")

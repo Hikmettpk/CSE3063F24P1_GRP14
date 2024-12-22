@@ -62,6 +62,17 @@ class Advisor(User):
 
         return requests_map
 
+    def approve_requested_course(self, student: Student, course: Course):
+        """
+        Approves the requested course for a student.
+        """
+        if course in student.get_requested_courses():
+            student.get_requested_courses().remove(course)
+            student.get_enrolled_courses().append(course)
+            JsonMethods().save_student_to_file(student)
+            print(f"Course {course.get_course_name()} approved for {student.get_name()} {student.get_surname()}.")
+
+            
     def approve_request_by_index(self, requests_map, index):
         """
         Approves a course request based on the table index.

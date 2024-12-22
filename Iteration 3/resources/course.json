@@ -133,11 +133,9 @@
         "year": 4,
         "instructor": "Ali Haydar Özer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Elective",
-        "waitList": [
-            "150121074"
-        ]
+        "waitList": []
     },
     {
         "courseId": "CSE4040",
@@ -166,8 +164,10 @@
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "mandatory",
-        "waitList": []
+        "waitList": [
+            "150121060"
+        ]
     }
 ]
