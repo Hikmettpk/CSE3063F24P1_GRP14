@@ -12,7 +12,9 @@
         "enrollmentCapacity": 5,
         "currentCapacity": 0,
         "type": "Mandatory",
-        "waitList": []
+        "waitList": [
+            "150121011"
+        ]
     },
     {
         "courseId": "CSE2246",
@@ -25,7 +27,7 @@
         "year": 2,
         "instructor": "Sanem Arslan",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -40,7 +42,7 @@
         "year": 2,
         "instructor": "Borahan Tümer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -70,7 +72,7 @@
         "year": 3,
         "instructor": "Betül Boz",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -85,7 +87,7 @@
         "year": 3,
         "instructor": "Sanem Arslan",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -100,7 +102,7 @@
         "year": 4,
         "instructor": "Betül Boz",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Elective",
         "waitList": []
     },
@@ -131,7 +133,7 @@
         "year": 4,
         "instructor": "Ali Haydar Özer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Elective",
         "waitList": []
     },
@@ -164,8 +166,6 @@
         "enrollmentCapacity": 5,
         "currentCapacity": 1,
         "type": "mandatory",
-        "waitList": [
-            "150121074"
-        ]
+        "waitList": []
     }
 ]

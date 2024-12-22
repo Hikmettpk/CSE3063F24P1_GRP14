@@ -39,14 +39,43 @@ class JsonMethods:
     def update_course_json(self, courses):
         """
         Updates the courses JSON file with the provided list of Course objects.
+        If a course with the same ID exists, it will be updated instead of creating a duplicate.
 
         Args:
             courses (list): A list of Course objects to save back to the JSON file.
         """
         try:
-            courses_data = [course.to_dict() for course in courses]
+            # Mevcut JSON dosyasını oku
+            current_data = []
+            if os.path.exists(self.courses_file):
+                with open(self.courses_file, "r", encoding="utf-8") as file:
+                    try:
+                        current_data = json.load(file)
+                    except json.JSONDecodeError:
+                        current_data = []
+
+            # Yeni kurs verilerini dictionary'e dönüştür
+            updated_courses = [course.to_dict() for course in courses]
+            
+            # Her bir güncel kurs için
+            for updated_course in updated_courses:
+                # Mevcut verilerde aynı ID'ye sahip kurs var mı kontrol et
+                found = False
+                for i, existing_course in enumerate(current_data):
+                    if existing_course["courseId"] == updated_course["courseId"]:
+                        # Varsa, mevcut kursu güncelle
+                        current_data[i] = updated_course
+                        found = True
+                        break
+                
+                # Eğer kurs mevcut değilse, yeni olarak ekle
+                if not found:
+                    current_data.append(updated_course)
+
+            # Güncellenmiş veriyi dosyaya yaz
             with open(self.courses_file, "w", encoding="utf-8") as file:
-                json.dump(courses_data, file, indent=4, ensure_ascii=False)
+                json.dump(current_data, file, indent=4, ensure_ascii=False)
+            
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
