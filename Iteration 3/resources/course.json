@@ -116,17 +116,17 @@
             {
                 "day": "Monday",
                 "hour": "8:30-9:20",
-                "place": "M1-Z01"
+                "place": "M1-Z06"
             },
             {
                 "day": "Monday",
                 "hour": "9:30-10:20",
-                "place": "M1-Z01"
+                "place": "M1-Z06"
             },
             {
                 "day": "Monday",
                 "hour": "10:30-11:20",
-                "place": "M1-Z01"
+                "place": "M1-Z06"
             }
         ],
         "weeklyCourseCount": 3,
@@ -147,24 +147,24 @@
             {
                 "day": "Monday",
                 "hour": "8:30-9:20",
-                "place": "M1-Z06"
+                "place": "M1-110"
             },
             {
                 "day": "Monday",
                 "hour": "9:30-10:20",
-                "place": "M1-Z06"
+                "place": "M1-110"
             },
             {
                 "day": "Monday",
                 "hour": "10:30-11:20",
-                "place": "M1-Z06"
+                "place": "M1-110"
             }
         ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Elective",
         "waitList": []
     }

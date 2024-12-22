@@ -1,6 +1,9 @@
 from Staff import Staff
 from JsonMethods import JsonMethods
 from Course import Course
+import json
+import os
+
 class DepartmentScheduler(Staff):
     def __init__(self, username, name, surname, password):
         super().__init__(username, name, surname, password)
@@ -22,6 +25,33 @@ class DepartmentScheduler(Staff):
         print("4. Reset All Course Sections")
         print("5. Logout")
         print("Please choose an operation (or 'q' to go back): ")
+
+    @classmethod
+    def load_deptscheduler(cls, file_path="./resources/department_scheduler.json"):
+        dept_schedulers = []
+        try:
+            if not os.path.exists(file_path):
+                print(f"Error: File {file_path} not found.")
+                return []
+
+            with open(file_path, "r", encoding="utf-8") as file:
+                raw_data = json.load(file)
+
+            for scheduler_data in raw_data:
+                if all(key in scheduler_data for key in ["username", "name", "surname", "password"]):
+                    dept_schedulers.append(cls(
+                        username=scheduler_data["username"],
+                        name=scheduler_data["name"],
+                        surname=scheduler_data["surname"],
+                        password=scheduler_data["password"]
+                    ))
+                else:
+                    print(f"Invalid scheduler data: {scheduler_data} - Missing required keys")
+        except Exception as e:
+            print(f"Unexpected error while loading department schedulers: {e}")
+
+        return dept_schedulers
+
 
     def print_all_courses(self):
         """

@@ -1,7 +1,9 @@
-{
-    "username": "deptHead",
-    "password": "pass321",
-    "name": "Mehmet",
-    "surname": "Kaya",
-    "role": "Head"
-}
+[
+    {
+      "username": "deptHead",
+      "name": "Mehmet",
+      "surname": "Kaya",
+      "password": "pass321"
+    }
+  ]
+  

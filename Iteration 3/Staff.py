@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 class Staff(ABC):
     def __init__(self, username, name, surname, password):
+        print(f"Initializing Staff: {username}, {name} {surname}")
         self.__username = username
         self.__name = name
         self.__surname = surname
@@ -15,16 +16,16 @@ class Staff(ABC):
         pass
 
     def get_username(self):
-        return self.username
+        return self.__username
 
     def get_name(self):
-        return self.name
+        return self.__name
 
     def get_surname(self):
-        return self.surname
+        return self.__surname
 
     def get_password(self):
-        return self.password
+        return self.__password
 
     def __str__(self):
         return f"Username: {self.username}, Name: {self.name} {self.surname}"

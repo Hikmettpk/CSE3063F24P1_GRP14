@@ -1,6 +1,8 @@
 from Staff import Staff
 from JsonMethods import JsonMethods
 from Course import Course
+import json
+import os
 
 class DepartmentHead(Staff):
     def __init__(self, username, name, surname, password):
@@ -126,3 +128,34 @@ class DepartmentHead(Staff):
 
         self.json_methods.update_course_json(self.courses)
         print(f"Course with ID {course.get_course_id()} updated successfully.")
+
+    @classmethod
+    def load_depthead(cls, file_path="./resources/department_head.json"):
+        """
+        Loads all department heads from the given JSON file.
+
+        Args:
+            file_path (str): Path to the JSON file containing department head data.
+
+        Returns:
+            list: A list of DepartmentHead objects.
+        """
+        dept_heads = []
+
+        try:
+            if not os.path.exists(file_path):
+                print(f"Error: File {file_path} not found.")
+                return []
+
+            with open(file_path, "r", encoding="utf-8") as file:
+                raw_data = json.load(file)
+
+            for head_data in raw_data:
+                try:
+                    dept_heads.append(cls(**head_data))
+                except TypeError as e:
+                    print(f"Error initializing DepartmentHead with data {head_data}: {e}")
+        except Exception as e:
+            print(f"Unexpected error while loading department heads: {e}")
+
+        return dept_heads
