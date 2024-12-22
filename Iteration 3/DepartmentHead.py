@@ -75,13 +75,24 @@ class DepartmentHead(Staff):
 
     def remove_course(self):
         """
-        Removes a course from the JSON file.
+        Removes a course from the JSON file specific to the DepartmentHead.
         """
+        # Kursları JSON dosyasından yükle
         self.courses = self.json_methods.load_course_json()
         course_id = input("Enter the Course ID to remove: ").strip()
-        self.courses = [course for course in self.courses if course.get_course_id() != course_id]
-        self.json_methods.update_course_json(self.courses)
+
+        # `Course` nesneleri üzerinden `get_course_id` ile filtreleme
+        filtered_courses = [course for course in self.courses if course.get_course_id() != course_id]
+
+        # Kurs listesi değişmediyse, kurs bulunamadı mesajı
+        if len(filtered_courses) == len(self.courses):
+            print(f"Course with ID {course_id} not found.")
+            return
+
+        # Güncellenmiş kurs listesini JSON'a yaz
+        self.json_methods.update_course_json(filtered_courses)
         print(f"Course with ID {course_id} removed successfully.")
+
 
     def update_course(self):
         """

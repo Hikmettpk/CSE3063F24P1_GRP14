@@ -36,40 +36,20 @@ class JsonMethods:
             return []
 
 
-    def update_course_json(self, updated_courses):
+    def update_course_json(self, courses):
+        """
+        Updates the courses JSON file with the provided list of Course objects.
+
+        Args:
+            courses (list): A list of Course objects to save back to the JSON file.
+        """
         try:
-            # Mevcut kursları yükle
-            with open(self.courses_file, "r", encoding="utf-8") as file:
-                existing_courses_data = json.load(file)
-
-            # Mevcut kursları bir dictionary'e çevirerek kolay erişim sağla
-            existing_courses = {course["courseId"]: course for course in existing_courses_data}
-
-            # Güncellenen kursları mevcut listeye ekle veya güncelle
-            for course in updated_courses:
-                course_dict = course.to_dict()
-
-                # WaitList içindeki öğeleri uygun formatta güncelle
-                wait_list = []
-                for student in course.get_wait_list():
-                    if isinstance(student, str):
-                        wait_list.append(student)
-                    elif hasattr(student, "get_studentID"):
-                        wait_list.append(student.get_studentID())
-                    else:
-                        print(f"Invalid wait list entry: {student}")
-
-                course_dict["waitList"] = wait_list
-                existing_courses[course.get_course_id()] = course_dict
-
-            # Tüm kursları yeniden yaz
+            courses_data = [course.to_dict() for course in courses]
             with open(self.courses_file, "w", encoding="utf-8") as file:
-                json.dump(list(existing_courses.values()), file, indent=4, ensure_ascii=False)
+                json.dump(courses_data, file, indent=4, ensure_ascii=False)
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
-
-
 
 
     def load_student(self, username):
