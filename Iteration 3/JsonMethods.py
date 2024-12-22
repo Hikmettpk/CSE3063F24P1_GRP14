@@ -4,8 +4,14 @@ from Course import Course
 from Student import Student
 from Transcript import Transcript
 from Grade import Grade
+import logging
 
-
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 class JsonMethods:
@@ -33,6 +39,7 @@ class JsonMethods:
             return courses
         except Exception as e:
             print(f"Error loading courses: {e}")
+            logging.error("Error loading courses", exc_info=True)
             return []
 
 
@@ -81,6 +88,7 @@ class JsonMethods:
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
+            logging.error("Error while updating course.json", exc_info=True)    
 
 
     def load_student(self, username):
@@ -117,9 +125,11 @@ class JsonMethods:
             return Student(**student_data)
         except FileNotFoundError:
             print(f"Error: Student file for ID {student_id} not found.")
+            logging.error(f"Error: Student file for ID {student_id} not found.")    
             return None
         except Exception as e:
             print(f"Unexpected error while loading student ID {student_id}: {e}")
+            logging.error(f"Unexpected error while loading student ID {student_id}: {e}")
             return None
 
 
@@ -142,6 +152,7 @@ class JsonMethods:
             return students
         except Exception as e:
             print(f"Error while loading all students: {e}")
+            logging.error(f"Error while loading all students: {e}")
             return []
 
 
@@ -180,9 +191,11 @@ class JsonMethods:
             return None
         except FileNotFoundError:
             print("Error: Advisors folder not found.")
+            logging.error("Error: Advisors folder not found.")  
             return None
         except Exception as e:
             print(f"Unexpected error loading advisor with username {username}: {e}")
+            logging.error(f"Unexpected error loading advisor with username {username}: {e}")    
             return None
 
         
@@ -221,10 +234,12 @@ class JsonMethods:
             print(f"{len(advisors)} advisors loaded successfully.")
             return advisors
         except FileNotFoundError:
+            logging.error("Error: Advisors folder not found.")
             print("Error: Advisors folder not found.")
             return []
         except Exception as e:
             print(f"Unexpected error loading advisors: {e}")
+            logging.error(f"Unexpected error loading advisors: {e}")    
             return []
 
 

@@ -5,6 +5,14 @@ from Advisor import Advisor
 from DepartmentScheduler import DepartmentScheduler
 from DepartmentHead import DepartmentHead
 from CourseRegistrationSystem import CourseRegistrationSystem
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 class LoginSystem:
     def __init__(self):
@@ -31,6 +39,7 @@ class LoginSystem:
             print(f"{len(self.staff_members)} staff members loaded successfully.")
             print("All data loaded successfully.")
         except Exception as e:
+            logging.error("Error loading data", exc_info=True)  # Log the error
             print(f"Error loading data: {e}")
 
     def start_login(self):
@@ -137,6 +146,7 @@ class LoginSystem:
                     advisor.approve_request_by_index(requests_map, request_index)
                 except (ValueError, IndexError):
                     print("Invalid request number. Please try again.")
+                    logging.error("Invalid request number. Please try again.", exc_info=True)   
             elif advisor_choice == "3":
                 requests_map = advisor.view_requests()
                 if not requests_map:
@@ -147,6 +157,7 @@ class LoginSystem:
                     advisor.reject_request_by_index(requests_map, request_index)
                 except (ValueError, IndexError):
                     print("Invalid request number. Please try again.")
+                    logging.error("Invalid request number. Please try again.", exc_info=True)   
             else:
                 print("Invalid choice. Please try again.")
 

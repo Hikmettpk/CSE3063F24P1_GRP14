@@ -3,6 +3,15 @@ from Student import Student
 from Course import Course
 from JsonMethods import JsonMethods
 
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 class CourseRegistrationSystem:
     def __init__(self, json_methods, student=None, courses=None):
         """
@@ -144,6 +153,7 @@ class CourseRegistrationSystem:
                     print("Invalid choice. Please enter 1 or 2.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
+                logging.error("Invalid input. Please enter a number.", exc_info=True)
         
             
     

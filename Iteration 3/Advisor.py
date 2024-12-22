@@ -3,6 +3,14 @@ from typing import List
 from Student import Student  # Import Student class
 from Course import Course  # Import Course class
 from JsonMethods import JsonMethods  # Import JsonMethods for JSON handling
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 class Advisor(User):
     def __init__(self, username, name, surname, password, advisorID, advisedStudents=None):
@@ -35,6 +43,8 @@ class Advisor(User):
                 self.__advisedStudents = advisor_data.get_advised_students()
         except Exception as e:
             print(f"Error refreshing advised students: {e}")
+            logging.error("Error refreshing advised students", exc_info=True)
+
 
     def view_requests(self):
         self.json_methods.load_advisor(self.get_username())
@@ -153,6 +163,7 @@ class Advisor(User):
 
                 except Exception as e:
                     print(f"Error processing waitlist student: {e}")
+                    logging.error("Error processing waitlist student", exc_info=True)
             else:
                 print(f"No students in waitlist for course {course.get_course_name()}.")
 

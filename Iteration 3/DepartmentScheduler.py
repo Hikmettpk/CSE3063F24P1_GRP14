@@ -3,6 +3,14 @@ from JsonMethods import JsonMethods
 from Course import Course
 import json
 import os
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 class DepartmentScheduler(Staff):
     def __init__(self, username, name, surname, password):
@@ -49,6 +57,7 @@ class DepartmentScheduler(Staff):
                     print(f"Invalid scheduler data: {scheduler_data} - Missing required keys")
         except Exception as e:
             print(f"Unexpected error while loading department schedulers: {e}")
+            logging.error("Unexpected error while loading department schedulers", exc_info=True)
 
         return dept_schedulers
 
@@ -186,3 +195,4 @@ class DepartmentScheduler(Staff):
                     print("Invalid choice. Please select a valid option.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
+                logging.error("Invalid input. Please enter a number.", exc_info=True)   

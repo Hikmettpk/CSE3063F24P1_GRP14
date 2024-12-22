@@ -1,8 +1,16 @@
+import logging
 from Staff import Staff
 from JsonMethods import JsonMethods
 from Course import Course
 import json
 import os
+
+# Configure logging
+logging.basicConfig(
+    filename="error_logs.txt",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 class DepartmentHead(Staff):
     def __init__(self, username, name, surname, password):
@@ -24,6 +32,7 @@ class DepartmentHead(Staff):
                 return int(input(prompt).strip())
             except ValueError:
                 print(error_message)
+                logging.error("Invalid input. Please enter a number.", exc_info=True)   
 
     def get_choice_input(self, prompt, valid_choices, error_message="Invalid input. Please enter a valid choice."):
         while True:
@@ -155,7 +164,9 @@ class DepartmentHead(Staff):
                     dept_heads.append(cls(**head_data))
                 except TypeError as e:
                     print(f"Error initializing DepartmentHead with data {head_data}: {e}")
+                    logging.error(f"Error initializing DepartmentHead with data {head_data}", exc_info=True)
         except Exception as e:
             print(f"Unexpected error while loading department heads: {e}")
+            logging.error("Unexpected error while loading department heads", exc_info=True)
 
         return dept_heads
