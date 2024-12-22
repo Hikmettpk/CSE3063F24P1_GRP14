@@ -20,32 +20,32 @@ class JsonMethods:
         try:
             with open(self.courses_file, "r", encoding="utf-8") as file:
                 courses_data = json.load(file)
-
+    
             courses = []
             for course_data in courses_data:
-                wait_list = [
-                    self.load_student(student["studentID"]) if isinstance(student, dict) else student
-                    for student in course_data.get("waitList", [])
-                ]
+                # Debug print before processing
+                print(f"Raw waitlist data for {course_data['courseId']}: {course_data.get('waitList', [])}")
+                
+                # Keep waitlist as is - don't try to convert to Student objects
+                wait_list = course_data.get("waitList", [])
+                
+                # Debug print after processing
+                print(f"Processed waitlist for {course_data['courseId']}: {wait_list}")
+                
                 course_data["waitList"] = wait_list
                 courses.append(Course(**course_data))
-
+                
+                # Debug print after Course object creation
+                created_course = courses[-1]
+                print(f"Course object waitlist for {created_course.get_course_id()}: {created_course.get_wait_list()}")
+    
             return courses
         except Exception as e:
             print(f"Error loading courses: {e}")
             return []
-
-
+    
     def update_course_json(self, courses):
-        """
-        Updates the courses JSON file with the provided list of Course objects.
-        If a course with the same ID exists, it will be updated instead of creating a duplicate.
-
-        Args:
-            courses (list): A list of Course objects to save back to the JSON file.
-        """
         try:
-            # Mevcut JSON dosyasını oku
             current_data = []
             if os.path.exists(self.courses_file):
                 with open(self.courses_file, "r", encoding="utf-8") as file:
@@ -53,33 +53,36 @@ class JsonMethods:
                         current_data = json.load(file)
                     except json.JSONDecodeError:
                         current_data = []
-
-            # Yeni kurs verilerini dictionary'e dönüştür
-            updated_courses = [course.to_dict() for course in courses]
-            
-            # Her bir güncel kurs için
+    
+            updated_courses = []
+            for course in courses:
+                course_dict = course.to_dict()
+                # Debug print before saving
+                print(f"Saving course {course_dict['courseId']} with waitlist: {course_dict['waitList']}")
+                updated_courses.append(course_dict)
+    
+            # Update existing courses
             for updated_course in updated_courses:
-                # Mevcut verilerde aynı ID'ye sahip kurs var mı kontrol et
                 found = False
                 for i, existing_course in enumerate(current_data):
                     if existing_course["courseId"] == updated_course["courseId"]:
-                        # Varsa, mevcut kursu güncelle
+                        # Debug print for course update
+                        print(f"Updating course {existing_course['courseId']}")
+                        print(f"Old waitlist: {existing_course.get('waitList', [])}")
+                        print(f"New waitlist: {updated_course.get('waitList', [])}")
                         current_data[i] = updated_course
                         found = True
                         break
-                
-                # Eğer kurs mevcut değilse, yeni olarak ekle
+                    
                 if not found:
                     current_data.append(updated_course)
-
-            # Güncellenmiş veriyi dosyaya yaz
+    
             with open(self.courses_file, "w", encoding="utf-8") as file:
                 json.dump(current_data, file, indent=4, ensure_ascii=False)
             
             print("Courses updated successfully in JSON file.")
         except Exception as e:
             print(f"Error while updating course.json: {e}")
-
 
     def load_student(self, username):
         """

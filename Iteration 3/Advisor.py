@@ -86,10 +86,27 @@ class Advisor(User):
     def reject_request_by_index(self, requests_map, index):
         """
         Rejects a course request based on the table index.
+        Uses courses.json for waitlist data while maintaining the student's course reference.
         """
         if 0 <= index < len(requests_map):
-            student, course = requests_map[index]
-            self.reject_requested_course(student, course)
+            student, student_course = requests_map[index]
+            
+            # Load all courses to find the matching one with correct waitlist
+            courses = self.json_methods.load_course_json()
+            master_course = next((c for c in courses if c.get_course_id() == student_course.get_course_id()), None)
+            
+            if master_course:
+                # Copy waitlist from master course to student's course instance
+                student_course.set_wait_list(master_course.get_wait_list())
+                
+                # Now reject using student's course instance (which now has the correct waitlist)
+                self.reject_requested_course(student, student_course)
+                
+                # After rejection, update the master course in courses.json with the new waitlist
+                master_course.set_wait_list(student_course.get_wait_list())
+                self.json_methods.update_course_json([master_course])
+            else:
+                print(f"Error: Could not find course {student_course.get_course_id()} in courses.json")
         else:
             print("Invalid request number.")
 
@@ -98,49 +115,51 @@ class Advisor(User):
 
     def reject_requested_course(self, student: Student, course: Course):
         if course in student.get_requested_courses():
-            # Requested courses'tan kursu kaldır
-            student.get_requested_courses().remove(course)
-            self.json_methods.save_student_to_file(student)
-            print(f"Course {course.get_course_name()} removed from {student.get_name()} {student.get_surname()}'s requested courses.")
-
-            # Kurs kapasitesini artır
-            course.set_current_capacity(course.get_current_capacity() + 1)
-
-            # Kurs bilgisini güncelle (Reject'ten önce kaydet)
-            self.json_methods.update_course_json([course])
-            print(f"Course {course.get_course_name()} JSON data updated before processing waitlist.")
-
-            # WaitList'i kontrol et
-            wait_list = course.get_wait_list()
+            # Store the waitlist before any operations
+            wait_list = course.get_wait_list().copy()  # Make a copy to prevent reference issues
+            
             if wait_list:
-                next_student_id = wait_list.pop(0)  # İlk öğrenciyi al
-                next_student_username = f"o{next_student_id}"  # 'o' ekle
-
+                print(f"Processing student from waitlist: {wait_list[0]}")
+                next_student_id = wait_list.pop(0)
+                next_student_username = f"o{next_student_id}"
+    
                 try:
                     next_student = self.json_methods.load_student(next_student_username)
                     if not next_student:
                         raise ValueError(f"Student with ID {next_student_username} could not be loaded.")
-
-                    # Bekleme listesindeki öğrencinin requestedCourses kısmına kursu ekle
+    
+                    # First remove the course from current student
+                    student.get_requested_courses().remove(course)
+                    self.json_methods.save_student_to_file(student)
+                    print(f"Course {course.get_course_name()} removed from {student.get_name()} {student.get_surname()}'s requested courses.")
+    
+                    # Then handle the waitlisted student
                     next_student.get_requested_courses().append(course)
-
-                    # Waitlist'ten öğrenci çıkar
-                    course.set_wait_list(wait_list)
-
-                    self.json_methods.save_student_to_file(next_student)  # Güncellenmiş öğrenciyi kaydet
-
-                    # Kurs kapasitesini düşür
-                    course.set_current_capacity(course.get_current_capacity() - 1)
+                    self.json_methods.save_student_to_file(next_student)
                     print(f"Course {course.get_course_name()} added to {next_student.get_name()} {next_student.get_surname()}'s requested courses.")
-
+    
+                    # Update the course's waitlist
+                    course.set_wait_list(wait_list)
+                    
+                    # No need to adjust capacity since we're just swapping students
+                    
+                    # Save the course with updated waitlist
+                    self.json_methods.update_course_json([course])
+                    print(f"Course {course.get_course_name()} updated with new waitlist.")
+    
                 except Exception as e:
                     print(f"Error processing waitlist student: {e}")
+                    # Restore the waitlist in case of error
+                    course.set_wait_list(wait_list)
+                    self.json_methods.update_course_json([course])
             else:
-                print(f"No students in waitlist for course {course.get_course_name()}.")
-
-            # Güncellenmiş kurs bilgilerini kaydet
-            self.json_methods.update_course_json([course])
-            print(f"Course {course.get_course_name()} JSON data updated successfully.")
+                # If no waitlist, just remove the course from student
+                student.get_requested_courses().remove(course)
+                self.json_methods.save_student_to_file(student)
+                print(f"Course {course.get_course_name()} removed from {student.get_name()} {student.get_surname()}'s requested courses.")
+                
+                # No need to update course capacity or waitlist since there's no waitlist
+                self.json_methods.update_course_json([course])
         else:
             print("The course is not in the student's requested courses.")
 
