@@ -57,7 +57,7 @@
         "year": 3,
         "instructor": "Borahan Tümer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 4,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -72,7 +72,7 @@
         "year": 3,
         "instructor": "Betül Boz",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "Mandatory",
         "waitList": []
     },
@@ -164,7 +164,7 @@
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Elective",
         "waitList": []
     }
