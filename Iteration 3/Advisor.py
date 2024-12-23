@@ -77,11 +77,37 @@ class Advisor(User):
         """
         Approves the requested course for a student.
         """
+        # Load all courses to ensure consistency
+        json_methods = JsonMethods()
+        courses = json_methods.load_course_json()
+        
+        # Find the corresponding course in the JSON file
+        master_course = next((c for c in courses if c.get_course_id() == course.get_course_id()), None)
+        if not master_course:
+            print(f"Course {course.get_course_name()} not found in course.json.")
+            return
+
+
+
+        # Save updated course data
+        json_methods.update_course_json(courses)
+
+        # Add the course to the student's enrolled courses
         if course in student.get_requested_courses():
             student.get_requested_courses().remove(course)
             student.get_enrolled_courses().append(course)
-            JsonMethods().save_student_to_file(student)
+            
+            # Add notification for the student
+            notification_message = f"Your requested {course.get_course_name()} course has been approved."
+            student.get_notifications().append(notification_message)
+            
+            # Save updated student data
+            json_methods.save_student_to_file(student)
+            
             print(f"Course {course.get_course_name()} approved for {student.get_name()} {student.get_surname()}.")
+        else:
+            print(f"Course {course.get_course_name()} is not in the requested courses of {student.get_name()} {student.get_surname()}.")
+
 
             
     def approve_request_by_index(self, requests_map, index):
@@ -151,6 +177,9 @@ class Advisor(User):
 
                     # Bekleme listesindeki öğrencinin requestedCourses kısmına kursu ekle
                     next_student.get_requested_courses().append(course)
+                     # Öğrenciye bildirim ekle
+                    notification_message = f"You have been added to the course {course.get_course_name()} from the waitlist."
+                    next_student.get_notifications().append(notification_message)
 
                     # Waitlist'ten öğrenci çıkar
                     course.set_wait_list(wait_list)

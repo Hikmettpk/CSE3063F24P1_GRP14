@@ -90,17 +90,17 @@ class LoginSystem:
                 print("Invalid username. Please try again.")
 
     def student_menu(self, student):
-        """
-        Displays the menu for a student.
-        """
         crs = CourseRegistrationSystem(self.json_methods, student, self.courses)
 
         while True:
             student.display_menu()
-            student_choice = input("Enter your choice: ").strip()
+            student_choice = input("Enter your choice (or 'q' to quit): ").strip()
 
             if student_choice.lower() == 'b':
                 break
+            if student_choice.lower() == 'q':
+                print("Exiting the program...")
+                exit()
 
             if student_choice == "1":
                 available_courses = crs.list_available_courses(student)
@@ -115,13 +115,14 @@ class LoginSystem:
                     continue
 
                 crs.request_in_course(course, student)
+            elif student_choice == "3":
+                student.view_notifications(self.json_methods)
+            elif student_choice == "4":
+                student.display_schedule(self.json_methods)
             else:
                 print("Invalid choice. Please try again.")
 
     def advisor_menu(self, advisor):
-        """
-        Displays the menu for an advisor.
-        """
         advisor.refresh_advised_students()
         requests_map = {}
 
@@ -129,10 +130,13 @@ class LoginSystem:
             advisor.refresh_advised_students()
             requests_map = {}  # Reset requests_map each time
             advisor.display_menu()
-            advisor_choice = input("Enter your choice: ").strip()
+            advisor_choice = input("Enter your choice (or 'q' to quit): ").strip()
 
             if advisor_choice.lower() == 'b':
                 break
+            if advisor_choice.lower() == 'q':
+                print("Exiting the program...")
+                exit()
 
             if advisor_choice == "1":
                 requests_map = advisor.view_requests()
@@ -162,15 +166,15 @@ class LoginSystem:
                 print("Invalid choice. Please try again.")
 
     def department_head_menu(self, department_head):
-        """
-        Displays the menu for the department head.
-        """
         while True:
             department_head.display_menu()
-            head_choice = input("Enter your choice: ").strip()
+            head_choice = input("Enter your choice (or 'q' to quit): ").strip()
 
             if head_choice.lower() == 'b':
                 break
+            if head_choice.lower() == 'q':
+                print("Exiting the program...")
+                exit()
 
             if head_choice == "1":
                 department_head.add_course()
@@ -185,15 +189,15 @@ class LoginSystem:
                 print("Invalid choice. Please try again.")
 
     def department_scheduler_menu(self, scheduler):
-        """
-        Displays the menu for the department scheduler.
-        """
         while True:
             scheduler.display_menu()
-            scheduler_choice = input("Enter your choice: ").strip()
+            scheduler_choice = input("Enter your choice (or 'q' to quit): ").strip()
 
             if scheduler_choice.lower() == 'b':
                 break
+            if scheduler_choice.lower() == 'q':
+                print("Exiting the program...")
+                exit()
 
             if scheduler_choice == "1":
                 scheduler.print_all_courses()
