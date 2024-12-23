@@ -1,0 +1,23 @@
+2024-12-23 10:45:08,507 - ERROR - Invalid input. Please enter a number.
+Traceback (most recent call last):
+  File "c:\Users\emran\Desktop\GitHub\CSE3063F24P1_GRP14\Iteration 3\CourseRegistrationSystem.py", line 149, in get_user_choice
+    choice = int(input("Enter your choice (1 or 2): "))
+ValueError: invalid literal for int() with base 10: ''
+2024-12-23 10:45:57,249 - ERROR - Error processing waitlist student
+Traceback (most recent call last):
+  File "c:\Users\emran\Desktop\GitHub\CSE3063F24P1_GRP14\Iteration 3\Advisor.py", line 182, in reject_requested_course
+    next_student.get_notification().append(notification_message)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Student' object has no attribute 'get_notification'. Did you mean: 'get_notifications'?
+2024-12-23 10:48:59,037 - ERROR - Error processing waitlist student
+Traceback (most recent call last):
+  File "c:\Users\emran\Desktop\GitHub\CSE3063F24P1_GRP14\Iteration 3\Advisor.py", line 182, in reject_requested_course
+    next_student.get_notification().append(notification_message)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Student' object has no attribute 'get_notification'. Did you mean: 'get_notifications'?
+2024-12-23 10:53:13,291 - ERROR - Error processing waitlist student
+Traceback (most recent call last):
+  File "c:\Users\emran\Desktop\GitHub\CSE3063F24P1_GRP14\Iteration 3\Advisor.py", line 182, in reject_requested_course
+    next_student.get_notification().append(notification_message)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Student' object has no attribute 'get_notification'. Did you mean: 'get_notifications'?

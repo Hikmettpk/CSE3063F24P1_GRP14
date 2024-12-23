@@ -9,5 +9,6 @@
     },
     "enrolledCourses": [],
     "requestedCourses": [],
-    "advisor": null
+    "advisor": null,
+    "notifications": []
 }

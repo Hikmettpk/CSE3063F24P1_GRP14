@@ -9,53 +9,25 @@
     },
     "enrolledCourses": [
         {
-            "courseId": "CSE4082",
-            "courseName": "Artificial Intelligence",
+            "courseId": "CSE4040",
+            "courseName": "Cloud Computing",
             "credit": 5,
             "prerequisite": false,
             "prerequisiteLessonId": "None",
-            "courseSection": [
-                {
-                    "day": "Monday",
-                    "hour": "8:30-9:20",
-                    "place": "M1-Z06"
-                },
-                {
-                    "day": "Monday",
-                    "hour": "9:30-10:20",
-                    "place": "M1-Z06"
-                },
-                {
-                    "day": "Monday",
-                    "hour": "10:30-11:20",
-                    "place": "M1-Z06"
-                }
-            ],
+            "courseSection": [],
             "weeklyCourseCount": 3,
             "year": 4,
-            "instructor": "Ali Haydar Özer",
+            "instructor": "Ali Fuat Alkaya",
             "enrollmentCapacity": 5,
             "currentCapacity": 1,
             "type": "Elective",
-            "waitList": []
-        },
-        {
-            "courseId": "CSE3033",
-            "courseName": "Operating Systems",
-            "credit": 7,
-            "prerequisite": false,
-            "prerequisiteLessonId": "None",
-            "courseSection": [],
-            "weeklyCourseCount": 2,
-            "year": 3,
-            "instructor": "Betül Boz",
-            "enrollmentCapacity": 5,
-            "currentCapacity": 0,
-            "type": "Mandatory",
             "waitList": []
         }
     ],
     "requestedCourses": [],
     "advisor": null,
-    "notifications": []
+    "notifications": [
+        "You have been added to the course Cloud Computing from the waitlist.",
+        "Your requested Cloud Computing course has been approved."
+    ]
 }
