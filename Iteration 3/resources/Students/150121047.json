@@ -9,8 +9,8 @@
     },
     "enrolledCourses": [
         {
-            "courseId": "CSE4082",
-            "courseName": "Artificial Intelligence",
+            "courseId": "CSE4040",
+            "courseName": "Cloud Computing",
             "credit": 5,
             "prerequisite": false,
             "prerequisiteLessonId": "None",
@@ -18,28 +18,29 @@
                 {
                     "day": "Monday",
                     "hour": "8:30-9:20",
-                    "place": "M1-Z06"
+                    "place": "M1-Z01"
                 },
                 {
                     "day": "Monday",
                     "hour": "9:30-10:20",
-                    "place": "M1-Z06"
+                    "place": "M1-Z01"
                 },
                 {
                     "day": "Monday",
                     "hour": "10:30-11:20",
-                    "place": "M1-Z06"
+                    "place": "M1-Z01"
                 }
             ],
             "weeklyCourseCount": 3,
             "year": 4,
-            "instructor": "Ali Haydar Özer",
+            "instructor": "Ali Fuat Alkaya",
             "enrollmentCapacity": 5,
-            "currentCapacity": 1,
+            "currentCapacity": 0,
             "type": "Elective",
             "waitList": []
         }
     ],
     "requestedCourses": [],
-    "advisor": null
+    "advisor": null,
+    "notifications": []
 }

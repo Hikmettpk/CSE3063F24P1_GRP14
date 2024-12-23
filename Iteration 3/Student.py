@@ -4,13 +4,15 @@ from User import User
 
 
 class Student(User):
-    def __init__(self, username, name, surname, password, studentID, enrolledCourses, requestedCourses, transcript, advisor):
+    def __init__(self, username, name, surname, password, studentID, enrolledCourses, requestedCourses, transcript, advisor, notifications):
         super().__init__(username, name, surname, password)
         self.__studentID = studentID
         self.__enrolledCourses = enrolledCourses  # List of enrolled courses
         self.__requestedCourses = requestedCourses  # List of requested courses
         self.__transcript = transcript
         self.__advisor = advisor
+        self.__notifications = notifications 
+
 
     # Getter methods
     def get_studentID(self):
@@ -27,7 +29,42 @@ class Student(User):
 
     def get_requested_courses(self):
         return self.__requestedCourses
+    
+    def get_notifications(self):
+        return self.__notifications
+    
+    def view_notifications(self, json_methods=None):
+        """
+        Display and clear notifications for the student.
 
+        Args:
+            json_methods: Optional JsonMethods instance for data persistence
+        """
+        # If json_methods is provided, refresh student data
+        if json_methods:
+            student = json_methods.load_student(self.get_studentID())
+            if student:
+                self.__notifications = student.get_notifications()
+
+        # Display notifications
+        print("Your Notifications:")
+        for i, notification in enumerate(self.__notifications, 1):
+            print(f"{i}. {notification}")
+
+        # Clear notifications after displaying
+        self.__notifications.clear()
+
+        # Save the updated notifications only
+        if json_methods:
+            # Load the existing student object to avoid overwriting other fields
+            student = json_methods.load_student(self.get_studentID())
+            if student:
+                # Update notifications only
+                student.__notifications = self.__notifications
+                # Save the updated student object back to the file
+                json_methods.save_student_to_file(student)
+
+        
     # Display schedule
     def display_schedule(self, json_methods):
         # Check if json_methods is provided
@@ -80,6 +117,8 @@ class Student(User):
             print("\nStudent Menu:")
             print("1. View Available Courses")
             print("2. Request a Course")
+            print("3. View Notifications")
+            print("4. Display Schedule")
             print("b. Back")
 
     def __str__(self):
@@ -97,5 +136,6 @@ class Student(User):
             },
             "enrolledCourses": [course.to_dict() for course in self.get_enrolled_courses()],
             "requestedCourses": [course.to_dict() for course in self.get_requested_courses()],
-            "advisor": self.get_advisor()
+            "advisor": self.get_advisor(),
+            "notifications": self.get_notifications()
         }
