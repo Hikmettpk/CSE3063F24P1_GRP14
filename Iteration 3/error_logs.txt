@@ -41,3 +41,63 @@ AttributeError: 'Student' object has no attribute 'get_notification'. Did you me
 2024-12-23 11:16:58,604 - ERROR - Unexpected error while loading student ID 150121017: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
 2024-12-23 11:16:58,604 - ERROR - Unexpected error while loading student ID 150121056: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
 2024-12-23 11:16:58,605 - ERROR - Unexpected error while loading student ID 150121060: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 12:05:44,912 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,913 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,913 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,913 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,913 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,914 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,914 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,914 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,914 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
+2024-12-23 12:05:44,914 - ERROR - Error loading courses
+Traceback (most recent call last):
+  File "/Users/hikmettopak/Desktop/Projects/CSE3063F24P1_GRP14/Iteration 3/JsonMethods.py", line 26, in load_course_json
+    with open(self.courses_file, "r", encoding="utf-8") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: './course.json'
