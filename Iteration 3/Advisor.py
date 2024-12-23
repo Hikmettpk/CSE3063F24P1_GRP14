@@ -80,6 +80,9 @@ class Advisor(User):
         if course in student.get_requested_courses():
             student.get_requested_courses().remove(course)
             student.get_enrolled_courses().append(course)
+            # Öğrenciye bildirim ekle
+            notification_message = f"Your requested {course.get_course_name()} course has been approved."
+            student.get_notifications().append(notification_message)
             JsonMethods().save_student_to_file(student)
             print(f"Course {course.get_course_name()} approved for {student.get_name()} {student.get_surname()}.")
 
@@ -151,6 +154,9 @@ class Advisor(User):
 
                     # Bekleme listesindeki öğrencinin requestedCourses kısmına kursu ekle
                     next_student.get_requested_courses().append(course)
+                     # Öğrenciye bildirim ekle
+                    notification_message = f"You have been added to the course {course.get_course_name()} from the waitlist."
+                    next_student.get_notification().append(notification_message)
 
                     # Waitlist'ten öğrenci çıkar
                     course.set_wait_list(wait_list)

@@ -115,6 +115,10 @@ class LoginSystem:
                     continue
 
                 crs.request_in_course(course, student)
+            elif student_choice == "3":
+                student.view_notifications(self.json_methods)
+            elif student_choice == "4":
+                student.display_schedule(self.json_methods)
             else:
                 print("Invalid choice. Please try again.")
 
