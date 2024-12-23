@@ -36,7 +36,7 @@ class Student(User):
     def view_notifications(self, json_methods=None):
         """
         Display and clear notifications for the student.
-        
+
         Args:
             json_methods: Optional JsonMethods instance for data persistence
         """
@@ -45,17 +45,25 @@ class Student(User):
             student = json_methods.load_student(self.get_studentID())
             if student:
                 self.__notifications = student.get_notifications()
-        
+
+        # Display notifications
         print("Your Notifications:")
         for i, notification in enumerate(self.__notifications, 1):
             print(f"{i}. {notification}")
-        
+
         # Clear notifications after displaying
         self.__notifications.clear()
-        
-        # If json_methods is provided, save the cleared notifications
+
+        # Save the updated notifications only
         if json_methods:
-            json_methods.save_student_to_file(self)
+            # Load the existing student object to avoid overwriting other fields
+            student = json_methods.load_student(self.get_studentID())
+            if student:
+                # Update notifications only
+                student.__notifications = self.__notifications
+                # Save the updated student object back to the file
+                json_methods.save_student_to_file(student)
+
         
     # Display schedule
     def display_schedule(self, json_methods):

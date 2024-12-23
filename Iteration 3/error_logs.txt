@@ -21,3 +21,23 @@ Traceback (most recent call last):
     next_student.get_notification().append(notification_message)
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'Student' object has no attribute 'get_notification'. Did you mean: 'get_notifications'?
+2024-12-23 11:16:58,595 - ERROR - Unexpected error while loading student ID 150121003: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,596 - ERROR - Unexpected error while loading student ID 150121010: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,597 - ERROR - Unexpected error while loading student ID 150121011: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,597 - ERROR - Unexpected error while loading student ID 150121017: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,598 - ERROR - Unexpected error while loading student ID 150121047: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,598 - ERROR - Unexpected error while loading student ID 150121056: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,599 - ERROR - Unexpected error while loading student ID 150121060: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,599 - ERROR - Unexpected error while loading student ID 150121065: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,600 - ERROR - Unexpected error while loading student ID 150121074: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,600 - ERROR - Unexpected error while loading student ID 150122515: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,601 - ERROR - Unexpected error while loading student ID 150121011: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,601 - ERROR - Unexpected error while loading student ID 150121047: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,602 - ERROR - Unexpected error while loading student ID 150121065: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,602 - ERROR - Unexpected error while loading student ID 150121074: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,603 - ERROR - Unexpected error while loading student ID 150122515: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,603 - ERROR - Unexpected error while loading student ID 150121003: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,604 - ERROR - Unexpected error while loading student ID 150121010: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,604 - ERROR - Unexpected error while loading student ID 150121017: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,604 - ERROR - Unexpected error while loading student ID 150121056: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
+2024-12-23 11:16:58,605 - ERROR - Unexpected error while loading student ID 150121060: Can't instantiate abstract class Student without an implementation for abstract method 'display_menu'
