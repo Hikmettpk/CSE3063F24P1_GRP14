@@ -17,12 +17,11 @@ class TestCourseManagementSystem(unittest.TestCase):
         self.courses = self.json_methods.load_course_json()
         self.crs = CourseRegistrationSystem(self.json_methods, self.student, self.courses)
 
-    # Test 1: Test Course JSON Loading
     def test_load_courses(self):
         self.assertGreater(len(self.courses), 0)
 
 
-    # Test 4: Test Advisor Approving a Course
+
     def test_advisor_approve_course(self):
         course = self.courses[2]
         self.student.get_requested_courses().append(course)
@@ -31,7 +30,6 @@ class TestCourseManagementSystem(unittest.TestCase):
 
 
 
-    # Test 7: Test Advisor Rejecting a Course Request
     def test_advisor_reject_course(self):
         course = self.courses[3]
         self.student.get_requested_courses().append(course)
@@ -39,13 +37,12 @@ class TestCourseManagementSystem(unittest.TestCase):
         self.advisor.reject_request_by_index(requests_map, 0)
         self.assertNotIn(course, self.student.get_requested_courses())
 
-    # Test 8: Test Listing Available Courses for Student
+    
     def test_list_available_courses(self):
         available_courses = self.crs.list_available_courses(self.student)
         self.assertGreater(len(available_courses), 0)
 
 
-    # Test 3: Validate Course Removal from Waitlist on Enrollment
     def test_remove_from_waitlist_on_enrollment(self):
         course = self.courses[0]
         course.set_current_capacity(1)
