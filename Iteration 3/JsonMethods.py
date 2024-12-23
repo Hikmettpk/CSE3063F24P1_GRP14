@@ -21,6 +21,7 @@ class JsonMethods:
         self.advisors_folder = advisors_folder
         #print(f"Advisors folder set to: {self.advisors_folder}")  # Debugging
 
+
     def load_course_json(self):
         try:
             with open(self.courses_file, "r", encoding="utf-8") as file:
@@ -40,6 +41,7 @@ class JsonMethods:
             print(f"Error loading courses: {e}")
             logging.error("Error loading courses", exc_info=True)
             return []
+
 
     def update_course_json(self, courses):
         """
@@ -94,7 +96,6 @@ class JsonMethods:
         Loads a student from the corresponding JSON file based on their username.
         Handles 'o' prefix in usernames.
         """
-        
         # Remove 'o' prefix to get the student ID
         student_id = username[1:] if username.startswith("o") else username
         student_file = os.path.join(self.students_folder, f"{student_id}.json")
@@ -119,10 +120,6 @@ class JsonMethods:
             # Convert enrolledCourses and requestedCourses into Course objects
             student_data["enrolledCourses"] = [Course(**course) for course in student_data.get("enrolledCourses", [])]
             student_data["requestedCourses"] = [Course(**course) for course in student_data.get("requestedCourses", [])]
-            student_data["notifications"] = student_data.get("notifications", [])
-            if not isinstance(student_data["notifications"], list):
-                student_data["notifications"] = []
-
 
             # Create and return the Student object
             return Student(**student_data)
@@ -134,6 +131,8 @@ class JsonMethods:
             print(f"Unexpected error while loading student ID {student_id}: {e}")
             logging.error(f"Unexpected error while loading student ID {student_id}: {e}")
             return None
+
+
 
     def load_all_students(self):
         """
@@ -155,6 +154,8 @@ class JsonMethods:
             print(f"Error while loading all students: {e}")
             logging.error(f"Error while loading all students: {e}")
             return []
+
+
 
     def load_advisor(self, username):
         """
@@ -241,6 +242,13 @@ class JsonMethods:
             logging.error(f"Unexpected error loading advisors: {e}")    
             return []
 
+
+
+
+
+
+
+
     def load_student_from_folder(self, student_id):
         """
         Loads a student from the students folder based on their student ID.
@@ -307,8 +315,7 @@ class JsonMethods:
                 },
                 "enrolledCourses": [course.to_dict() for course in student.get_enrolled_courses()],
                 "requestedCourses": [course.to_dict() for course in student.get_requested_courses()],
-                "advisor": student.get_advisor(),
-                "notifications": student.get_notifications()  # Save notifications field
+                "advisor": student.get_advisor()
             }
 
             with open(student_file, "w", encoding="utf-8") as file:
@@ -317,4 +324,3 @@ class JsonMethods:
             print(f"Student data for ID {student.get_studentID()} saved successfully.")
         except Exception as e:
             print(f"Error while saving student data for ID {student.get_studentID()}: {e}")
-   

@@ -165,12 +165,6 @@ class CourseRegistrationSystem:
         """
         # Reload student data
         student = self.json_methods.load_student(student.get_studentID())
-        
-        # Load the most up-to-date course list
-        json_methods = JsonMethods()
-        courses = json_methods.load_course_json()
-
-        course = next((c for c in courses if c.get_course_id() == course.get_course_id()), None)
 
         # Check if the course has already been requested
         is_already_requested = any(

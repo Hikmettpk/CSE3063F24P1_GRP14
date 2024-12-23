@@ -7,24 +7,7 @@
     "transcript": {
         "grades": []
     },
-    "enrolledCourses": [
-        {
-            "courseId": "CSE4040",
-            "courseName": "Cloud Computing",
-            "credit": 5,
-            "prerequisite": false,
-            "prerequisiteLessonId": "None",
-            "courseSection": [],
-            "weeklyCourseCount": 3,
-            "year": 4,
-            "instructor": "Ali Fuat Alkaya",
-            "enrollmentCapacity": 5,
-            "currentCapacity": 0,
-            "type": "Elective",
-            "waitList": []
-        }
-    ],
+    "enrolledCourses": [],
     "requestedCourses": [],
-    "advisor": null,
-    "notifications": []
+    "advisor": null
 }

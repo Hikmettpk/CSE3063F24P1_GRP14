@@ -12,7 +12,9 @@
         "enrollmentCapacity": 5,
         "currentCapacity": 0,
         "type": "Mandatory",
-        "waitList": []
+        "waitList": [
+            "150121011"
+        ]
     },
     {
         "courseId": "CSE2246",
@@ -20,23 +22,12 @@
         "credit": 6,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [
-            {
-                "day": "Friday",
-                "hour": "13:00-13:50",
-                "place": "M2-Z06"
-            },
-            {
-                "day": "Friday",
-                "hour": "14:00-14:50",
-                "place": "M2-Z06"
-            }
-        ],
+        "courseSection": [],
         "weeklyCourseCount": 2,
         "year": 2,
         "instructor": "Sanem Arslan",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -66,7 +57,7 @@
         "year": 3,
         "instructor": "Borahan Tümer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 4,
         "type": "Mandatory",
         "waitList": []
     },
@@ -81,7 +72,7 @@
         "year": 3,
         "instructor": "Betül Boz",
         "enrollmentCapacity": 5,
-        "currentCapacity": 0,
+        "currentCapacity": 1,
         "type": "Mandatory",
         "waitList": []
     },
@@ -121,12 +112,28 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-Z06"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-Z06"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Haydar Özer",
         "enrollmentCapacity": 5,
-        "currentCapacity": 1,
+        "currentCapacity": 0,
         "type": "Elective",
         "waitList": []
     },
@@ -136,7 +143,23 @@
         "credit": 5,
         "prerequisite": false,
         "prerequisiteLessonId": "None",
-        "courseSection": [],
+        "courseSection": [
+            {
+                "day": "Monday",
+                "hour": "8:30-9:20",
+                "place": "M1-110"
+            },
+            {
+                "day": "Monday",
+                "hour": "9:30-10:20",
+                "place": "M1-110"
+            },
+            {
+                "day": "Monday",
+                "hour": "10:30-11:20",
+                "place": "M1-110"
+            }
+        ],
         "weeklyCourseCount": 3,
         "year": 4,
         "instructor": "Ali Fuat Alkaya",
